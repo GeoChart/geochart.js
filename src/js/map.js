@@ -1,8 +1,6 @@
-kraken.map = ( function($, d3, utils, moment, errorHandling) {
+geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 
-	/* Map
-	 *
-	 */"use strict";
+	"use strict";
 
 	var styles = {
 		selectedColor: "#FFE700",
@@ -17,7 +15,7 @@ kraken.map = ( function($, d3, utils, moment, errorHandling) {
 	};
 
 	var properties = {
-		container: "#worldMapContainer",
+		container: ".geochart-map",
 		zoomRange: [1, 9],
 		mapName: "ne_50m_admin_0_countries",
 		hasDataClass: "hasData",
@@ -686,4 +684,4 @@ kraken.map = ( function($, d3, utils, moment, errorHandling) {
 		makeFixedSize: makeFixedSize
 	};
 
-}(jQuery, d3, kraken.utils, moment, kraken.errorHandling));
+}(jQuery, d3, topojson, moment, geochartjs.utils, geochartjs.errorHandling));

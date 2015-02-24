@@ -1,8 +1,10 @@
 {
-  "name": "geochart-js",
+  "name": "geochart",
   "private": true,
   "dependencies": {
     "jquery": "~1.11.1",
-    "d3": "3.5.5"
+    "d3": "3.5.5",
+    "topojson": "1.6.18",
+    "moment": "2.9.0"
   }
 }
