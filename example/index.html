@@ -10,8 +10,12 @@
 	<style type="text/css">
 		body {
 			background: white;
-			padding: 0;
+			padding: 20px;
 			margin: 0;
+		}
+		.geochart-map {
+			width: 1000px;
+			margin: 0 auto;
 		}
 	</style>
 
@@ -76,7 +80,7 @@
 <script type="text/html" id="mapLegendTemplate">
 	<div>
 		<span data-content="name"></span>
-		<span data-content="continent" data-format="bracketFormatter" class="continent"></span>
+		<span data-content="continent" class="continent"></span>
 	</div>
 	<div>
 		<span class="percentage" data-content="percentage" data-format="percentageFormatter"></span>

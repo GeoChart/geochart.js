@@ -5,14 +5,18 @@
 	-moz-user-select: $param;
 	-webkit-user-select: $param;
 }
-@mixin font-logo {
-	font-family: bold;
-}
 
 .geochart-map {
 	overflow: hidden;
 	position: relative;
 	width: 100%;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+	&, & * {
+		box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+	}
 
 	&.fullscreen {
 		background: #b8d5ea;
@@ -79,7 +83,6 @@
 	#zoom .minus,
 	#mapList .hideButton:after {
 		@include user-select(none);
-		@include font-logo;
 		color: #666;
 		cursor: pointer;
 		font-size: 20px;
@@ -124,7 +127,6 @@
 		}
 	}
 	#dateStamp {
-		@include font-logo;
 		color: #555;
 		font-size: 100%;
 		letter-spacing: normal;
