@@ -132,6 +132,7 @@
     .geochart-map #colorLegend .zero {
       float: left;
       height: 17px;
+      line-height: 17px;
       border: 1px solid #BBB;
       border-right: 0;
       position: relative;
@@ -143,6 +144,7 @@
       color: #fff;
       float: left;
       height: 17px;
+      line-height: 17px;
       border: 1px solid #69997C;
       padding-right: 4px;
       position: relative;
