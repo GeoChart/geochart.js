@@ -45,7 +45,6 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 	var path;
 	var dataObservedPeersMaximum = 0;
 	var zoom;
-	var colorLegend;
 	var topo;
 	var valueMappingFunction = Math.log;
 	var mapJsonUrl;
@@ -93,7 +92,7 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 		csvMapPath = csvMapPathNew;
 
 		setUrlParameters(utils.retrieveGetArgumentsFromUrl());
-		$(properties.container + " #mapList .csvDownload a").attr("href", createCsvUrl());
+		$(properties.container + " .slide-menu .csvDownload a").attr("href", createCsvUrl());
 
 		setupMap();
 		makeMapResizable();
@@ -114,7 +113,6 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 							fillDateStampWithData(dataJson.DATE);
 							displayMap();
 							displayFunctionSelectButton();
-							createAndDisplayColorLegend();
 						});
 					});
 				});
@@ -130,25 +128,20 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 	}
 
 	function fillDateStampWithData(date) {
-		var $dateStamp = $(properties.container + " #dateStamp");
-		$dateStamp.fadeOut("fast", function() {
-			$dateStamp.text(date);
-			$dateStamp.fadeIn();
-		});
-		$(properties.container + " #mapList .list h2 .date").text("("+date+")");
+		$(properties.container + " .slide-menu .list h2 .date").text("("+date+")");
 	}
 
 	function fillMapListWithData() {
-		var $mapList = $(properties.container + " #mapList .list table tbody");
+		var $mapList = $(properties.container + " .slide-menu .list table tbody");
 		$mapList.empty();
-		$mapList.loadTemplate($("#mapListTableTemplate"), mapList);
+		$mapList.loadTemplate($("#slide-menu-table-template"), mapList);
 	}
 
 	function adaptMapToNewUrlParameters() {
 		$(properties.container).slideUp("fast");
-		$(properties.container + " #mapList .csvDownload a").attr("href", createCsvUrl());
+		$(properties.container + " .slide-menu .csvDownload a").attr("href", createCsvUrl());
 		svg.remove();
-		$(properties.container + " #mapLegend").fadeOut();
+		$(properties.container + " .single-country-info").fadeOut();
 		var mapRefresh = true;
 		setupMap(mapRefresh);
 
@@ -165,7 +158,6 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 						fillDateStampWithData(dataJson.DATE);
 						displayMap();
 						displayFunctionSelectButton();
-						createAndDisplayColorLegend();
 						$(properties.container).slideDown("slow");
 						$("html,body").animate({scrollTop: $(properties.container).offset().top}, "slow");
 					});
@@ -266,8 +258,8 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 			if(!mapIsHidden && !(fixedSize && !isFullscreen) && (isFullscreen || windowWidthChanged)) {
 				windowWidth = $(window).width();
 				window.clearTimeout(resizeTimer);
-				d3.select(properties.container + " #mapOverlays").transition().duration(200).style("opacity", 0);
-				$(properties.container + " #mapLegend").hide();
+				d3.select(properties.container + " .overlay").transition().duration(200).style("opacity", 0);
+				$(properties.container + " .single-country-info").hide();
 				resizeTimer = window.setTimeout(function() {
 					redraw();
 					$("html,body").animate({scrollTop: $(properties.container).offset().top}, "fast");
@@ -370,13 +362,11 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 		.style("stroke-width", styles.strokeWidthMax+"px")
 		.style("stroke", addStrokeColor)
 		.style("cursor", setPointerCursor)
-		.on("click", clickHandler)
-		.on("mouseover", mouseOverHandler)
-		.on("mouseout", mouseOutHandler);
+		.on("click", clickHandler);
 
 		moveNoDataPathStrokesToTheBackground();
 		group.transition().duration(700).style("opacity", 1);
-		d3.select(properties.container + " #mapOverlays").transition().duration(700).style("opacity", 1);
+		d3.select(properties.container + " .overlay").transition().duration(700).style("opacity", 1);
 	}
 
 	function moveNoDataPathStrokesToTheBackground() {
@@ -413,30 +403,6 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 		}
 	}
 
-	function mouseOverHandler(datum) {
-		var $triangleZero = $(properties.container + " #colorLegend .zero .triangle");
-		var $triangleBar = $(properties.container + " #colorLegend .bar .triangle");
-
-		if(helper.hasPeerData(datum)) {
-			var percentage = helper.getPercentageBetweenUpperAndLowerColor(datum);
-			var percentageString = (percentage * 100) + "%";
-			$triangleBar.css("left", percentageString);
-			$triangleZero.hide();
-			$triangleBar.show();
-		}
-		else {
-			$triangleZero.show();
-			$triangleBar.hide();
-		}
-	}
-
-	function mouseOutHandler(datum) {
-		var $triangleZero = $(properties.container + " #colorLegend .zero .triangle");
-		var $triangleBar = $(properties.container + " #colorLegend .bar .triangle");
-		$triangleZero.hide();
-		$triangleBar.hide();
-	}
-
 	function clickHandler(datum) {
 		/*jshint validthis:true */
 		var selectedColorString = d3.rgb(styles.selectedColor).toString();
@@ -449,18 +415,18 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 				"fill": styles.selectedColor,
 				"stroke": styles.selectedStrokeColor
 			});
-			addAndShowLegendInformation(datum);
+			addAndShowSingleCountryInfo(datum);
 			selectCountryOnMapList(datum);
 		}
 	}
 
-	function addAndShowLegendInformation(datum) {
-		$('#mapLegend').fadeIn();
-		$('#mapLegend').loadTemplate($("#mapLegendTemplate"), datum.properties);
+	function addAndShowSingleCountryInfo(datum) {
+		$('.single-country-info').fadeIn();
+		$('.single-country-info').loadTemplate($("#single-country-info-template"), datum.properties);
 	}
 
 	function selectCountryOnMapList(datum) {
-		var $list = $(properties.container + " #mapList .list");
+		var $list = $(properties.container + " .mapList .list");
 		var $row = $list.find("table tbody tr");
 		$row.removeClass("selected");
 
@@ -490,34 +456,20 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 	}
 
 	function displayFunctionSelectButton() {
-		$(properties.container + " #functionSelect").fadeIn();
-	}
-
-	function createAndDisplayColorLegend() {
-		$(properties.container + " #colorLegend .bar").css({
-			"background-image": "linear-gradient(to right, " +
-				styles.colorRangeStart+" 10%, " +
-				styles.colorRangeEnd+" 100%)"
-		});
-		$(properties.container + " #colorLegend .zero").css({
-			"background-color": styles.colorNoData
-		});
-		$(properties.container + " #colorLegend .zero .value").text("0");
-		$(properties.container + " #colorLegend .bar .value").text(utils.formatNumber(dataObservedPeersMaximum));
-		$(properties.container + " #colorLegend").fadeIn();
+		$(properties.container + " .functionSelect").fadeIn();
 	}
 
 	function addClickListenerToZoomButtons() {
-		$(properties.container + " #zoom .plus").click(function() {
+		$(properties.container + " .zoom-plus").click(function() {
 			zoomMap.apply(this, [{zoomIn: true}]);
 		});
-		$(properties.container + " #zoom .minus").click(function() {
+		$(properties.container + " .zoom-minus").click(function() {
 			zoomMap.apply(this, [{zoomIn: false}]);
 		});
 
 		function zoomMap(object) {
 			/*jshint validthis:true */
-			var activatedButton = !$(this).hasClass("deactivated");
+			var activatedButton = !$(this).hasClass("inactive");
 			var objectIsValid = object.zoomIn === true || object.zoomIn === false;
 
 			if(activatedButton && objectIsValid) {
@@ -544,60 +496,85 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 	}
 
 	function addClickListenerToFullScreenButtons() {
-		$(properties.container + " #fullscreen").click(function() {
+		$(properties.container + " .fullscreen-open").click(function() {
 			if($(this).is(":not(:hidden)")) {
 				$(properties.container).addClass(properties.fullscreenClass);
 				$("html").css({"overflow": "hidden"});
-				$(properties.container + " #mapLegend").fadeOut();
+				$(properties.container + " .single-country-info").fadeOut();
 				$(this).fadeOut();
-				$(properties.container + " #fullscreenReturn").fadeIn();
+				$(properties.container + " .fullscreen-close").fadeIn();
+				makeFullscreen($(properties.container));
 				redraw();
 			}
 		});
-		$(properties.container + " #fullscreenReturn").click(function() {
+		$(properties.container + " .fullscreen-close").click(function() {
 			if($(this).is(":not(:hidden)")) {
+				exitFullscreen();
 				$(properties.container).removeClass(properties.fullscreenClass);
 				$("html").css({"overflow": "visible"});
-				$(properties.container + " #mapLegend").fadeOut();
+				$(properties.container + " .single-country-info").fadeOut();
 				$(this).fadeOut();
-				$(properties.container + " #fullscreen").fadeIn();
+				$(properties.container + " .fullscreen-open").fadeIn();
 				redraw();
 			}
 		});
 	}
 
+	function makeFullscreen($element) {
+		var elem = $element[0];
+
+		if (elem.requestFullscreen) {
+			elem.requestFullscreen();
+		}
+		else if (elem.msRequestFullscreen) {
+			elem.msRequestFullscreen();
+		}
+		else if (elem.mozRequestFullScreen) {
+			elem.mozRequestFullScreen();
+		}
+		else if (elem.webkitRequestFullscreen) {
+			elem.webkitRequestFullscreen();
+		}
+	}
+
+	function exitFullscreen() {
+		if(document.exitFullscreen) {
+			document.exitFullscreen();
+		}
+		else if(document.mozCancelFullScreen) {
+			document.mozCancelFullScreen();
+		}
+		else if(document.webkitExitFullscreen) {
+			document.webkitExitFullscreen();
+		}
+	}
+
 	function addClickListenerToListButtons() {
-		var $list = $(properties.container + " #mapList .list");
-		var $showButton = $(properties.container + " #mapList .showButton");
-		var $hideButton = $(properties.container + " #mapList .hideButton");
-		var $dateStamp = $(properties.container + " #dateStamp");
-		var $fullscreenReturn = $(properties.container + " #fullscreenReturn");
+		var $list = $(properties.container + " .slide-menu .list");
+		var $showButton = $(properties.container + " .show-slide-menu-button");
+		var $hideButton = $(properties.container + " .hide-slide-menu-button");
+		var $fullscreenReturn = $(properties.container + " .fullscreen-close");
 
 		$showButton.click(function() {
-			$list.animate({"right": 0});
-			$("#mapLegend").animate({right: $list.outerWidth() + 15}, {complete: function() {
-				$fullscreenReturn.data("top", $fullscreenReturn.css("top")).data("right", $fullscreenReturn.css("right"));
-				$fullscreenReturn.animate({top: "22px", right: "27px"});
-			}});
-			$hideButton.animate({right: $list.outerWidth() + 15});
+			$list.animate({"left": 0});
+			$fullscreenReturn.data("top", $fullscreenReturn.css("top")).data("left", $fullscreenReturn.css("left"));
+			$fullscreenReturn.animate({top: "22px", left: "27px"});
+			$hideButton.animate({left: $list.outerWidth() + 15});
 			$showButton.fadeOut();
-			$dateStamp.fadeOut();
 		});
 		$hideButton.click(function() {
-			$list.animate({"right": - ($list.outerWidth() + 20)});
-			$("#mapLegend").animate({right: "15px"});
-			$fullscreenReturn.animate({top: $fullscreenReturn.data("top"), right: $fullscreenReturn.data("right")});
-			$hideButton.animate({right: "-70px"});
+			$list.animate({"left": - ($list.outerWidth() + 20)});
+			$fullscreenReturn.animate({top: $fullscreenReturn.data("top"), left: $fullscreenReturn.data("left")});
+			$hideButton.animate({left: "-70px"});
 			$showButton.fadeIn();
-			$dateStamp.fadeIn();
 		});
 	}
 
 	function addChangeListenerToFunctionSelect() {
-		$(properties.container + " #functionSelect").change(function() {
+		$(properties.container + " .functionSelect").change(function() {
 			valueMappingFunction = valueMappingFunctions[$(this).find("option:selected").val()];
 			setColorRangeDomain();
-			$("#mapLegend").hide();
+			$(".single-country-info").hide();
 			redraw();
 		});
 	}
@@ -639,16 +616,16 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 		var inaccuracyBuffer = 0.05;
 
 		if(scale < properties.zoomRange[0] + inaccuracyBuffer) {
-			$(properties.container + " #zoom .minus").addClass("deactivated");
-			$(properties.container + " #zoom .plus").removeClass("deactivated");
+			$(properties.container + " .zoom-minus").addClass("inactive");
+			$(properties.container + " .zoom-plus").removeClass("inactive");
 		}
 		else if(scale > properties.zoomRange[1] - inaccuracyBuffer) {
-			$(properties.container + " #zoom .plus").addClass("deactivated");
-			$(properties.container + " #zoom .minus").removeClass("deactivated");
+			$(properties.container + " .zoom-plus").addClass("inactive");
+			$(properties.container + " .zoom-minus").removeClass("inactive");
 		}
 		else {
-			$(properties.container + " #zoom .plus").removeClass("deactivated");
-			$(properties.container + " #zoom .minus").removeClass("deactivated");
+			$(properties.container + " .zoom-plus").removeClass("inactive");
+			$(properties.container + " .zoom-minus").removeClass("inactive");
 		}
 	}
 

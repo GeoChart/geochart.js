@@ -24,20 +24,32 @@
 <body>
 
 	<div class="geochart-map">
-	<div id="mapOverlays">
-		<div id="dateStamp"></div>
-		<div id="mapLegend"></div>
-		<div id="mapList">
-			<div class="showButton">
-				<span class="text">List</span>
-				<span class="bar"></span>
-				<span class="bar"></span>
-				<span class="bar"></span>
-			</div>
-			<div class="hideButton"></div>
+	<div class="overlay">
+		<div class="button show-slide-menu-button">
+			<span class="icon icon-menu">
+				<span class="inner"></span>
+			</span>
+		</div>
+		<div class="button zoom-plus">
+			<div class="icon icon-plus"></div>
+		</div>
+		<div class="button zoom-minus">
+			<div class="icon icon-minus"></div>
+		</div>
+		<div class="single-country-info"></div>
+		<div class="slide-menu">
+			<div class="hide-slide-menu-button"></div>
 			<div class="listWrapper">
 				<div class="list">
-					<h2>World Distribution<span class="date"></span></h2>
+					<select class="functionSelect">
+						<option value="log">Logarithmic</option>
+						<option value="linear">Linear</option>
+						<option value="quadratic">Quadratic</option>
+						<option value="sqrt">Square Root</option>
+						<option value="cubicroot">Cubic Root</option>
+						<option value="neginverse">Negated Inverse</option>
+					</select>
+					<h2>Distribution<span class="date"></span></h2>
 					<div class="csvDownload">
 						<a target="_blank">
 							<span class="downloadIcon"></span>
@@ -50,34 +62,20 @@
 				</div>
 			</div>
 		</div>
-		<select id="functionSelect">
-			<option value="log">Logarithmic</option>
-			<option value="linear">Linear</option>
-			<option value="quadratic">Quadratic</option>
-			<option value="sqrt">Square Root</option>
-			<option value="cubicroot">Cubic Root</option>
-			<option value="neginverse">Negated Inverse</option>
-		</select>
-		<div id="colorLegend">
-			<div class="zero">
-				<div class="value"></div>
-				<div class="triangle"></div>
-			</div>
-			<div class="bar">
-				<div class="value"></div>
-				<div class="triangle"></div>
-			</div>
+		<div class="button fullscreen-open">
+			<span class="icon icon-fullscreen-open">
+				<span class="inner"></span>
+			</span>
 		</div>
-		<div id="zoom">
-			<div class="plus">+</div>
-			<div class="minus">-</div>
+		<div class="button fullscreen-close">
+			<span class="icon icon-fullscreen-close">
+				<span class="inner"></span>
+			</span>
 		</div>
-		<div id="fullscreen"><span class="fullscreenIcon"></span></div>
-		<div id="fullscreenReturn"><span class="fullscreenReturnIcon"></span></div>
 	</div>
 </div>
 
-<script type="text/html" id="mapLegendTemplate">
+<script type="text/html" id="single-country-info-template">
 	<div>
 		<span data-content="name"></span>
 		<span data-content="continent" class="continent"></span>
@@ -97,7 +95,7 @@
 	</div>
 </script>
 
-<script type="text/html" id="mapListTableTemplate">
+<script type="text/html" id="slide-menu-table-template">
 	<tr data-template-bind='{"attribute": "data-country-code", "value": "countryCode"}'>
 		<td>
 			<span data-content="ranking" class="ranking" data-template-bind='{

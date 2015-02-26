@@ -1,0 +1,70 @@
+.geochart-map {
+	.overlay {
+		.button {
+			position: absolute;
+			cursor: pointer;
+			background: #434343;
+			display: inline-block;
+			padding: 8px;
+			font-size: 16px;
+
+			&.inactive {
+				background: #808080;
+				cursor: default;
+			}
+
+			&.show-slide-menu-button {
+				left: 10px;
+				top: 10px;
+				padding: 10px;
+			}
+			&.zoom-plus {
+				right: 10px;
+				top: 10px;
+			}
+			&.zoom-minus {
+				right: 10px;
+				top: 42px;
+			}
+			&.fullscreen-open,
+			&.fullscreen-close {
+				right: 10px;
+				top: 80px;
+				font-size: 20px;
+				padding: 7px 6px 6px 6px;
+			}
+			&.fullscreen-close {
+				display: none;
+			}
+		}
+		.single-country-info {
+			display: none;
+			position: absolute;
+			bottom: 15px;
+			left: 10px;
+			background: #434343;
+			color: white;
+			padding: 10px;
+			text-align: center;
+			.continent {
+				display: block;
+				font-size: 12px;
+			}
+			> div:first-child + div {
+				border-top: 1px solid #ccc;
+				margin-top: 5px;
+				padding-top: 3px;
+			}
+			.mapDataTable {
+				width: 100%;
+				padding-top: 2px;
+				.title {
+					text-align: left;
+				}
+				.value {
+					text-align: right;
+				}
+			}
+		}
+	}
+}

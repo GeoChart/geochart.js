@@ -32,60 +32,34 @@
 			border-radius: 0;
 		}
 
-		#mapList .showButton {
-			right: 55px;
-			top: 13px;
-		}
-		#dateStamp {
+		.dateStamp {
 			top: 19px;
 			right: 125px;
 		}
 	}
 	&.noControls:not(.fullscreen),
 	&.smallMap:not(.fullscreen) {
-		#zoom,
-		#colorLegend,
-		#functionSelect,
-		#colorLegend,
-		#mapList .showButton,
-		#mapList .hideButton,
-		#mapList .listWrapper {
+		.zoom-plus,
+		.zoom-minus,
+		.colorLegend,
+		.show-slide-menu-button,
+		.hide-slide-menu-button,
+		.slide-menu .listWrapper {
 			display: none !important;
-		}
-		#dateStamp {
-			display: block !important;
-			right: 18px;
-			top: 18px;
-		}
-		#fullscreen {
-			left: 18px;
-			top: 18px;
 		}
 	}
 
-	#mapLegend,
-	#zoom,
-	#fullscreen,
-	#fullscreenReturn,
-	#colorLegend,
-	#functionSelect,
-	#mapList .showButton,
-	#mapList .hideButton {
+	.hide-slide-menu-button {
 		background: #fff;
 		border: 1px solid #aaa;
 		border-radius: 6px;
 		box-shadow: 0 0 3px #ccc;
 		position: absolute;
 	}
-	#fullscreen,
-	#fullscreenReturn,
-	#zoom .plus,
-	#zoom .minus,
-	#mapList .hideButton:after {
+	.hide-slide-menu-button:after {
 		@include user-select(none);
 		color: #666;
 		cursor: pointer;
-		font-size: 20px;
 		line-height: 26px;
 		margin-left: 4px;
 		margin-right: 4px;
@@ -99,182 +73,22 @@
 			cursor: default;
 		}
 	}
-	#mapLegend {
-		bottom: 20px;
-		display: none;
-		padding: 10px;
-		right: 15px;
-		text-align: center;
-
-		.continent {
-			display: block;
-			font-size: 12px;
-		}
-		> div:first-child + div {
-			border-top: 1px solid #ccc;
-			margin-top: 5px;
-			padding-top: 3px;
-		}
-		.mapDataTable {
-			width: 100%;
-			padding-top: 2px;
-			.title {
-				text-align: left;
-			}
-			.value {
-				text-align: right;
-			}
-		}
-	}
-	#dateStamp {
-		color: #555;
-		font-size: 100%;
-		letter-spacing: normal;
-		position: absolute;
-		right: 90px;
-		text-shadow: 0 0 3px #FFF;
-		top: 23px;
-	}
-	#fullscreen {
-		left: 18px;
-		margin-left: 0;
-		margin-right: 0;
-		top: 80px;
-		width: 29px;
-		svg {
-			fill: #666;
-		}
-	}
-	#fullscreenReturn {
-		background: #D04848;
-		border: 1px solid #901313;
-		box-shadow: 0 0 3px #aaa;
-		display: none;
-		right: 10px;
-		top: 14px;
-		width: 29px;
-		position: absolute;
-
-		&:hover {
-			svg {
-				fill: #FFC4C4;
-			}
-		}
-		svg {
-			fill: #fff;
-		}
-	}
-	#zoom {
-		top: 18px;
-		left: 18px;
-
-		.plus {
-			border-bottom: 1px solid #CCC;
-		}
-	}
-	#colorLegend {
-		bottom: 20px;
-		display: none;
-		left: 18px;
-		padding: 7px;
-		width: 20%;
-		font-size: 11px;
-
-		.triangle {
-			border-bottom: 10px solid #444;
-			border-left: 5px solid transparent;
-			border-right: 5px solid transparent;
-			display: none;
-			height: 0;
-			margin-left: -5px;
-			position: absolute;
-			bottom: -17px;
-			width: 0;
-		}
-		.zero {
-			float:left;
-			height: 17px;
-			line-height: 17px;
-			border: 1px solid #BBB;
-			border-right: 0;
-			position: relative;
-			text-align: center;
-			width: 10%;
-			.triangle {
-				left: 50%;
-			}
-		}
-		.bar {
-			color: #fff;
-			float: left;
-			height: 17px;
-			line-height: 17px;
-			border: 1px solid #69997C;
-			padding-right: 4px;
-			position: relative;
-			text-align: right;
-			text-shadow: 0px 0px 10px #FFF;
-			width: 90%;
-		}
-	}
-	#functionSelect {
-		@include user-select(none);
+	.functionSelect {
 		background: #FFF;
-		bottom: 60px;
 		font-size: 14px;
-		display: none;
-		left: 18px;
 		outline: none;
 		padding: 4px;
 	}
-	#mapList {
-		.showButton {
-			@include user-select(none);
-			cursor: pointer;
-			padding: 7px;
-			right: 18px;
-			top: 18px;
-
-			.text {
-				float: left;
-				font-size: 14px;
-				line-height: 14px;
-				margin-left: 22px;
-			}
-			.bar {
-				background: #888;
-				border-radius: 1px;
-				display: block;
-				height: 3px;
-				margin-right: 14px;
-				position: relative;
-				width: 3px;
-
-				& + .bar {
-					margin-top: 2px;
-				}
-
-				&:after {
-					background: #888;
-					border-radius: 1px;
-					content: "";
-					display: inline-block;
-					height: 3px;
-					left: 5px;
-					position: absolute;
-					width: 12px;
-				}
-			}
-		}
-		.hideButton {
+	.slide-menu {
+		.hide-slide-menu-button {
 			border: 1px solid #bbb;
 			box-shadow: none;
 			cursor: pointer;
-			right: -70px;
+			left: -70px;
 			top: 18px;
 
 			&:after {
-				content: "\00BB";
+				content: "\00AB";
 				display: inline-block;
 				line-height: 30px;
 				margin-right: 5px;
@@ -283,13 +97,13 @@
 		}
 
 		.list {
-			background: rgba(255,255,255,0.8);
+			background: #434343;
 			box-shadow: -2px 0 10px rgba(0,0,0,0.2);
 			height: 100%;
 			overflow: auto;
 			padding: 20px;
 			position: absolute;
-			right: -420px;
+			left: -420px;
 			top: 0;
 			width: 400px;
 
@@ -409,7 +223,6 @@
 
 	> svg {
 		background: #b8d5ea;
-		border-radius: 2px;
 		cursor: drag;
 		cursor: grab;
 		cursor: -moz-grab;
