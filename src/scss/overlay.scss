@@ -64,11 +64,14 @@
 			&.fullscreen-close {
 				display: none;
 			}
-			&.functionSelect {
+			&.functionSelect,
+			&.dataTypeSelect {
+				outline: none;
 				color: #eee;
 				@include removeSelectArrow();
 				border: 1px solid #434343;
 				padding: 7px;
+				padding-right: 25px;
 
 				option {
 					background: #bbb;
@@ -76,11 +79,15 @@
 				}
 			}
 		}
-
-		.functionSelectWrapper {
+		.settingsWrapper {
 			position: absolute;
-			bottom: -50px;
+			bottom: -55px;
 			right: 10px;
+		}
+		.functionSelectWrapper,
+		.dataTypeSelectWrapper {
+			display: inline-block;
+			position: relative;
 
 			.icon-select {
 				font-size: 14px;
@@ -89,7 +96,17 @@
 				right: 10px;
 				top: 12px;
 			}
+			.selectLabel {
+				position: absolute;
+				top: -15px;
+				left: 4px;
+				font-weight: 500;
+				font-size: 10px;
+				color: white;
+				text-shadow: 0 0 5px rgba(0,0,0,0.4);
+			}
 		}
+
 		.single-country-info {
 			display: none;
 			position: absolute;

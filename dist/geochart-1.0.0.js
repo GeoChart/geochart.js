@@ -110,6 +110,15 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 	};
 
 	var mapList = [];
+	var dataTypes = [{
+		'data-type': 'OBSERVED_PEERS',
+		'data-type-title': 'Observed Peers',
+		'active': 'active'
+	}, {
+		'data-type': 'MAX_SWARM_SIZE',
+		'data-type-title': 'Max Swarm Size',
+		'active': ''
+	}];
 
 	var colorRange = d3.scale.linear()
 		.range([0,1]);
@@ -193,6 +202,7 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 							addScrollingToList();
 							displayMap();
 							displayFunctionSelectButton();
+							fillDataTypeSelectButtonWithEntries();
 						});
 					});
 				});
@@ -216,6 +226,7 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 		var $mapList = $(properties.container + " .slide-menu .list table tbody");
 		$mapList.empty();
 		$mapList.loadTemplate($("#slide-menu-table-template"), mapList);
+		$('ul.data-type-chooser').loadTemplate($("#data-type-chooser-template"), dataTypes);
 	}
 
 	function adaptMapToNewUrlParameters() {
@@ -688,19 +699,23 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 
 			if($(this).hasClass('shown')) {
 				$(this).removeClass('shown');
-				$(this).animate({ bottom: 10 });
-				$('.functionSelectWrapper').animate({ bottom: -40 });
-				$hideIcon.fadeOut();
-				$regularIcon.fadeIn();
+				$(this).animate({ bottom: 10 }, "fast");
+				$('.settingsWrapper').animate({ bottom: -55 }, "fast");
+				$hideIcon.fadeOut("fast");
+				$regularIcon.fadeIn("fast");
 			}
 			else {
 				$(this).addClass('shown');
-				$(this).animate({ bottom: 60 });
-				$('.functionSelectWrapper').animate({ bottom: 10 });
-				$hideIcon.fadeIn();
-				$regularIcon.fadeOut();
+				$(this).animate({ bottom: 50 }, "fast");
+				$('.settingsWrapper').animate({ bottom: 10 }, "fast");
+				$hideIcon.fadeIn("fast");
+				$regularIcon.fadeOut("fast");
 			}
 		});
+	}
+
+	function fillDataTypeSelectButtonWithEntries() {
+		$('select.dataTypeSelect').loadTemplate($("#data-type-chooser-select-template"), dataTypes);
 	}
 
 	function stopTranslateOnViewportBorders(translate, scale) {

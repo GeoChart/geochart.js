@@ -43,16 +43,24 @@
 			</div>
 			<div class="icon icon-settings-hide"></div>
 		</div>
-		<div class="functionSelectWrapper">
-			<div class="icon icon-select"></div>
-			<select class="button functionSelect">
-				<option value="log">Logarithmic</option>
-				<option value="linear">Linear</option>
-				<option value="quadratic">Quadratic</option>
-				<option value="sqrt">Square Root</option>
-				<option value="cubicroot">Cubic Root</option>
-				<option value="neginverse">Negated Inverse</option>
-			</select>
+		<div class="settingsWrapper">
+			<div class="functionSelectWrapper">
+				<div class="icon icon-select"></div>
+				<div class="selectLabel">COLOR FUNCTION</div>
+				<select class="button functionSelect">
+					<option value="log">Logarithmic</option>
+					<option value="linear">Linear</option>
+					<option value="quadratic">Quadratic</option>
+					<option value="sqrt">Square Root</option>
+					<option value="cubicroot">Cubic Root</option>
+					<option value="neginverse">Negated Inverse</option>
+				</select>
+			</div>
+			<div class="dataTypeSelectWrapper">
+				<div class="icon icon-select"></div>
+				<div class="selectLabel">DATA TYPE</div>
+				<select class="button dataTypeSelect"></select>
+			</div>
 		</div>
 
 		<div class="single-country-info"></div>
@@ -61,6 +69,7 @@
 			<div class="listWrapper">
 				<div class="menu">
 					<h2>Data Distribution<span class="date"></span></h2>
+					<ul class="data-type-chooser"></ul>
 					<div class="list">
 						<div class="scroll-pane">
 							<table>
@@ -122,23 +131,32 @@
 			<span data-content="continent" class="continent"></td>
 		</td>
 		<td>
-			<div>
-				<span class="percentage" data-content="percentage" data-format="percentageFormatterShort"></span>
-				<span class="mapDataTable">
-					<span class="observedPeers">
-						<span class="title">Observed Peers</span>
-						<span class="value" data-content="observedPeers" data-format="numberFormatter"></span>
-					</span>
-					<span class="maxSwarmSize">
-						<span class="title">Max Swarm Size</span>
-						<span class="value" data-content="maxSwarmSize" data-format="numberFormatter"></span>
-					</span>
-				</span>
-			</div>
+			<span class="percentage">
+				<span data-content="percentage"></span>%
+			</span>
+		</td>
+		<td>
+			<span class="observedPeers" data-content="observedPeers" data-format="numberFormatter"></span>
 		</td>
 	</tr>
-	<tr>
-	</tr>
+</script>
+<script type="text/html" id="data-type-chooser-template">
+	<li data-content="data-type-title" data-template-bind='[{
+		"attribute": "data-type",
+		"value": "data-type"
+	}, {
+		"attribute": "class",
+		"value": "active"
+	}]'></li>
+</script>
+<script type="text/html" id="data-type-chooser-select-template">
+	<option data-content="data-type-title" data-template-bind='[{
+		"attribute": "data-type",
+		"value": "data-type"
+	}, {
+		"attribute": "class",
+		"value": "active"
+	}]'></option>
 </script>
 
 	<!-- dependencies -->
