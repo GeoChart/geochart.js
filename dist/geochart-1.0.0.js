@@ -171,7 +171,7 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 		csvMapPath = csvMapPathNew;
 
 		setUrlParameters(utils.retrieveGetArgumentsFromUrl());
-		$(properties.container + " .slide-menu .csvDownload a").attr("href", createCsvUrl());
+		$(properties.container + " .slide-menu a.csvDownload").attr("href", createCsvUrl());
 
 		setupMap();
 		makeMapResizable();
@@ -190,6 +190,7 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 							topo = mergeData(topo, dataJson);
 							fillMapListWithData();
 							fillDateStampWithData(dataJson.DATE);
+							addScrollingToList();
 							displayMap();
 							displayFunctionSelectButton();
 						});
@@ -201,6 +202,7 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 		addClickListenerToZoomButtons();
 		addClickListenerToFullScreenButtons();
 		addClickListenerToListButtons();
+		addClickListenerToSettingsButton();
 		addChangeListenerToFunctionSelect();
 		addInfoHashChangeListener();
 		addDateChangeListener();
@@ -218,7 +220,7 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 
 	function adaptMapToNewUrlParameters() {
 		$(properties.container).slideUp("fast");
-		$(properties.container + " .slide-menu .csvDownload a").attr("href", createCsvUrl());
+		$(properties.container + " .slide-menu a.csvDownload").attr("href", createCsvUrl());
 		svg.remove();
 		$(properties.container + " .single-country-info").fadeOut();
 		var mapRefresh = true;
@@ -235,6 +237,7 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 						topo = mergeData(topo, dataJson);
 						fillMapListWithData();
 						fillDateStampWithData(dataJson.DATE);
+						addScrollingToList();
 						displayMap();
 						displayFunctionSelectButton();
 						$(properties.container).slideDown("slow");
@@ -629,23 +632,19 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 	}
 
 	function addClickListenerToListButtons() {
-		var $list = $(properties.container + " .slide-menu .list");
+		var $list = $(properties.container + " .slide-menu .menu");
 		var $showButton = $(properties.container + " .show-slide-menu-button");
-		var $hideButton = $(properties.container + " .hide-slide-menu-button");
-		var $fullscreenReturn = $(properties.container + " .fullscreen-close");
+		var $hideArea = $(properties.container + " .hide-slide-menu-area");
 
 		$showButton.click(function() {
 			$list.animate({"left": 0});
-			$fullscreenReturn.data("top", $fullscreenReturn.css("top")).data("left", $fullscreenReturn.css("left"));
-			$fullscreenReturn.animate({top: "22px", left: "27px"});
-			$hideButton.animate({left: $list.outerWidth() + 15});
 			$showButton.fadeOut();
+			$hideArea.fadeIn();
 		});
-		$hideButton.click(function() {
+		$hideArea.click(function() {
 			$list.animate({"left": - ($list.outerWidth() + 20)});
-			$fullscreenReturn.animate({top: $fullscreenReturn.data("top"), left: $fullscreenReturn.data("left")});
-			$hideButton.animate({left: "-70px"});
 			$showButton.fadeIn();
+			$hideArea.fadeOut();
 		});
 	}
 
@@ -674,6 +673,32 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 			else {
 				urlParameters.date = data.date;
 				adaptMapToNewUrlParameters();
+			}
+		});
+	}
+
+	function addScrollingToList() {
+		$('.scroll-pane').jScrollPane({ verticalDragMinHeight: 70 });
+	}
+
+	function addClickListenerToSettingsButton() {
+		$('.button.settings').click(function() {
+			var $regularIcon = $(this).find('.icon-settings');
+			var $hideIcon = $(this).find('.icon-settings-hide');
+
+			if($(this).hasClass('shown')) {
+				$(this).removeClass('shown');
+				$(this).animate({ bottom: 10 });
+				$('.functionSelectWrapper').animate({ bottom: -40 });
+				$hideIcon.fadeOut();
+				$regularIcon.fadeIn();
+			}
+			else {
+				$(this).addClass('shown');
+				$(this).animate({ bottom: 60 });
+				$('.functionSelectWrapper').animate({ bottom: 10 });
+				$hideIcon.fadeIn();
+				$regularIcon.fadeOut();
 			}
 		});
 	}

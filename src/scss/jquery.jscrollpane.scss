@@ -1,0 +1,34 @@
+/*
+ * This file is extending the original jScrollPane css file.
+ */
+.jspScrollable:focus,
+.jspContainer:focus {
+	outline: none;
+}
+.jspVerticalBar {
+	width: 10px;
+	background: initial;
+}
+.jspHorizontalBar {
+	height: 10px;
+	background: initial;
+}
+.jspTrack {
+	background: #DEDEDE;
+	border-radius: 10px;
+}
+.jspDrag {
+	background: #AAAAAA;
+	border-radius: 10px;
+
+	&:hover,
+	&:active {
+		background: #8F8F8F;
+	}
+}
+.jspVerticalBar .jspArrow {
+	height: 10px;
+}
+.jspHorizontalBar .jspArrow {
+	width: 10px;
+}

@@ -5,6 +5,7 @@
 	<title>geochart.js</title>
 	<meta name="description" content="geochart-js">
 	<meta name="viewport" content="width=device-width">
+	<link rel="stylesheet" href="/bower_components/jScrollPane/style/jquery.jscrollpane.css">
 	<link rel="stylesheet" href="/dist/geochart-1.0.0.css">
 
 	<style type="text/css">
@@ -36,29 +37,41 @@
 		<div class="button zoom-minus">
 			<div class="icon icon-minus"></div>
 		</div>
+		<div class="button settings">
+			<div class="icon icon-settings">
+				<div class="inner"></div>
+			</div>
+			<div class="icon icon-settings-hide"></div>
+		</div>
+		<div class="functionSelectWrapper">
+			<div class="icon icon-select"></div>
+			<select class="button functionSelect">
+				<option value="log">Logarithmic</option>
+				<option value="linear">Linear</option>
+				<option value="quadratic">Quadratic</option>
+				<option value="sqrt">Square Root</option>
+				<option value="cubicroot">Cubic Root</option>
+				<option value="neginverse">Negated Inverse</option>
+			</select>
+		</div>
+
 		<div class="single-country-info"></div>
 		<div class="slide-menu">
-			<div class="hide-slide-menu-button"></div>
+			<div class="hide-slide-menu-area"></div>
 			<div class="listWrapper">
-				<div class="list">
-					<select class="functionSelect">
-						<option value="log">Logarithmic</option>
-						<option value="linear">Linear</option>
-						<option value="quadratic">Quadratic</option>
-						<option value="sqrt">Square Root</option>
-						<option value="cubicroot">Cubic Root</option>
-						<option value="neginverse">Negated Inverse</option>
-					</select>
-					<h2>Distribution<span class="date"></span></h2>
-					<div class="csvDownload">
-						<a target="_blank">
-							<span class="downloadIcon"></span>
-							Download this data to a CSV file.
+				<div class="menu">
+					<h2>Data Distribution<span class="date"></span></h2>
+					<div class="list">
+						<div class="scroll-pane">
+							<table>
+								<tbody></tbody>
+							</table>
+						</div>
+						<a class="csvDownload" target="_blank">
+							<span class="icon icon-download"><span class="inner"></span></span>
+							<span>.csv</span>
 						</a>
 					</div>
-					<table>
-						<tbody></tbody>
-					</table>
 				</div>
 			</div>
 		</div>
@@ -128,20 +141,14 @@
 	</tr>
 </script>
 
-
-
-
-
-
-
 	<!-- dependencies -->
 	<script src="/bower_components/jquery/dist/jquery.js"></script>
+	<script src="/bower_components/jquery-load-template/jquery-loadTemplate/jquery.loadTemplate-1.4.5.js"></script>
+	<script src="/bower_components/jScrollPane/script/jquery.mousewheel.js"></script>
+	<script src="/bower_components/jScrollPane/script/jquery.jscrollpane.js"></script>
 	<script src="/bower_components/d3/d3.js"></script>
 	<script src="/bower_components/topojson/topojson.js"></script>
 	<script src="/bower_components/moment/moment.js"></script>
-
-	<!-- bower independent dependencies -->
-	<script src="jquery.loadTemplate-1.4.4.js"></script>
 
 	<!-- geochart.js -->
 	<script src="/dist/geochart-1.0.0.js"></script>
