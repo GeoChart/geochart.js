@@ -219,7 +219,7 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 	}
 
 	function fillDateStampWithData(date) {
-		$(properties.container + " .slide-menu .list h2 .date").text("("+date+")");
+		$(properties.container + " .slide-menu h2 .date").text("("+date+")");
 	}
 
 	function fillMapListWithData() {
