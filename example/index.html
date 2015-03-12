@@ -106,18 +106,11 @@
 		<span data-content="name"></span>
 		<span data-content="continent" class="continent"></span>
 	</div>
-	<div>
-		<span class="percentage" data-content="percentage" data-format="percentageFormatter"></span>
-		<span class="mapDataTable">
-			<span class="observedPeers">
-				<span class="title">Observed Peers</span>
-				<span class="value" data-content="observedPeers" data-format="numberFormatter"></span>
-			</span>
-			<span class="maxSwarmSize">
-				<span class="title">Max Swarm Size</span>
-				<span class="value" data-content="maxSwarmSize" data-format="numberFormatter"></span>
-			</span>
-		</span>
+	<!-- TODO -->
+	<div class="data-type">
+		<span class="value" data-content="observedPeers"></span>
+		<span class="percentage"><span data-content="percentage"></span>%</span>
+		<span class="title" data-content="title">Observed Peers</span>
 	</div>
 </script>
 
@@ -177,7 +170,7 @@
 
 	<script type="text/javascript">
 		$(document).ready(function() {
-			geochartjs.map.init("/src/json/world.json", "/src/json/data.json", "test");
+			geochartjs.map.init("/src/json/world.json", "/src/json/data.json");
 		});
 	</script>
 

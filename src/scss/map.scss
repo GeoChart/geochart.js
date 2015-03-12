@@ -79,7 +79,7 @@
 				height: 100%;
 			}
 			h2 {
-				padding: 20px 25px 50px 25px;
+				padding: 20px 25px 51px 25px;
 				position: absolute;
 				top: 0;
 				left: 0;
@@ -88,7 +88,6 @@
 				font-weight: 200;
 				margin: 0;
 				background: #e6e6e6;
-				border-bottom: 1px solid #bbb;
 
 				.date {
 					font-size: 60%;
@@ -104,17 +103,15 @@
 				width: 100%;
 				margin: 0;
 				padding: 0;
-				height: 29px;
+				height: 30px;
 				white-space: nowrap;
-
 
 				.tab {
 					display: inline-block;
-					list-style-type: none;
+					position: relative;
 					padding: 8px 10px 5px 10px;
 					font-size: 12px;
 					border: 1px solid #bbb;
-					border-bottom: none;
 					background: linear-gradient(#eee, #dcdcdc) #dcdcdc;
 					border-radius: 4px;
 					border-bottom-left-radius: 0;
@@ -122,18 +119,44 @@
 					cursor: pointer;
 					&.active {
 						background: linear-gradient(#fff, #f6f6f6) #f6f6f6;
-						padding-bottom: 6px;
 						cursor: default;
+						border-bottom-color: #f6f6f6;
 					}
+
+					& + .tab:before,
+					&:first-child:before,
+					&:last-child:after {
+						content: "";
+						display: block;
+						position: absolute;
+						border-bottom: 1px solid #bbb;
+					}
+
 					& + .tab {
 						margin-left: 3px;
+						&:before {
+							width: 3px;
+							left: -4px;
+							bottom: -1px;
+						}
 					}
 					&:first-child {
-						margin-left: 12px;
+						margin-left: 8px;
+						&:before {
+							width: 12px;
+							left: -12px;
+							bottom: -1px;
+						}
 					}
 					&:last-child {
 						margin-right: 12px;
+						&:after {
+							width: 12px;
+							right: -12px;
+							bottom: -1px;
+						}
 					}
+
 				}
 			}
 			.list {
@@ -221,29 +244,6 @@
 				}
 			}
 
-		}
-	}
-
-	.mapDataTable {
-		display: table;
-
-		> span {
-			display: table-row;
-
-			.title,
-			.value {
-				display: table-cell;
-				text-align: right;
-				vertical-align: middle;
-				white-space: nowrap;
-			}
-			.title {
-				color: #888;
-				font-size: 12px;
-			}
-			.value {
-				padding-left: 9px;
-			}
 		}
 	}
 

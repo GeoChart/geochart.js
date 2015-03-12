@@ -104,11 +104,6 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 		smallMapClass: "smallMap"
 	};
 
-	var urlParameters = {
-		infoHash: null,
-		date: null
-	};
-
 	var mapList = [];
 	var dataTypes = [{
 		'data-type': 'OBSERVED_PEERS',
@@ -155,14 +150,12 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 	var height;
 	var projection;
 	var path;
-	var dataObservedPeersMaximum = 0;
+	var maximumDataValue = 0;
 	var zoom;
 	var topo;
 	var valueMappingFunction = Math.log;
 	var mapJsonUrl;
 	var dataJsonUrl;
-	var csvMapPath;
-	var mapIsHidden = false;
 	var resizeTimer;
 	var fixedSize = false;
 	var windowWidth;
@@ -190,50 +183,35 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 		}
 	};
 
-	function initializeWithoutControls(mapJsonUrlNew, dataJsonUrlNew, csvMapPathNew) {
+	function initializeWithoutControls(mapJsonUrlNew, dataJsonUrlNew) {
 		$(properties.container).addClass("noControls");
-		initialize(mapJsonUrlNew, dataJsonUrlNew, csvMapPathNew);
+		initialize(mapJsonUrlNew, dataJsonUrlNew);
 	}
 
-	function initializeHidden(mapJsonUrlNew, dataJsonUrlNew, csvMapPathNew) {
-		mapIsHidden = true;
-		initialize(mapJsonUrlNew, dataJsonUrlNew, csvMapPathNew);
-	}
-
-	function initialize(mapJsonUrlNew, dataJsonUrlNew, csvMapPathNew) {
+	function initialize(mapJsonUrlNew, dataJsonUrlNew) {
 		mapJsonUrl = mapJsonUrlNew;
 		dataJsonUrl = dataJsonUrlNew;
-		csvMapPath = csvMapPathNew;
-
-		setUrlParameters(utils.retrieveGetArgumentsFromUrl());
-		$(properties.container + " .slide-menu a.csvDownload").attr("href", createCsvUrl());
-
 		setupMap();
 		makeMapResizable();
-		if(mapIsHidden) {
-			$(properties.container).hide();
-		}
-		else {
-			d3.json(mapJsonUrl, function(mapJson) {
-				errorHandling(mapJson, function() {
-					topo = topojson.feature(mapJson, mapJson.objects[properties.mapName]);
 
-					d3.json(createDataUrl(), function(dataJson) {
-						errorHandling(dataJson, function() {
-							setDataObservedPeersMaximum(dataJson);
-							setColorRangeDomain();
-							topo = mergeData(topo, dataJson);
-							fillMapListWithData();
-							fillDateStampWithData(dataJson.DATE);
-							addScrollingToList();
-							displayMap();
-							displayFunctionSelectButton();
-							fillDataTypeSelectButtonWithEntries();
-						});
-					});
-				});
+		d3.json(mapJsonUrl, function(mapJson) {
+			topo = topojson.feature(mapJson, mapJson.objects[properties.mapName]);
+
+			d3.json(dataJsonUrl, function(config) {
+				var data = config.data;
+
+				setMaximumDataValue(data);
+				setColorRangeDomain();
+				topo = mergeData(topo, data);
+				fillMapListWithData();
+				fillDateStampWithData(data.date);
+				addCSVLink(data.csv);
+				addScrollingToList();
+				displayMap();
+				displayFunctionSelectButton();
+				fillDataTypeSelectButtonWithEntries();
 			});
-		}
+		});
 
 		addClickListenerToZoomButtons();
 		addClickListenerToFullScreenButtons();
@@ -241,12 +219,22 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 		addClickListenerToSettingsButton();
 		addChangeListenerToFunctionSelect();
 		addChangeListenerToDataTypeSelectBox();
-		addInfoHashChangeListener();
-		addDateChangeListener();
+	}
+
+	function addCSVLink(link) {
+		var $button = $('.list .csvDownload');
+		if(isset(link)) {
+			$button.attr('href', link);
+		}
+		else {
+			$button.remove();
+		}
 	}
 
 	function fillDateStampWithData(date) {
-		$(properties.container + " .slide-menu h2 .date").text("("+date+")");
+		// TODO
+		var formattedDate = moment(date.value, date.format).format("DD.MM.YYYY");
+		$(properties.container + " .slide-menu h2 .date").text("("+formattedDate+")");
 	}
 
 	function fillMapListWithData() {
@@ -259,9 +247,8 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 		addClickListenerToDataTypeTabButtons();
 	}
 
+	// TODO remove or edit this function!
 	function adaptMapToNewUrlParameters() {
-		$(properties.container).slideUp("fast");
-		$(properties.container + " .slide-menu a.csvDownload").attr("href", createCsvUrl());
 		svg.remove();
 		$(properties.container + " .single-country-info").fadeOut();
 		var mapRefresh = true;
@@ -271,13 +258,13 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 			errorHandling(mapJson, function() {
 				topo = topojson.feature(mapJson, mapJson.objects[properties.mapName]);
 
-				d3.json(createDataUrl(), function(error, dataJson) {
+				d3.json(dataJsonUrl, function(error, dataJson) {
 					errorHandling(dataJson, function() {
 						setDataObservedPeersMaximum(dataJson);
 						setColorRangeDomain();
 						topo = mergeData(topo, dataJson);
 						fillMapListWithData();
-						fillDateStampWithData(dataJson.DATE);
+						fillDateStampWithData(dataJson.date);
 						addScrollingToList();
 						displayMap();
 						displayFunctionSelectButton();
@@ -289,67 +276,21 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 		});
 	}
 
-	function setUrlParameters(parameters) {
-		if(typeof parameters !== "undefined") {
-			if(typeof parameters.date !== "undefined") {
-				urlParameters.date = parameters.date;
-			}
-			if(typeof parameters.infoHash !== "undefined") {
-				urlParameters.infoHash = parameters.infoHash;
-			}
-		}
-	}
-
-	function createDataUrl() {
-		var url = dataJsonUrl;
-		if(urlParameters.date !== null) {
-			url += "?date=" + urlParameters.date;
-			if(urlParameters.infoHash !== null) {
-				url += "&infoHash=" + urlParameters.infoHash;
-			}
-		}
-		else if(urlParameters.infoHash !== null) {
-			url += "?infoHash=" + urlParameters.infoHash;
-		}
-		return url;
-	}
-
-	function createCsvUrl() {
-		var url = csvMapPath;
-		if(urlParameters.date !== null) {
-			url += "?date=" + urlParameters.date;
-			if(urlParameters.infoHash !== null) {
-				url += "&infoHash=" + urlParameters.infoHash;
-			}
-		}
-		else if(urlParameters.infoHash !== null) {
-			url += "?infoHash=" + urlParameters.infoHash;
-		}
-		return url;
-	}
-
 	function setupMap(mapRefresh) {
 		svg = d3.select(properties.container).append("svg");
 		projection = d3.geo.equirectangular();
 
-		var showMapInitiallyAfterHide = typeof mapRefresh !== "undefined" && mapRefresh && mapIsHidden;
-		if(showMapInitiallyAfterHide) {
-			mapIsHidden = false;
-		}
-
 		if(helper.isInFullscreen()) {
-			if(!showMapInitiallyAfterHide) {
-				height = $(properties.container).height();
-				width = height * 2;
-			}
+			height = $(properties.container).height();
+			width = height * 2;
+
 			svg.attr({width: $(properties.container).width(), height: $(properties.container).height()});
 			projection.translate([(width/2), (height/2)]).scale(width/2/Math.PI);
 		}
 		else {
-			if(!showMapInitiallyAfterHide) {
-				width = $(properties.container).width();
-				height = width / 2;
-			}
+			width = $(properties.container).width();
+			height = width / 2;
+
 			svg.attr({width: width, height: height});
 			projection.translate([(width/2), (height/2)]).scale(width/2/Math.PI);
 		}
@@ -370,7 +311,9 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 
 	function preventClickingWhileDragging() {
 		// example from http://bl.ocks.org/mbostock/9656675
-		if (d3.event.defaultPrevented) d3.event.stopPropagation();
+		if (d3.event.defaultPrevented) {
+			d3.event.stopPropagation();
+		}
 	}
 
 	function makeMapResizable() {
@@ -378,7 +321,7 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 			var isFullscreen = $(properties.container).is("."+properties.fullscreenClass);
 			var windowWidthChanged = windowWidth !== $(window).width();
 
-			if(!mapIsHidden && !(fixedSize && !isFullscreen) && (isFullscreen || windowWidthChanged)) {
+			if(!(fixedSize && !isFullscreen) && (isFullscreen || windowWidthChanged)) {
 				windowWidth = $(window).width();
 				window.clearTimeout(resizeTimer);
 				d3.select(properties.container + " .overlay").transition().duration(200).style("opacity", 0);
@@ -398,25 +341,26 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 		displayMap();
 	}
 
-	function setColorRangeDomain(dataJson) {
-		colorRange.domain([0, valueMappingFunction(dataObservedPeersMaximum)]);
+	function setColorRangeDomain() {
+		colorRange.domain([0, valueMappingFunction(maximumDataValue)]);
 	}
 
-	function setDataObservedPeersMaximum(dataJson) {
-		dataObservedPeersMaximum = d3.max(dataJson.COUNTRIES, function(datum) {
-			return parseInt(datum.OBSERVED_PEERS, 10);
+	function setMaximumDataValue(data) {
+		maximumDataValue = d3.max(data.countries, function(country) {
+			// TODO
+			return parseInt(country.OBSERVED_PEERS, 10);
 		});
 	}
 
 	function mergeData(topo, dataJson) {
 		mapList = [];
 
-		for(var i=0; i<dataJson.COUNTRIES.length; i++) {
+		for(var i=0; i<dataJson.countries.length; i++) {
 			var codeMatch = false;
-			var dataCountryCode = dataJson.COUNTRIES[i].COUNTRY_CODE;
-			var dataObservedPeers = parseInt(dataJson.COUNTRIES[i].OBSERVED_PEERS, 10);
-			var dataMaxSwarmSize = parseInt(dataJson.COUNTRIES[i].MAX_SWARM_SIZE, 10);
-			var dataPercentage = parseFloat(dataJson.COUNTRIES[i].PERCENTAGE);
+			var dataCountryCode = dataJson.countries[i].COUNTRY_CODE;
+			var dataObservedPeers = parseInt(dataJson.countries[i].OBSERVED_PEERS, 10);
+			var dataMaxSwarmSize = parseInt(dataJson.countries[i].MAX_SWARM_SIZE, 10);
+			var dataPercentage = parseFloat(dataJson.countries[i].PERCENTAGE);
 
 			for(var j=0; j < topo.features.length; j++) {
 				var mapCountryCode = topo.features[j].properties.iso_a2;
@@ -621,12 +565,14 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 	function addClickListenerToFullScreenButtons() {
 		$(properties.container + " .fullscreen-open").click(function() {
 			if($(this).is(":not(:hidden)")) {
+				makeFullscreen($(properties.container));
+
 				$(properties.container).addClass(properties.fullscreenClass);
 				$("html").css({"overflow": "hidden"});
 				$(properties.container + " .single-country-info").fadeOut();
 				$(this).fadeOut();
 				$(properties.container + " .fullscreen-close").fadeIn();
-				makeFullscreen($(properties.container));
+				addScrollingToList();
 				redraw();
 			}
 		});
@@ -639,6 +585,7 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 				$(this).fadeOut();
 				$(properties.container + " .fullscreen-open").fadeIn();
 				redraw();
+				addScrollingToList();
 			}
 		});
 	}
@@ -701,26 +648,6 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 		});
 	}
 
-	function addInfoHashChangeListener() {
-		$("body").on("mapInfoHashChange", function(event, data) {
-			urlParameters.infoHash = data.infoHash;
-			adaptMapToNewUrlParameters();
-		});
-	}
-
-	function addDateChangeListener() {
-		$("body").on("mapDateChange", function(event, data) {
-			if(typeof data.date === "undefined") {
-				$(properties.container).slideUp("fast");
-				mapIsHidden = true;
-			}
-			else {
-				urlParameters.date = data.date;
-				adaptMapToNewUrlParameters();
-			}
-		});
-	}
-
 	function addScrollingToList() {
 		$('.list .scroll-pane').jScrollPane({ verticalDragMinHeight: 70 });
 	}
@@ -770,6 +697,7 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 		$tabs.click(function() {
 			var type = $(this).data('type');
 			$('.button.dataTypeSelect').val(type);
+			tabScrollApi.scrollToX($(this).position().left-30);
 			selectDataType(type);
 		});
 	}
@@ -840,9 +768,12 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 		fixedSize = true;
 	}
 
+	function isset(variable) {
+		return typeof variable !== 'undefined';
+	}
+
 	return {
 		init: initialize,
-		initHidden: initializeHidden,
 		initWithoutControls: initializeWithoutControls,
 		makeFixedSize: makeFixedSize
 	};

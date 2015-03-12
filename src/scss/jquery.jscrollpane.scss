@@ -47,17 +47,23 @@
 		background: linear-gradient(to bottom, $color1 0%, $color2 100%);
 	}
 
+
 	.jspPane,
 	.jspHorizontalBar {
 		background: transparent;
-		height: 0;
 		width: 100%;
+	}
+	.jspHorizontalBar {
+		height: 0;
+	}
+	.jspVerticalBar {
+		display: none;
 	}
 	.jspArrow {
 		position: absolute;
 		width: 20px;
 		height: 29px;
-		bottom: 0;
+		bottom: 1px;
 		transition: opacity 0.3s;
 		border: 1px solid #a7a7a7;
 		@include grey-background-gradient(#ccc, #bbb);

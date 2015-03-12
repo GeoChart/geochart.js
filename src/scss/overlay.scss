@@ -121,18 +121,30 @@
 				font-size: 12px;
 			}
 			> div:first-child + div {
-				border-top: 1px solid #ccc;
-				margin-top: 5px;
-				padding-top: 3px;
+				border: 1px solid #757575;
+				margin-top: 7px;
 			}
-			.mapDataTable {
+			.data-type {
+				display: block;
 				width: 100%;
-				padding-top: 2px;
+				padding: 4px 6px;
+				.title,
+				.value,
+				.percentage {
+					text-align: center;
+					display: block;
+				}
 				.title {
-					text-align: left;
+					font-size: 14px;
+					color: #9b9b9b;
 				}
 				.value {
-					text-align: right;
+					font-size: 20px;
+					padding-bottom: 4px;
+				}
+				.percentage {
+					font-size: 14px;
+					padding-bottom: 4px;
 				}
 			}
 		}
