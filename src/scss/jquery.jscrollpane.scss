@@ -5,30 +5,114 @@
 .jspContainer:focus {
 	outline: none;
 }
-.jspVerticalBar {
-	width: 10px;
-	background: initial;
-}
-.jspHorizontalBar {
-	height: 10px;
-	background: initial;
-}
-.jspTrack {
-	background: #DEDEDE;
-	border-radius: 10px;
-}
-.jspDrag {
-	background: #AAAAAA;
-	border-radius: 10px;
 
-	&:hover,
-	&:active {
-		background: #8F8F8F;
+.list {
+	.jspVerticalBar {
+		width: 10px;
+		background: initial;
+	}
+	.jspHorizontalBar {
+		height: 10px;
+		background: initial;
+	}
+	.jspTrack {
+		background: #DEDEDE;
+		border-radius: 10px;
+	}
+	.jspDrag {
+		background: #AAAAAA;
+		border-radius: 10px;
+
+		&:hover,
+		&:active {
+			background: #8F8F8F;
+		}
+	}
+	.jspVerticalBar .jspArrow {
+		height: 10px;
+	}
+	.jspHorizontalBar .jspArrow {
+		width: 10px;
 	}
 }
-.jspVerticalBar .jspArrow {
-	height: 10px;
-}
-.jspHorizontalBar .jspArrow {
-	width: 10px;
+
+.data-type-chooser {
+	@mixin grey-background-gradient($color1, $color2) {
+		background: transparent;
+		background: -moz-linear-gradient(top, $color1 0%, $color2 100%);
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$color1), color-stop(100%, $color2));
+		background: -webkit-linear-gradient(top, $color1 0%, $color2 100%);
+		background: -o-linear-gradient(top, $color1 0%, $color2 100%);
+		background: -ms-linear-gradient(top, $color1 0%, $color2 100%);
+		background: linear-gradient(to bottom, $color1 0%, $color2 100%);
+	}
+
+	.jspPane,
+	.jspHorizontalBar {
+		background: transparent;
+		height: 0;
+		width: 100%;
+	}
+	.jspArrow {
+		position: absolute;
+		width: 20px;
+		height: 29px;
+		bottom: 0;
+		transition: opacity 0.3s;
+		border: 1px solid #a7a7a7;
+		@include grey-background-gradient(#ccc, #bbb);
+
+		&:active {
+			@include grey-background-gradient(#bbb, #ccc);
+		}
+
+		&.jspDisabled {
+			opacity: 0;
+		}
+		&.jspArrowLeft {
+			left: 0;
+			border-top-right-radius: 10px;
+			border-bottom-right-radius: 10px;
+			border-left: 0;
+		}
+		&.jspArrowRight {
+			right: 0;
+			border-top-left-radius: 10px;
+			border-bottom-left-radius: 10px;
+			border-right: 0;
+		}
+		&.jspArrowLeft:before,
+		&.jspArrowLeft:after,
+		&.jspArrowRight:before,
+		&.jspArrowRight:after {
+			content: "";
+			display: block;
+			position: absolute;
+			background: white;
+			width: 7px;
+			height: 3px;
+			top: 13px;
+			left: 5px;
+			transform: rotate(45deg);
+		}
+		&.jspArrowRight:before,
+		&.jspArrowRight:after {
+			left: auto;
+			right: 5px;
+		}
+		&.jspArrowLeft:after,
+		&.jspArrowRight:after {
+			top: 10px;
+			transform: rotate(-45deg);
+		}
+		&.jspArrowRight:before {
+			transform: rotate(135deg);
+		}
+		&.jspArrowRight:after {
+			transform: rotate(-135deg);
+		}
+	}
+	.jspTrack {
+		display: none;
+	}
 }

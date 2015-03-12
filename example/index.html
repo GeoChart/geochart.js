@@ -69,17 +69,21 @@
 			<div class="listWrapper">
 				<div class="menu">
 					<h2>Data Distribution<span class="date"></span></h2>
-					<ul class="data-type-chooser"></ul>
+					<div class="data-type-chooser">
+						<div class="scroll-pane"></div>
+						<a class="left-scroll"></a>
+						<a class="right-scroll"></a>
+					</div>
 					<div class="list">
+						<a class="csvDownload" target="_blank">
+							<span class="icon icon-download"><span class="inner"></span></span>
+							<span>.csv</span>
+						</a>
 						<div class="scroll-pane">
 							<table>
 								<tbody></tbody>
 							</table>
 						</div>
-						<a class="csvDownload" target="_blank">
-							<span class="icon icon-download"><span class="inner"></span></span>
-							<span>.csv</span>
-						</a>
 					</div>
 				</div>
 			</div>
@@ -141,17 +145,17 @@
 	</tr>
 </script>
 <script type="text/html" id="data-type-chooser-template">
-	<li data-content="data-type-title" data-template-bind='[{
+	<span data-content="data-type-title" data-template-bind='[{
 		"attribute": "data-type",
 		"value": "data-type"
 	}, {
 		"attribute": "class",
 		"value": "active"
-	}]'></li>
+	}]'></span>
 </script>
 <script type="text/html" id="data-type-chooser-select-template">
 	<option data-content="data-type-title" data-template-bind='[{
-		"attribute": "data-type",
+		"attribute": "value",
 		"value": "data-type"
 	}, {
 		"attribute": "class",

@@ -96,14 +96,19 @@
 					margin-left: 7px;
 				}
 			}
-			ul.data-type-chooser {
+			.data-type-chooser {
 				position: absolute;
 				top: 70px;
-				left: 12px;
+				padding-left: 12px;
+				left: 0;
+				width: 100%;
 				margin: 0;
 				padding: 0;
+				height: 29px;
+				white-space: nowrap;
 
-				li {
+
+				.tab {
 					display: inline-block;
 					list-style-type: none;
 					padding: 8px 10px 5px 10px;
@@ -120,8 +125,14 @@
 						padding-bottom: 6px;
 						cursor: default;
 					}
-					& + li {
+					& + .tab {
 						margin-left: 3px;
+					}
+					&:first-child {
+						margin-left: 12px;
+					}
+					&:last-child {
+						margin-right: 12px;
 					}
 				}
 			}

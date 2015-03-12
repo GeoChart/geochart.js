@@ -39,6 +39,30 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 		'data-type': 'MAX_SWARM_SIZE',
 		'data-type-title': 'Max Swarm Size',
 		'active': ''
+	}, {
+		'data-type': 'MAX_SWARM_SIZE2',
+		'data-type-title': 'Max Swarm Size2',
+		'active': ''
+	}, {
+		'data-type': 'MAX_SWARM_SIZE3',
+		'data-type-title': 'Max Swarm Size3',
+		'active': ''
+	}, {
+		'data-type': 'MAX_SWARM_SIZE4',
+		'data-type-title': 'Max Swarm Size4',
+		'active': ''
+	}, {
+		'data-type': 'MAX_SWARM_SIZE5',
+		'data-type-title': 'Max Swarm Size5',
+		'active': ''
+	}, {
+		'data-type': 'MAX_SWARM_SIZE6',
+		'data-type-title': 'Max Swarm Size6',
+		'active': ''
+	}, {
+		'data-type': 'MAX_SWARM_SIZE7',
+		'data-type-title': 'Max Swarm Size7',
+		'active': ''
 	}];
 
 	var colorRange = d3.scale.linear()
@@ -63,6 +87,8 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 	var resizeTimer;
 	var fixedSize = false;
 	var windowWidth;
+	var tabScrollApi;
+	var $scrollTabElement;
 
 	var valueMappingFunctions = {
 		log: function(n) {
@@ -135,6 +161,7 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 		addClickListenerToListButtons();
 		addClickListenerToSettingsButton();
 		addChangeListenerToFunctionSelect();
+		addChangeListenerToDataTypeSelectBox();
 		addInfoHashChangeListener();
 		addDateChangeListener();
 	}
@@ -147,7 +174,10 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 		var $mapList = $(properties.container + " .slide-menu .list table tbody");
 		$mapList.empty();
 		$mapList.loadTemplate($("#slide-menu-table-template"), mapList);
-		$('ul.data-type-chooser').loadTemplate($("#data-type-chooser-template"), dataTypes);
+		$('.data-type-chooser .scroll-pane').loadTemplate($("#data-type-chooser-template"), dataTypes).find('span').addClass('tab');
+
+		addScrollingToTabs();
+		addClickListenerToDataTypeTabButtons();
 	}
 
 	function adaptMapToNewUrlParameters() {
@@ -572,6 +602,9 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 			$list.animate({"left": 0});
 			$showButton.fadeOut();
 			$hideArea.fadeIn();
+			if(typeof $scrollTabElement !== 'undefined') {
+				tabScrollApi.scrollToX($scrollTabElement.position().left-30);
+			}
 		});
 		$hideArea.click(function() {
 			$list.animate({"left": - ($list.outerWidth() + 20)});
@@ -610,8 +643,20 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 	}
 
 	function addScrollingToList() {
-		$('.scroll-pane').jScrollPane({ verticalDragMinHeight: 70 });
+		$('.list .scroll-pane').jScrollPane({ verticalDragMinHeight: 70 });
 	}
+
+	function addScrollingToTabs() {
+		var $tabs = $('.data-type-chooser');
+		var $scrollPane = $tabs.find('.scroll-pane');
+
+		tabScrollApi = $scrollPane.jScrollPane({
+			showArrows: true,
+			animateScroll: true,
+			speed: 200
+		}).data('jsp');
+	}
+
 
 	function addClickListenerToSettingsButton() {
 		$('.button.settings').click(function() {
@@ -633,6 +678,28 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 				$regularIcon.fadeOut("fast");
 			}
 		});
+	}
+
+	function addChangeListenerToDataTypeSelectBox() {
+		$('.button.dataTypeSelect').change(function() {
+			var type = $(this).find('option:selected').val();
+			selectDataType(type);
+		});
+	}
+	function addClickListenerToDataTypeTabButtons() {
+		var $tabs = $('.data-type-chooser .tab');
+		$tabs.click(function() {
+			var type = $(this).data('type');
+			$('.button.dataTypeSelect').val(type);
+			selectDataType(type);
+		});
+	}
+	function selectDataType(type) {
+		$scrollTabElement = $('.data-type-chooser .tab[data-type='+type+']');
+
+		var $tabs = $('.data-type-chooser .tab');
+		$tabs.removeClass('active');
+		$tabs.filter('[data-type='+type+']').addClass('active');
 	}
 
 	function fillDataTypeSelectButtonWithEntries() {
