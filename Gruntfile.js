@@ -65,6 +65,15 @@ module.exports = function(grunt) {
 			}
 		},
 
+		autoprefixer: {
+			options: {
+				browsers: '> 3% in CH'
+			},
+			css: {
+				src: 'dist/<%= pkg.name %>-<%= pkg.version %>.css'
+			}
+		},
+
 		cssmin: {
 			options: {
 				keepSpecialComments: 0
@@ -107,6 +116,7 @@ module.exports = function(grunt) {
 		'uglify',
 		'sass',
 		'concat:css',
+		'autoprefixer',
 		'cssmin',
 		'clean:tmp'
 	]);
