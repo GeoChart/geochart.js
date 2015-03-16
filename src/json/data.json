@@ -27,14 +27,8 @@
 		"notLocatable": {
 			"label": "Not Locatable",
 			"values": {
-				"OBSERVED_PEERS": {
-					"value": 598,
-					"percent": 4.7449
-				},
-				"MAX_SWARM_SIZE": {
-					"value": 400,
-					"percent": 4.7449
-				}
+				"OBSERVED_PEERS": 598,
+				"MAX_SWARM_SIZE": 400
 			}
 		},
 		"countries": {
@@ -42,42 +36,24 @@
 				"label": "Spain",
 				"continent": "Europe",
 				"values": {
-					"OBSERVED_PEERS": {
-						"value": 2302,
-						"percent": 18.2655
-					},
-					"MAX_SWARM_SIZE": {
-						"value": 451,
-						"percent": 18.2655
-					}
+					"OBSERVED_PEERS": 2302,
+					"MAX_SWARM_SIZE": 451
 				}
 			},
 			"IT": {
 				"label": "Italy",
 				"continent": "Europe",
 				"values": {
-					"OBSERVED_PEERS": {
-						"value": 1038,
-						"percent": 10.1708
-					},
-					"MAX_SWARM_SIZE": {
-						"value": 800,
-						"percent": 96.1708
-					}
+					"OBSERVED_PEERS": 1038,
+					"MAX_SWARM_SIZE": 800
 				}
 			},
 			"RU": {
 				"label": "Russia",
 				"continent": "Europe",
 				"values": {
-					"TEST_TYPE_1": {
-						"value": 1038,
-						"percent": 200
-					},
-					"MAX_SWARM_SIZE": {
-						"value": 2020,
-						"percent": 150
-					}
+					"TEST_TYPE_1": 1038,
+					"MAX_SWARM_SIZE": 2020
 				}
 			}
 		}

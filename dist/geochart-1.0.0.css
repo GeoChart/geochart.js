@@ -467,7 +467,7 @@
           display: block;
           font-size: 12px;
           padding-right: 10px; }
-        .geochart-map .slide-menu .menu .list table .percentage {
+        .geochart-map .slide-menu .menu .list table .percent {
           padding-right: 25px;
           text-align: right;
           display: block;
@@ -605,7 +605,7 @@
     display: block;
     width: 100%;
     padding: 4px 6px; }
-    .geochart-map .overlay .single-country-info .data-type .title, .geochart-map .overlay .single-country-info .data-type .value, .geochart-map .overlay .single-country-info .data-type .percentage {
+    .geochart-map .overlay .single-country-info .data-type .title, .geochart-map .overlay .single-country-info .data-type .value, .geochart-map .overlay .single-country-info .data-type .percent {
       text-align: center;
       display: block; }
     .geochart-map .overlay .single-country-info .data-type .title {
@@ -614,6 +614,6 @@
     .geochart-map .overlay .single-country-info .data-type .value {
       font-size: 20px;
       padding-bottom: 4px; }
-    .geochart-map .overlay .single-country-info .data-type .percentage {
+    .geochart-map .overlay .single-country-info .data-type .percent {
       font-size: 14px;
       padding-bottom: 4px; }

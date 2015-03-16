@@ -92,7 +92,7 @@ geochartjs.htmlTemplate = (function() {
 		'	</div>\n' +
 		'	<div class="data-type">\n' +
 		'		<span class="value" data-content="value"></span>\n' +
-		'		<span class="percentage"><span data-content="percent"></span>%</span>\n' +
+		'		<span class="percent" data-content="percent"></span>\n' +
 		'		<span class="title" data-content="dataType"></span>\n' +
 		'	</div>\n' +
 		'</script>\n' +
@@ -107,9 +107,7 @@ geochartjs.htmlTemplate = (function() {
 		'			<span data-content="continent" class="continent"></td>\n' +
 		'		</td>\n' +
 		'		<td>\n' +
-		'			<span class="percentage">\n' +
-		'				<span data-content="percent"></span>%\n' +
-		'			</span>\n' +
+		'			<span class="percent" data-content="percent"></span>\n' +
 		'		</td>\n' +
 		'		<td>\n' +
 		'			<span class="observedPeers" data-content="value"></span>\n' +
@@ -269,7 +267,8 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 	var height;
 	var projection;
 	var path;
-	var currentMaximumPercent = 0;
+	var currentMaximumValue = 0;
+	var currentValueSum = 0;
 	var zoom;
 	var topo;
 	var valueMappingFunction = Math.log;
@@ -389,6 +388,7 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 			})();
 
 			(function setupSlideMenuList() {
+				adaptColorParameters();
 				fillMapList();
 				addScrollingToList();
 			})();
@@ -522,14 +522,17 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 	}
 
 	function setColorRangeDomain() {
-		colorRange.domain([0, valueMappingFunction(currentMaximumPercent)]);
+		colorRange.domain([0, valueMappingFunction(currentMaximumValue)]);
 	}
 
-	function setCurrentMaximumPercent() {
+	function setCurrentMaximumValueAndSum() {
 		var countryArray = getCountriesInArray();
-		currentMaximumPercent = d3.max(countryArray, function(country) {
+		currentValueSum = 0;
+		currentMaximumValue = d3.max(countryArray, function(country) {
 			if(isset(country.values[data.selectedType])) {
-				return parseFloat(country.values[data.selectedType].percent, 10);
+				var value = parseFloat(country.values[data.selectedType], 10);
+				currentValueSum += value;
+				return value;
 			}
 			return 0;
 		});
@@ -570,15 +573,15 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 					code: country.code,
 					label: country.label,
 					continent: country.continent,
-					value: country.values[data.selectedType].value,
-					percent: country.values[data.selectedType].percent
+					value: country.values[data.selectedType],
+					percent: formatPercent(country.values[data.selectedType] / currentValueSum)
 				});
 			}
 		}
 
 		function sortMapList(firstCountry, secondCountry) {
-			var firstValue = firstCountry.percent;
-			var secondValue = secondCountry.percent;
+			var firstValue = firstCountry.value;
+			var secondValue = secondCountry.value;
 
 			return ((firstValue > secondValue) ? -1 : ((firstValue < secondValue) ? 1 : 0));
 		}
@@ -588,6 +591,10 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 		for(var j=0; j<mapList.length; j++) {
 			mapList[j].ranking = j+1;
 		}
+	}
+
+	function formatPercent(percent) {
+		return Math.round(percent*100 * 1000)/1000+'%';
 	}
 
 	function fillMapListInGui() {
@@ -625,16 +632,16 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 
 	function selectDataType(type) {
 		data.selectedType = type;
-		fillMapList();
+
+		adaptColorParameters();
+
 		adjustTabsToSelectedType();
 		$('.single-country-info').fadeOut();
+		fillMapList();
 		adaptMapToNewDataTypeOrColorFunction();
 	}
 
 	function adaptMapToNewDataTypeOrColorFunction() {
-		setCurrentMaximumPercent();
-		setColorRangeDomain();
-
 		group.selectAll("path")
 		.style("fill", addBackgroundColor)
 		.style("cursor", setPointerCursor)
@@ -653,9 +660,6 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 	}
 
 	function displayMap() {
-		setCurrentMaximumPercent();
-		setColorRangeDomain();
-
 		group.selectAll("path")
 		.data(topo.features)
 		.enter()
@@ -741,8 +745,8 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 			countryLabel: country.label,
 			continent: country.continent,
 			dataType: getLabelByType(data.selectedType),
-			percent: country.values[data.selectedType].percent,
-			value: country.values[data.selectedType].value
+			value: country.values[data.selectedType],
+			percent: formatPercent(country.values[data.selectedType] / currentValueSum)
 		};
 
 		$('.single-country-info').fadeIn();
@@ -886,8 +890,6 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 		}
 	}
 
-
-
 	function addClickListenerToListButtons() {
 		var $list = $(properties.container + " .slide-menu .menu");
 		var $showButton = $(properties.container + " .show-slide-menu-button");
@@ -912,8 +914,16 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 		$(".button.functionSelect").change(function() {
 			valueMappingFunction = valueMappingFunctions[$(this).find("option:selected").val()];
 			$('.single-country-info').fadeOut();
+
+			adaptColorParameters();
 			adaptMapToNewDataTypeOrColorFunction();
+			$('.slide-menu .list').find('tr').removeClass('selected');
 		});
+	}
+
+	function adaptColorParameters() {
+		setCurrentMaximumValueAndSum();
+		setColorRangeDomain();
 	}
 
 	function addScrollingToList() {
@@ -996,7 +1006,7 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 		return false;
 	}
 	function getPercentageBetweenUpperAndLowerColor(datum) {
-		var value = datum.properties.country.values[data.selectedType].percent;
+		var value = datum.properties.country.values[data.selectedType];
 		var valueMapped = valueMappingFunction(value);
 		return colorRange(valueMapped);
 	}
@@ -1029,12 +1039,12 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 	}
 
 	function getCountriesInArray() {
-	
+
 		// the data object holds an object with countries in it.
 		// for the purpose of this map, it is easier to iterate over
 		// an array list of countries. therefore it is mapped here.
 		// please note that the country code is now stored as 'code'.
-	
+
 		var array = [];
 		for(var key in data.countries) {
 			if(data.countries.hasOwnProperty(key)) {
