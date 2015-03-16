@@ -37,9 +37,8 @@
 				}
 			}
 		},
-		"countries": [
-			{
-				"code": "ES",
+		"countries": {
+			"ES": {
 				"label": "Spain",
 				"continent": "Europe",
 				"values": {
@@ -52,8 +51,8 @@
 						"percent": 18.2655
 					}
 				}
-			}, {
-				"code": "IT",
+			},
+			"IT": {
 				"label": "Italy",
 				"continent": "Europe",
 				"values": {
@@ -66,8 +65,8 @@
 						"percent": 96.1708
 					}
 				}
-			}, {
-				"code": "RU",
+			},
+			"RU": {
 				"label": "Russia",
 				"continent": "Europe",
 				"values": {
@@ -81,6 +80,6 @@
 					}
 				}
 			}
-		]
+		}
 	}
 }

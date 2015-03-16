@@ -526,7 +526,8 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 	}
 
 	function setCurrentMaximumPercent() {
-		currentMaximumPercent = d3.max(data.countries, function(country) {
+		var countryArray = getCountriesInArray();
+		currentMaximumPercent = d3.max(countryArray, function(country) {
 			if(isset(country.values[data.selectedType])) {
 				return parseFloat(country.values[data.selectedType].percent, 10);
 			}
@@ -535,13 +536,15 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 	}
 
 	function mergeData(topo) {
-		for(var i=0; i<data.countries.length; i++) {
+		var countryArray = getCountriesInArray();
+
+		for(var i=0; i<countryArray.length; i++) {
 			var codeMatch = false;
 
 			for(var j=0; j < topo.features.length; j++) {
 				var mapCountryCode = topo.features[j].properties.iso_a2;
-				if(data.countries[i].code === mapCountryCode) {
-					var countryInformation = data.countries[i];
+				if(countryArray[i].code === mapCountryCode) {
+					var countryInformation = countryArray[i];
 					topo.features[j].properties.country = countryInformation;
 					codeMatch = true;
 				}
@@ -558,8 +561,9 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 	function fillMapListInData() {
 		mapList = [];
 
-		for(var i=0; i<data.countries.length; i++) {
-			var country = data.countries[i];
+		var countryArray = getCountriesInArray();
+		for(var i=0; i<countryArray.length; i++) {
+			var country = countryArray[i];
 
 			if(isset(country.values[data.selectedType])) {
 				mapList.push({
@@ -1022,6 +1026,23 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 
 	function isString(variable) {
 		return typeof variable === String || typeof variable === 'string';
+	}
+
+	function getCountriesInArray() {
+	
+		// the data object holds an object with countries in it.
+		// for the purpose of this map, it is easier to iterate over
+		// an array list of countries. therefore it is mapped here.
+		// please note that the country code is now stored as 'code'.
+	
+		var array = [];
+		for(var key in data.countries) {
+			if(data.countries.hasOwnProperty(key)) {
+				var object = data.countries[key];
+				array.push($.extend(true, {}, object, {code: key}));
+			}
+		}
+		return array;
 	}
 
 	return {
