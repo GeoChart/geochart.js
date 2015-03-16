@@ -17,7 +17,10 @@
 		</td>
 		<td>
 			<span data-content="label" class="countryName"></span>
-			<span data-content="continent" class="continent"></td>
+			<span data-content="continent" class="continent" data-template-bind='{
+				"attribute": "style",
+				"value": "displayContinent"
+			}'></span>
 		</td>
 		<td>
 			<span class="percent" data-content="percent"></span>

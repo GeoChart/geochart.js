@@ -366,6 +366,20 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 			}
 		}
 
+		(function addNotLocatableToMapList() {
+			if(isset(data.notLocatable) &&
+				isset(data.notLocatable.values) &&
+				isset(data.notLocatable.values[data.selectedType])) {
+				mapList.push({
+					code: '&nbsp;',
+					label: data.notLocatable.label,
+					value: data.notLocatable.values[data.selectedType],
+					percent: formatPercent(data.notLocatable.values[data.selectedType] / currentValueSum),
+					displayContinent: 'display:none'
+				});
+			}
+		})();
+
 		function sortMapList(firstCountry, secondCountry) {
 			var firstValue = firstCountry.value;
 			var secondValue = secondCountry.value;
@@ -381,7 +395,7 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 	}
 
 	function formatPercent(percent) {
-		return Math.round(percent*100 * 1000)/1000+'%';
+		return (Math.round(percent*100 * 1000)/1000).toFixed(3)+'%';
 	}
 
 	function fillMapListInGui() {

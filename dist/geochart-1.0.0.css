@@ -460,11 +460,11 @@
         .geochart-map .slide-menu .menu .list table .countryName {
           display: block;
           font-size: 15px;
-          padding-bottom: 4px;
           padding-right: 10px; }
         .geochart-map .slide-menu .menu .list table .continent {
           display: block;
           font-size: 12px;
+          padding-top: 4px;
           padding-right: 10px; }
         .geochart-map .slide-menu .menu .list table .percent {
           padding-right: 25px;

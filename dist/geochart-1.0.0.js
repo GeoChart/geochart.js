@@ -104,7 +104,10 @@ geochartjs.htmlTemplate = (function() {
 		'		</td>\n' +
 		'		<td>\n' +
 		'			<span data-content="label" class="countryName"></span>\n' +
-		'			<span data-content="continent" class="continent"></td>\n' +
+		'			<span data-content="continent" class="continent" data-template-bind=\'{\n' +
+		'				"attribute": "style",\n' +
+		'				"value": "displayContinent"\n' +
+		'			}\'></span>\n' +
 		'		</td>\n' +
 		'		<td>\n' +
 		'			<span class="percent" data-content="percent"></span>\n' +
@@ -579,6 +582,20 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 			}
 		}
 
+		(function addNotLocatableToMapList() {
+			if(isset(data.notLocatable) &&
+				isset(data.notLocatable.values) &&
+				isset(data.notLocatable.values[data.selectedType])) {
+				mapList.push({
+					code: '&nbsp;',
+					label: data.notLocatable.label,
+					value: data.notLocatable.values[data.selectedType],
+					percent: formatPercent(data.notLocatable.values[data.selectedType] / currentValueSum),
+					displayContinent: 'display:none'
+				});
+			}
+		})();
+
 		function sortMapList(firstCountry, secondCountry) {
 			var firstValue = firstCountry.value;
 			var secondValue = secondCountry.value;
@@ -594,7 +611,7 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 	}
 
 	function formatPercent(percent) {
-		return Math.round(percent*100 * 1000)/1000+'%';
+		return (Math.round(percent*100 * 1000)/1000).toFixed(3)+'%';
 	}
 
 	function fillMapListInGui() {

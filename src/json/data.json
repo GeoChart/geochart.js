@@ -28,7 +28,7 @@
 			"label": "Not Locatable",
 			"values": {
 				"OBSERVED_PEERS": 598,
-				"MAX_SWARM_SIZE": 400
+				"MAX_SWARM_SIZE": 490
 			}
 		},
 		"countries": {
