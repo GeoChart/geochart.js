@@ -339,7 +339,7 @@
     .geochart-map.fullscreen .dateStamp {
       top: 19px;
       right: 125px; }
-  .geochart-map.noControls:not(.fullscreen) .zoom-plus, .geochart-map.noControls:not(.fullscreen) .zoom-minus, .geochart-map.noControls:not(.fullscreen) .colorLegend, .geochart-map.noControls:not(.fullscreen) .show-slide-menu-button, .geochart-map.noControls:not(.fullscreen) .hide-slide-menu-area, .geochart-map.noControls:not(.fullscreen) .slide-menu .listWrapper, .geochart-map.smallMap:not(.fullscreen) .zoom-plus, .geochart-map.smallMap:not(.fullscreen) .zoom-minus, .geochart-map.smallMap:not(.fullscreen) .colorLegend, .geochart-map.smallMap:not(.fullscreen) .show-slide-menu-button, .geochart-map.smallMap:not(.fullscreen) .hide-slide-menu-area, .geochart-map.smallMap:not(.fullscreen) .slide-menu .listWrapper {
+  .geochart-map.noControls:not(.fullscreen) .overlay, .geochart-map.smallMap:not(.fullscreen) .overlay {
     display: none !important; }
   .geochart-map .hide-slide-menu-area {
     display: none;

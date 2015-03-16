@@ -31,12 +31,7 @@
 	}
 	&.noControls:not(.fullscreen),
 	&.smallMap:not(.fullscreen) {
-		.zoom-plus,
-		.zoom-minus,
-		.colorLegend,
-		.show-slide-menu-button,
-		.hide-slide-menu-area,
-		.slide-menu .listWrapper {
+		.overlay {
 			display: none !important;
 		}
 	}

@@ -63,9 +63,9 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 	var dataJsonUrl;
 	var resizeTimer;
 	var fixedSize = false;
-	var windowWidth;
 	var tabScrollApi;
 	var $scrollTabElement;
+	var currentContainerWidth;
 
 	var valueMappingFunctions = {
 		log: function(n) {
@@ -90,11 +90,6 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 
 	var initialize = (function() {
 
-		function initNoControls(configuration) {
-			$(properties.container).addClass("noControls");
-			initialize(configuration);
-		}
-
 		function init(configuration) {
 
 			// this function checks to configuration input and handles it respectively.
@@ -112,6 +107,9 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 			}
 			if(isObject(configuration.label)) {
 				label = $.extend(true, label, configuration.label);
+			}
+			if(isTrue(configuration.noControls)) {
+				$(properties.container).addClass("noControls");
 			}
 
 			preInitialization();
@@ -204,8 +202,7 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 		}
 
 		return {
-			init: init,
-			initNoControls: initNoControls
+			init: init
 		};
 
 	})();
@@ -275,18 +272,17 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 				d3.event.stopPropagation();
 			}
 		}
-
-		windowWidth = $(window).width();
 	}
 
 
 	function makeMapResizable() {
+		currentContainerWidth = $(properties.container).width();
 		d3.select(window).on("resize", function() {
 			var isFullscreen = $(properties.container).is("."+properties.fullscreenClass);
-			var windowWidthChanged = windowWidth !== $(window).width();
+			var containerWidthChanged = currentContainerWidth !== $(properties.container).width();
 
-			if(!(fixedSize && !isFullscreen) && (isFullscreen || windowWidthChanged)) {
-				windowWidth = $(window).width();
+			if(!(fixedSize && !isFullscreen) && (isFullscreen || containerWidthChanged)) {
+				currentContainerWidth = $(properties.container).width();
 				window.clearTimeout(resizeTimer);
 				d3.select(properties.container + " .overlay").transition().duration(200).style("opacity", 0);
 				$(properties.container + " .single-country-info").hide();
@@ -843,6 +839,10 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 		return typeof variable === String || typeof variable === 'string';
 	}
 
+	function isTrue(variable) {
+		return variable === true || (isString(variable) && variable.toLowerCase() === 'true');
+	}
+
 	function getCountriesInArray() {
 
 		// the data object holds an object with countries in it.
@@ -862,8 +862,8 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 
 	return {
 		init: initialize.init,
-		initNoControls: initialize.initNoControls,
-		makeFixedSize: makeFixedSize
+		makeFixedSize: makeFixedSize,
+		isTrue: isTrue
 	};
 
 }(jQuery, d3, topojson, moment, geochartjs.utils, geochartjs.htmlTemplate));
