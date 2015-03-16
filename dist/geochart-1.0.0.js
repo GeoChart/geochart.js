@@ -763,16 +763,17 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 	}
 
 	function selectCountryOnMapList(datum) {
-		var $list = $(properties.container + " .slide-menu .list");
-		var $row = $list.find("table tbody tr");
-		$row.removeClass("selected");
+		var $list = $(properties.container + ' .slide-menu .list');
+		var $row = $list.find('table tbody tr');
+		$row.removeClass('selected');
 
-		if(typeof datum !== "undefined") {
+		if(isset(datum)) {
 			var countryCode = datum.properties.iso_a2;
 
 			$row.each(function() {
 				if($(this).data("country-code") === countryCode) {
 					$(this).addClass("selected");
+					$(this).find('.ranking').css('backgroundColor', style.selectedCountryColor);
 				}
 			});
 		}
@@ -920,7 +921,7 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 
 			adaptColorParameters();
 			adaptMapToNewDataTypeOrColorFunction();
-			$('.slide-menu .list').find('tr').removeClass('selected');
+			$('.slide-menu .list').find('tr').removeClass('selected').find('.ranking').removeAttr('style');
 		});
 	}
 
