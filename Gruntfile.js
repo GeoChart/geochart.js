@@ -4,14 +4,44 @@ module.exports = function(grunt) {
 
 	var jsCustom = [
 		'src/js/main.js',
+		'tmp/html/geochart.tpl.js',
 		'src/js/utils.js',
 		'src/js/error-handling.js',
 		'src/js/map.js'
 	];
 
+	function getHtmlPrefix() {
+		var prefix = 'geochartjs.htmlTemplate = (function() {\n\n';
+		prefix += '	"use strict";\n\n';
+		return prefix;
+	}
+	function getHtmlSuffix() {
+		var suffix = '\n	return {\n';
+		suffix += '\		overlays: htmlTemplate[\'overlays.tpl.html\'],\n';
+		suffix += '\		templates: htmlTemplate[\'templates.tpl.html\']';
+		suffix += '\n	};\n\n})();\n';
+		return suffix;
+	}
+
 	grunt.initConfig({
 
 		pkg: grunt.file.readJSON('package.json'),
+
+		htmlConvert: {
+			options: {
+				base: 'src/html/',
+				quoteChar: '\'',
+				module: 'htmlTemplate',
+				prefix: getHtmlPrefix(),
+				suffix: getHtmlSuffix(),
+				indentGlobal: '	',
+				indentString: '	'
+			},
+			htmlTemplate: {
+				src: ['src/html/overlays.tpl.html', 'src/html/templates.tpl.html'],
+				dest: 'tmp/html/geochart.tpl.js'
+			}
+		},
 
 		concat: {
 			jsCustom: {
@@ -67,7 +97,7 @@ module.exports = function(grunt) {
 
 		autoprefixer: {
 			options: {
-				browsers: '> 3% in CH'
+				browsers: '> 2% in CH'
 			},
 			css: {
 				src: 'dist/<%= pkg.name %>-<%= pkg.version %>.css'
@@ -110,6 +140,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('default', [
 		'clean',
+		'htmlConvert',
 		'concat:jsCustom',
 		'jshint',
 		'copy:js',

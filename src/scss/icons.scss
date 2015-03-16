@@ -1,11 +1,3 @@
-@mixin rotate($degrees) {
-	-webkit-transform: rotate($degrees);
-	-moz-transform: rotate($degrees);
-	-ms-transform: rotate($degrees);
-	-o-transform: rotate($degrees);
-	transform: rotate($degrees);
-}
-
 .geochart-map {
 	$color: #bbb;
 	$background: #434343;
@@ -81,10 +73,10 @@
 				height: 0.4em;
 				border: 0.25em solid $color;
 				border-width: 0.25em 0;
-				@include rotate(45deg);
+				transform: rotate(45deg);
 			}
 			&:after {
-				@include rotate(-45deg);
+				transform: rotate(-45deg);
 			}
 			.inner {
 				position: absolute;
@@ -117,10 +109,10 @@
 				border: 0.25em solid $color;
 				border-width: 0.25em 0;
 				margin-top: -0.6em;
-				@include rotate(45deg);
+				transform: rotate(45deg);
 			}
 			&:after {
-				@include rotate(-45deg);
+				transform: rotate(-45deg);
 			}
 			.inner {
 				position: absolute;
@@ -137,10 +129,10 @@
 					border-color: rgba(0,0,0,0) $color;
 					margin-top: 0.25em;
 					background: rgba(0,0,0,0);
-					@include rotate(-45deg);
+					transform: rotate(-45deg);
 				}
 				&:after {
-					@include rotate(45deg);
+					transform: rotate(45deg);
 				}
 			}
 		}
@@ -183,7 +175,7 @@
 				bottom: -0.05em;
 				width: 0.24em;
 				height: 0.8em;
-				@include rotate(45deg);
+				transform: rotate(45deg);
 				background: $color;
 			}
 			&:after {
@@ -192,7 +184,7 @@
 				width: 0.22em;
 				height: 0.3em;
 				background: $background;
-				@include rotate(45deg);
+				transform: rotate(45deg);
 			}
 			.inner {
 				position: absolute;
@@ -212,12 +204,12 @@
 				display: block;
 				width: 0.7em;
 				height: 0.25em;
-				@include rotate(45deg);
+				transform: rotate(45deg);
 				background: $color;
 				top: 0.35em;
 			}
 			&:after {
-				@include rotate(-45deg);
+				transform: rotate(-45deg);
 				left: 0.325em;
 			}
 		}
@@ -242,5 +234,44 @@
 			}
 
 		}
+	}
+
+	.spinner {
+		/* source: http://tobiasahlin.com/spinkit/ */
+		width: 60px;
+		height: 60px;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-left: -30px;
+		margin-top: -30px;
+
+		&:before,
+		&:after {
+			display: block;
+			content: "";
+			width: 100%;
+			height: 100%;
+			border-radius: 50%;
+			background-color: #1A405C;
+			opacity: 0.6;
+			position: absolute;
+			top: 0;
+			left: 0;
+			animation: bounce 1.5s infinite ease-in-out;
+		}
+
+		&:after {
+			animation-delay: -0.75s;
+		}
+	}
+}
+
+@keyframes bounce {
+	0%, 100% {
+		transform: scale(0.0);
+  }
+  50% {
+		transform: scale(1.0);
 	}
 }

@@ -1,39 +1,86 @@
 {
 	"data": {
-		"countries": [
-			{
-				"MAX_SWARM_SIZE": 451,
-				"COUNTRY_CODE": "ES",
-				"PERCENTAGE": 18.2655,
-				"OBSERVED_PEERS": 2302
-			}, {
-				"MAX_SWARM_SIZE": 400,
-				"COUNTRY_CODE": "IT",
-				"PERCENTAGE": 16.1708,
-				"OBSERVED_PEERS": 2038
-			}, {
-				"MAX_SWARM_SIZE": 135,
-				"COUNTRY_CODE": "AR",
-				"PERCENTAGE": 5.467,
-				"OBSERVED_PEERS": 689
-			}, {
-				"MAX_SWARM_SIZE": 125,
-				"COUNTRY_CODE": "RU",
-				"PERCENTAGE": 5.0226,
-				"OBSERVED_PEERS": 633
-			}, {
-				"MAX_SWARM_SIZE": 118,
-				"COUNTRY_CODE": "PH",
-				"PERCENTAGE": 4.7449,
-				"OBSERVED_PEERS": 598
-			}
-		],
+		"csv": "http://kraken-vm.csg.uzh.ch:8080/kraken-ui/request/generic-map.csv",
 		"date": {
 			"value": "2014-09-15",
 			"format": "YYYY-MM-DD"
 		},
-		"csv": "http://kraken-vm.csg.uzh.ch:8080/kraken-ui/request/generic-map.csv",
-		"NOT_LOCATABLE_PERCENTAGE": 0.0159,
-		"NOT_LOCATABLE_PEERS": 2
+		"types": [
+			{
+				"type": "OBSERVED_PEERS",
+				"label": "Observed Peers"
+			}, {
+				"type": "MAX_SWARM_SIZE",
+				"label": "Max. Swarm Size"
+			}, {
+				"type": "TEST_TYPE_1",
+				"label": "Test Type 1"
+			}, {
+				"type": "TEST_TYPE_2",
+				"label": "Test Type 2"
+			}, {
+				"type": "TEST_TYPE_3",
+				"label": "Test Type 3"
+			}
+		],
+		"selectedType": "TEST_TYPE_1",
+		"notLocatable": {
+			"label": "Not Locatable",
+			"values": {
+				"OBSERVED_PEERS": {
+					"value": 598,
+					"percent": 4.7449
+				},
+				"MAX_SWARM_SIZE": {
+					"value": 400,
+					"percent": 4.7449
+				}
+			}
+		},
+		"countries": [
+			{
+				"code": "ES",
+				"label": "Spain",
+				"continent": "Europe",
+				"values": {
+					"OBSERVED_PEERS": {
+						"value": 2302,
+						"percent": 18.2655
+					},
+					"MAX_SWARM_SIZE": {
+						"value": 451,
+						"percent": 18.2655
+					}
+				}
+			}, {
+				"code": "IT",
+				"label": "Italy",
+				"continent": "Europe",
+				"values": {
+					"OBSERVED_PEERS": {
+						"value": 1038,
+						"percent": 10.1708
+					},
+					"MAX_SWARM_SIZE": {
+						"value": 800,
+						"percent": 96.1708
+					}
+				}
+			}, {
+				"code": "RU",
+				"label": "Russia",
+				"continent": "Europe",
+				"values": {
+					"TEST_TYPE_1": {
+						"value": 1038,
+						"percent": 200
+					},
+					"MAX_SWARM_SIZE": {
+						"value": 2020,
+						"percent": 150
+					}
+				}
+			}
+		]
 	}
 }

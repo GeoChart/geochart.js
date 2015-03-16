@@ -24,137 +24,7 @@
 
 <body>
 
-	<div class="geochart-map">
-	<div class="overlay">
-		<div class="button show-slide-menu-button">
-			<span class="icon icon-menu">
-				<span class="inner"></span>
-			</span>
-		</div>
-		<div class="button zoom-plus">
-			<div class="icon icon-plus"></div>
-		</div>
-		<div class="button zoom-minus">
-			<div class="icon icon-minus"></div>
-		</div>
-		<div class="button settings">
-			<div class="icon icon-settings">
-				<div class="inner"></div>
-			</div>
-			<div class="icon icon-settings-hide"></div>
-		</div>
-		<div class="settingsWrapper">
-			<div class="functionSelectWrapper">
-				<div class="icon icon-select"></div>
-				<div class="selectLabel">COLOR FUNCTION</div>
-				<select class="button functionSelect">
-					<option value="log">Logarithmic</option>
-					<option value="linear">Linear</option>
-					<option value="quadratic">Quadratic</option>
-					<option value="sqrt">Square Root</option>
-					<option value="cubicroot">Cubic Root</option>
-					<option value="neginverse">Negated Inverse</option>
-				</select>
-			</div>
-			<div class="dataTypeSelectWrapper">
-				<div class="icon icon-select"></div>
-				<div class="selectLabel">DATA TYPE</div>
-				<select class="button dataTypeSelect"></select>
-			</div>
-		</div>
-
-		<div class="single-country-info"></div>
-		<div class="slide-menu">
-			<div class="hide-slide-menu-area"></div>
-			<div class="listWrapper">
-				<div class="menu">
-					<h2>Data Distribution<span class="date"></span></h2>
-					<div class="data-type-chooser">
-						<div class="scroll-pane"></div>
-						<a class="left-scroll"></a>
-						<a class="right-scroll"></a>
-					</div>
-					<div class="list">
-						<a class="csvDownload" target="_blank">
-							<span class="icon icon-download"><span class="inner"></span></span>
-							<span>.csv</span>
-						</a>
-						<div class="scroll-pane">
-							<table>
-								<tbody></tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="button fullscreen-open">
-			<span class="icon icon-fullscreen-open">
-				<span class="inner"></span>
-			</span>
-		</div>
-		<div class="button fullscreen-close">
-			<span class="icon icon-fullscreen-close">
-				<span class="inner"></span>
-			</span>
-		</div>
-	</div>
-</div>
-
-<script type="text/html" id="single-country-info-template">
-	<div>
-		<span data-content="name"></span>
-		<span data-content="continent" class="continent"></span>
-	</div>
-	<!-- TODO -->
-	<div class="data-type">
-		<span class="value" data-content="observedPeers"></span>
-		<span class="percentage"><span data-content="percentage"></span>%</span>
-		<span class="title" data-content="title">Observed Peers</span>
-	</div>
-</script>
-
-<script type="text/html" id="slide-menu-table-template">
-	<tr data-template-bind='{"attribute": "data-country-code", "value": "countryCode"}'>
-		<td>
-			<span data-content="ranking" class="ranking" data-template-bind='{
-				"attribute": "style",
-				"value": "color",
-				"formatter": "backgroundColorFormatter"
-			}'></span>
-		</td>
-		<td>
-			<span data-content="countryName" class="countryName"></span>
-			<span data-content="continent" class="continent"></td>
-		</td>
-		<td>
-			<span class="percentage">
-				<span data-content="percentage"></span>%
-			</span>
-		</td>
-		<td>
-			<span class="observedPeers" data-content="observedPeers" data-format="numberFormatter"></span>
-		</td>
-	</tr>
-</script>
-<script type="text/html" id="data-type-chooser-template">
-	<span data-content="data-type-title" data-template-bind='[{
-		"attribute": "data-type",
-		"value": "data-type"
-	}, {
-		"attribute": "class",
-		"value": "active"
-	}]'></span>
-</script>
-<script type="text/html" id="data-type-chooser-select-template">
-	<option data-content="data-type-title" data-template-bind='[{
-		"attribute": "value",
-		"value": "data-type"
-	}, {
-		"attribute": "class",
-		"value": "active"
-	}]'></option>
-</script>
+	<div class="geochart-map"></div>
 
 	<!-- dependencies -->
 	<script src="/bower_components/jquery/dist/jquery.js"></script>
@@ -170,7 +40,39 @@
 
 	<script type="text/javascript">
 		$(document).ready(function() {
-			geochartjs.map.init("/src/json/world.json", "/src/json/data.json");
+
+			geochartjs.map.init({
+				map: "/src/json/world.json",
+				data: "/src/json/data.json",
+				format: {
+					date: 'DD.MM.YYYY'
+				},
+				style: {
+					seaColor: '#B8D5EA',
+					countryColorRangeStart: "rgb(182,218,195)",
+					countryColorRangeEnd: "rgb(7,84,37)",
+					countryColorNoData: "#efefef",
+					countryStrokeColor: "#CCC",
+					countryStrokeWidthMin: "0.07",
+					countryStrokeWidthMax: "0.3",
+					selectedCountryColor: "#FFE700",
+					selectedCountryStrokeColor: "#000000"
+				},
+				label: {
+					mapListTitle: 'Data Distribution',
+					configurationDataType: 'DATA TYPE',
+					configurationColorFunction: 'COLOR FUNCTION',
+					colorFunction: {
+						log: 'Logarithmic',
+						linear: 'Linear',
+						quadratic: 'Quadratic',
+						sqrt: 'Square Root',
+						cubicroot: 'Cubic Root',
+						neginverse: 'Negated Inverse'
+					}
+				}
+			});
+
 		});
 	</script>
 

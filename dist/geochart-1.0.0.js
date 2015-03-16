@@ -1,4 +1,140 @@
 var geochartjs = geochartjs || {};
+
+geochartjs.htmlTemplate = (function() {
+
+	"use strict";
+
+	var htmlTemplate = {};
+
+	htmlTemplate['overlays.tpl.html'] = '<div class="spinner"></div>\n' +
+		'<div class="overlay" style="opacity: 0">\n' +
+		'	<div class="button show-slide-menu-button">\n' +
+		'		<span class="icon icon-menu">\n' +
+		'			<span class="inner"></span>\n' +
+		'		</span>\n' +
+		'	</div>\n' +
+		'	<div class="button zoom-plus">\n' +
+		'		<div class="icon icon-plus"></div>\n' +
+		'	</div>\n' +
+		'	<div class="button zoom-minus">\n' +
+		'		<div class="icon icon-minus"></div>\n' +
+		'	</div>\n' +
+		'	<div class="button settings">\n' +
+		'		<div class="icon icon-settings">\n' +
+		'			<div class="inner"></div>\n' +
+		'		</div>\n' +
+		'		<div class="icon icon-settings-hide"></div>\n' +
+		'	</div>\n' +
+		'	<div class="settingsWrapper">\n' +
+		'		<div class="functionSelectWrapper">\n' +
+		'			<div class="icon icon-select"></div>\n' +
+		'			<div class="selectLabel"></div>\n' +
+		'			<select class="button functionSelect">\n' +
+		'				<option value="log"></option>\n' +
+		'				<option value="linear"></option>\n' +
+		'				<option value="quadratic"></option>\n' +
+		'				<option value="sqrt"></option>\n' +
+		'				<option value="cubicroot"></option>\n' +
+		'				<option value="neginverse"></option>\n' +
+		'			</select>\n' +
+		'		</div>\n' +
+		'		<div class="dataTypeSelectWrapper">\n' +
+		'			<div class="icon icon-select"></div>\n' +
+		'			<div class="selectLabel"></div>\n' +
+		'			<select class="button dataTypeSelect"></select>\n' +
+		'		</div>\n' +
+		'	</div>\n' +
+		'\n' +
+		'	<div class="single-country-info"></div>\n' +
+		'	<div class="slide-menu">\n' +
+		'		<div class="hide-slide-menu-area"></div>\n' +
+		'		<div class="listWrapper">\n' +
+		'			<div class="menu">\n' +
+		'				<h2>\n' +
+		'					<span class="title"></span><span class="date"></span>\n' +
+		'				</h2>\n' +
+		'				<div class="data-type-chooser">\n' +
+		'					<div class="bottomLine"></div>\n' +
+		'					<div class="scroll-pane"></div>\n' +
+		'					<a class="left-scroll"></a>\n' +
+		'					<a class="right-scroll"></a>\n' +
+		'				</div>\n' +
+		'				<div class="list">\n' +
+		'					<a class="csvDownload" target="_blank">\n' +
+		'						<span class="icon icon-download"><span class="inner"></span></span>\n' +
+		'						<span>.csv</span>\n' +
+		'					</a>\n' +
+		'					<div class="scroll-pane">\n' +
+		'						<table>\n' +
+		'							<tbody></tbody>\n' +
+		'						</table>\n' +
+		'					</div>\n' +
+		'				</div>\n' +
+		'			</div>\n' +
+		'		</div>\n' +
+		'	</div>\n' +
+		'	<div class="button fullscreen-open">\n' +
+		'		<span class="icon icon-fullscreen-open">\n' +
+		'			<span class="inner"></span>\n' +
+		'		</span>\n' +
+		'	</div>\n' +
+		'	<div class="button fullscreen-close">\n' +
+		'		<span class="icon icon-fullscreen-close">\n' +
+		'			<span class="inner"></span>\n' +
+		'		</span>\n' +
+		'	</div>\n' +
+		'</div>';
+
+	htmlTemplate['templates.tpl.html'] = '<script type="text/html" id="single-country-info-template">\n' +
+		'	<div>\n' +
+		'		<span data-content="countryLabel"></span>\n' +
+		'		<span data-content="continent" class="continent"></span>\n' +
+		'	</div>\n' +
+		'	<div class="data-type">\n' +
+		'		<span class="value" data-content="value"></span>\n' +
+		'		<span class="percentage"><span data-content="percent"></span>%</span>\n' +
+		'		<span class="title" data-content="dataType"></span>\n' +
+		'	</div>\n' +
+		'</script>\n' +
+		'\n' +
+		'<script type="text/html" id="slide-menu-table-template">\n' +
+		'	<tr data-template-bind=\'{"attribute": "data-country-code", "value": "code"}\'>\n' +
+		'		<td>\n' +
+		'			<span data-content="ranking" class="ranking"></span>\n' +
+		'		</td>\n' +
+		'		<td>\n' +
+		'			<span data-content="label" class="countryName"></span>\n' +
+		'			<span data-content="continent" class="continent"></td>\n' +
+		'		</td>\n' +
+		'		<td>\n' +
+		'			<span class="percentage">\n' +
+		'				<span data-content="percent"></span>%\n' +
+		'			</span>\n' +
+		'		</td>\n' +
+		'		<td>\n' +
+		'			<span class="observedPeers" data-content="value"></span>\n' +
+		'		</td>\n' +
+		'	</tr>\n' +
+		'</script>\n' +
+		'\n' +
+		'<script type="text/html" id="data-type-chooser-template">\n' +
+		'	<span class="tab" data-content="label" data-template-bind=\'[{\n' +
+		'		"attribute": "data-type",\n' +
+		'		"value": "type"\n' +
+		'	}]\'></span>\n' +
+		'</script>\n' +
+		'\n' +
+		'<script type="text/html" id="data-type-chooser-select-template">\n' +
+		'	<option data-content="label" data-value="type"></option>\n' +
+		'</script>';
+
+	return {
+		overlays: htmlTemplate['overlays.tpl.html'],
+		templates: htmlTemplate['templates.tpl.html']
+	};
+
+})();
+
 geochartjs.utils = ( function($) {
 
 	"use strict";
@@ -77,21 +213,9 @@ geochartjs.errorHandling = function(jsonResult, successCallback) {
 	}
 
 };
-geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
+geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 
 	"use strict";
-
-	var styles = {
-		selectedColor: "#FFE700",
-		selectedStrokeColor: "#000000",
-		strokeColor: "#CCC",
-		strokeWidthMin: "0.07",
-		strokeWidthMax: "0.3",
-		colorRangeStart: "rgb(182,218,195)",
-		colorRangeEnd: "rgb(7,84,37)",
-		colorNoData: "#efefef",
-		mapListColorNotLocatable: "#CCC"
-	};
 
 	var properties = {
 		container: ".geochart-map",
@@ -105,52 +229,47 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 	};
 
 	var mapList = [];
-	var dataTypes = [{
-		'data-type': 'OBSERVED_PEERS',
-		'data-type-title': 'Observed Peers',
-		'active': 'active'
-	}, {
-		'data-type': 'MAX_SWARM_SIZE',
-		'data-type-title': 'Max Swarm Size',
-		'active': ''
-	}, {
-		'data-type': 'MAX_SWARM_SIZE2',
-		'data-type-title': 'Max Swarm Size2',
-		'active': ''
-	}, {
-		'data-type': 'MAX_SWARM_SIZE3',
-		'data-type-title': 'Max Swarm Size3',
-		'active': ''
-	}, {
-		'data-type': 'MAX_SWARM_SIZE4',
-		'data-type-title': 'Max Swarm Size4',
-		'active': ''
-	}, {
-		'data-type': 'MAX_SWARM_SIZE5',
-		'data-type-title': 'Max Swarm Size5',
-		'active': ''
-	}, {
-		'data-type': 'MAX_SWARM_SIZE6',
-		'data-type-title': 'Max Swarm Size6',
-		'active': ''
-	}, {
-		'data-type': 'MAX_SWARM_SIZE7',
-		'data-type-title': 'Max Swarm Size7',
-		'active': ''
-	}];
+	var data = [];
+	var format = {
+		date: 'YYYY-MM-DD'
+	};
+	var style = {
+		seaColor: "#B8D5EA",
+		countryColorRangeStart: "rgb(182,218,195)",
+		countryColorRangeEnd: "rgb(7,84,37)",
+		countryColorNoData: "#efefef",
+		countryStrokeColor: "#CCC",
+		countryStrokeWidthMin: "0.07",
+		countryStrokeWidthMax: "0.3",
+		selectedCountryColor: "#FFE700",
+		selectedCountryStrokeColor: "#000000"
+	};
+	var label = {
+		mapListTitle: 'Data Distribution',
+		configurationDataType: 'DATA TYPE',
+		configurationColorFunction: 'COLOR FUNCTION',
+		colorFunction: {
+			log: 'Logarithmic',
+			linear: 'Linear',
+			quadratic: 'Quadratic',
+			sqrt: 'Square Root',
+			cubicroot: 'Cubic Root',
+			neginverse: 'Negated Inverse'
+		}
+	};
 
 	var colorRange = d3.scale.linear()
 		.range([0,1]);
 	var strokeRange = d3.scale.linear()
 		.domain(properties.zoomRange)
-		.range([styles.strokeWidthMax, styles.strokeWidthMin]);
+		.range([style.countryStrokeWidthMax, style.countryStrokeWidthMin]);
 	var svg;
 	var group;
 	var width;
 	var height;
 	var projection;
 	var path;
-	var maximumDataValue = 0;
+	var currentMaximumPercent = 0;
 	var zoom;
 	var topo;
 	var valueMappingFunction = Math.log;
@@ -183,104 +302,149 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 		}
 	};
 
-	function initializeWithoutControls(mapJsonUrlNew, dataJsonUrlNew) {
-		$(properties.container).addClass("noControls");
-		initialize(mapJsonUrlNew, dataJsonUrlNew);
-	}
+	var initialize = (function() {
 
-	function initialize(mapJsonUrlNew, dataJsonUrlNew) {
-		mapJsonUrl = mapJsonUrlNew;
-		dataJsonUrl = dataJsonUrlNew;
-		setupMap();
-		makeMapResizable();
+		function initNoControls(configuration) {
+			$(properties.container).addClass("noControls");
+			initialize(configuration);
+		}
 
-		d3.json(mapJsonUrl, function(mapJson) {
-			topo = topojson.feature(mapJson, mapJson.objects[properties.mapName]);
+		function init(configuration) {
 
-			d3.json(dataJsonUrl, function(config) {
-				var data = config.data;
+			// this function checks to configuration input and handles it respectively.
+			// it starts the map initialization when the mapData and the data is
+			// returned by the ajax call or instantly, if it is directly passed in the
+			// configuration object.
 
-				setMaximumDataValue(data);
-				setColorRangeDomain();
-				topo = mergeData(topo, data);
-				fillMapListWithData();
-				fillDateStampWithData(data.date);
-				addCSVLink(data.csv);
+			if(isObject(configuration.format)) {
+				format = $.extend(true, format, configuration.format);
+			}
+			if(isObject(configuration.style)) {
+				style = $.extend(true, style, configuration.style);
+			}
+			if(isObject(configuration.label)) {
+				label = $.extend(true, label, configuration.label);
+			}
+
+			preInitialization();
+
+			(function getMapDataAndContinueInitialization() {
+				if(isString(configuration.map)) {
+					d3.json(configuration.map, function(mapData) {
+						getDataObjectAndContinueInitialization(mapData);
+					});
+				}
+				else if(isObject(configuration.map)) {
+					getDataObjectAndContinueInitialization(configuration.map);
+				}
+				else {
+					throw "'geochart.js' needs a valid input map";
+				}
+			})();
+
+			function getDataObjectAndContinueInitialization(mapData) {
+				if(isString(configuration.data)) {
+					d3.json(configuration.data, function(config) {
+						data = config.data;
+						initialization(mapData);
+					});
+				}
+				else if(isObject(configuration.data)) {
+					data = configuration.data;
+					initialization(mapData);
+				}
+				else {
+					throw "'geochart.js' needs a valid data object";
+				}
+			}
+
+			postInitialization();
+		}
+
+		function preInitialization() {
+			createDomStructure();
+			setLabelTexts();
+			setupMap();
+			makeMapResizable();
+		}
+
+		function initialization(mapData) {
+			topo = topojson.feature(mapData, mapData.objects[properties.mapName]);
+
+			(function slideMenuMetaData() {
+				addCSVLink();
+				setDateStamp();
+			})();
+
+			(function setupSlideMenuList() {
+				fillMapList();
 				addScrollingToList();
-				displayMap();
-				displayFunctionSelectButton();
-				fillDataTypeSelectButtonWithEntries();
-			});
-		});
+			})();
 
-		addClickListenerToZoomButtons();
-		addClickListenerToFullScreenButtons();
-		addClickListenerToListButtons();
-		addClickListenerToSettingsButton();
-		addChangeListenerToFunctionSelect();
-		addChangeListenerToDataTypeSelectBox();
+			(function tabSwitchingBehavior() {
+				addMapListTabs();
+				addScrollingToTabs();
+				fillDataTypeSelectButtonWithEntries();
+				initialSelectionOfDataTypeInGui();
+				addClickListenerToDataTypeTabButtons();
+			})();
+
+			(function mapBehavior() {
+				topo = mergeData(topo);
+				displayMap();
+			})();
+		}
+
+		function postInitialization() {
+			addClickListenerToZoomButtons();
+			addClickListenerToFullScreenButtons();
+			addClickListenerToListButtons();
+			addClickListenerToSettingsButton();
+			addChangeListenerToFunctionSelect();
+			addChangeListenerToDataTypeSelectBox();
+		}
+
+		return {
+			init: init,
+			initNoControls: initNoControls
+		};
+
+	})();
+
+	function createDomStructure() {
+		$(htmlTemplate.overlays).appendTo(properties.container);
+		$(htmlTemplate.templates).appendTo('body');
 	}
 
-	function addCSVLink(link) {
+	function setLabelTexts() {
+		$('.slide-menu .menu h2 .title').text(label.mapListTitle);
+		$('.functionSelectWrapper .selectLabel').text(label.configurationColorFunction);
+		$('.dataTypeSelectWrapper .selectLabel').text(label.configurationDataType);
+		$('.button.functionSelect').find('option').text(function() {
+			return label.colorFunction[$(this).val()];
+		});
+	}
+
+	function addCSVLink() {
 		var $button = $('.list .csvDownload');
-		if(isset(link)) {
-			$button.attr('href', link);
+		if(isset(data.csv)) {
+			$button.attr('href', data.csv);
 		}
 		else {
 			$button.remove();
 		}
 	}
 
-	function fillDateStampWithData(date) {
-		// TODO
-		var formattedDate = moment(date.value, date.format).format("DD.MM.YYYY");
+	function setDateStamp() {
+		var formattedDate = moment(data.date.value, data.date.format).format(format.date);
 		$(properties.container + " .slide-menu h2 .date").text("("+formattedDate+")");
 	}
 
-	function fillMapListWithData() {
-		var $mapList = $(properties.container + " .slide-menu .list table tbody");
-		$mapList.empty();
-		$mapList.loadTemplate($("#slide-menu-table-template"), mapList);
-		$('.data-type-chooser .scroll-pane').loadTemplate($("#data-type-chooser-template"), dataTypes).find('span').addClass('tab');
-
-		addScrollingToTabs();
-		addClickListenerToDataTypeTabButtons();
-	}
-
-	// TODO remove or edit this function!
-	function adaptMapToNewUrlParameters() {
-		svg.remove();
-		$(properties.container + " .single-country-info").fadeOut();
-		var mapRefresh = true;
-		setupMap(mapRefresh);
-
-		d3.json(mapJsonUrl, function(mapJson) {
-			errorHandling(mapJson, function() {
-				topo = topojson.feature(mapJson, mapJson.objects[properties.mapName]);
-
-				d3.json(dataJsonUrl, function(error, dataJson) {
-					errorHandling(dataJson, function() {
-						setDataObservedPeersMaximum(dataJson);
-						setColorRangeDomain();
-						topo = mergeData(topo, dataJson);
-						fillMapListWithData();
-						fillDateStampWithData(dataJson.date);
-						addScrollingToList();
-						displayMap();
-						displayFunctionSelectButton();
-						$(properties.container).slideDown("slow");
-						$("html,body").animate({scrollTop: $(properties.container).offset().top}, "slow");
-					});
-				});
-			});
-		});
-	}
-
-	function setupMap(mapRefresh) {
-		svg = d3.select(properties.container).append("svg");
+	function setupMap() {
+		svg = d3.select(properties.container).append("svg").style('background', style.seaColor);
 		projection = d3.geo.equirectangular();
 
-		if(helper.isInFullscreen()) {
+		if(isInFullscreen()) {
 			height = $(properties.container).height();
 			width = height * 2;
 
@@ -306,15 +470,16 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 		group = svg.append("g").style("opacity", 0);
 		svg.call(zoom).call(zoom.event).on("click", preventClickingWhileDragging, true);
 
+		function preventClickingWhileDragging() {
+			// example from http://bl.ocks.org/mbostock/9656675
+			if (d3.event.defaultPrevented) {
+				d3.event.stopPropagation();
+			}
+		}
+
 		windowWidth = $(window).width();
 	}
 
-	function preventClickingWhileDragging() {
-		// example from http://bl.ocks.org/mbostock/9656675
-		if (d3.event.defaultPrevented) {
-			d3.event.stopPropagation();
-		}
-	}
 
 	function makeMapResizable() {
 		d3.select(window).on("resize", function() {
@@ -326,12 +491,15 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 				window.clearTimeout(resizeTimer);
 				d3.select(properties.container + " .overlay").transition().duration(200).style("opacity", 0);
 				$(properties.container + " .single-country-info").hide();
-				resizeTimer = window.setTimeout(function() {
-					redraw();
-					$("html,body").animate({scrollTop: $(properties.container).offset().top}, "fast");
-				}, 300);
+				timedRedraw();
 			}
 		});
+	}
+
+	function timedRedraw() {
+		resizeTimer = window.setTimeout(function() {
+			redraw();
+		}, 300);
 	}
 
 	function redraw() {
@@ -342,103 +510,157 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 	}
 
 	function setColorRangeDomain() {
-		colorRange.domain([0, valueMappingFunction(maximumDataValue)]);
+		colorRange.domain([0, valueMappingFunction(currentMaximumPercent)]);
 	}
 
-	function setMaximumDataValue(data) {
-		maximumDataValue = d3.max(data.countries, function(country) {
-			// TODO
-			return parseInt(country.OBSERVED_PEERS, 10);
+	function setCurrentMaximumPercent() {
+		currentMaximumPercent = d3.max(data.countries, function(country) {
+			if(isset(country.values[data.selectedType])) {
+				return parseFloat(country.values[data.selectedType].percent, 10);
+			}
+			return 0;
 		});
 	}
 
-	function mergeData(topo, dataJson) {
-		mapList = [];
-
-		for(var i=0; i<dataJson.countries.length; i++) {
+	function mergeData(topo) {
+		for(var i=0; i<data.countries.length; i++) {
 			var codeMatch = false;
-			var dataCountryCode = dataJson.countries[i].COUNTRY_CODE;
-			var dataObservedPeers = parseInt(dataJson.countries[i].OBSERVED_PEERS, 10);
-			var dataMaxSwarmSize = parseInt(dataJson.countries[i].MAX_SWARM_SIZE, 10);
-			var dataPercentage = parseFloat(dataJson.countries[i].PERCENTAGE);
 
 			for(var j=0; j < topo.features.length; j++) {
 				var mapCountryCode = topo.features[j].properties.iso_a2;
-				if(dataCountryCode === mapCountryCode) {
-					topo.features[j].properties.observedPeers = dataObservedPeers;
-					topo.features[j].properties.maxSwarmSize = dataMaxSwarmSize;
-					topo.features[j].properties.percentage = dataPercentage;
+				if(data.countries[i].code === mapCountryCode) {
+					var countryInformation = data.countries[i];
+					topo.features[j].properties.country = countryInformation;
 					codeMatch = true;
-					mapList.push({
-						ranking: i+1,
-						observedPeers: dataObservedPeers,
-						maxSwarmSize: dataMaxSwarmSize,
-						percentage: dataPercentage,
-						countryName: topo.features[j].properties.name,
-						countryCode: dataCountryCode,
-						continent: topo.features[j].properties.continent
-					});
 				}
 			}
-			if(!codeMatch) {
+		}
+		return topo;
+	}
+
+	function fillMapList() {
+		fillMapListInData();
+		fillMapListInGui();
+	}
+
+	function fillMapListInData() {
+		mapList = [];
+
+		for(var i=0; i<data.countries.length; i++) {
+			var country = data.countries[i];
+
+			if(isset(country.values[data.selectedType])) {
 				mapList.push({
-					ranking: i+1,
-					observedPeers: dataObservedPeers,
-					maxSwarmSize: dataMaxSwarmSize,
-					percentage: dataPercentage,
-					countryName: dataCountryCode,
-					countryCode: dataCountryCode,
-					continent: undefined
+					code: country.code,
+					label: country.label,
+					continent: country.continent,
+					value: country.values[data.selectedType].value,
+					percent: country.values[data.selectedType].percent
 				});
 			}
 		}
 
-		var notLocatablePeers = parseInt(dataJson.NOT_LOCATABLE_PEERS, 10);
-		var notLocatablePercentage = parseFloat(dataJson.NOT_LOCATABLE_PERCENTAGE);
-		if(notLocatablePeers > 0) {
-			mapList.push({
-				ranking: "&nbsp;",
-				observedPeers: notLocatablePeers,
-				maxSwarmSize: "&ndash;",
-				percentage: notLocatablePercentage,
-				countryName: properties.notLocatableTitle,
-				countryCode: properties.notLocatableTitle,
-				continent: undefined
-			});
+		function sortMapList(firstCountry, secondCountry) {
+			var firstValue = firstCountry.percent;
+			var secondValue = secondCountry.percent;
+
+			return ((firstValue > secondValue) ? -1 : ((firstValue < secondValue) ? 1 : 0));
 		}
 
-		for(var k=0; k < mapList.length; k++) {
-			if(mapList[k].countryName === properties.notLocatableTitle) {
-				mapList[k].color = styles.mapListColorNotLocatable;
-			}
-			else {
-				mapList[k].color = helper.getColor({properties: {observedPeers: mapList[k].observedPeers}});
-			}
-		}
+		mapList.sort(sortMapList);
 
-		return topo;
+		for(var j=0; j<mapList.length; j++) {
+			mapList[j].ranking = j+1;
+		}
+	}
+
+	function fillMapListInGui() {
+		var $mapList = $(properties.container + " .slide-menu .list table tbody");
+		$mapList.empty();
+		$mapList.loadTemplate($("#slide-menu-table-template"), mapList);
+	}
+
+	function addMapListTabs() {
+		$('.data-type-chooser .scroll-pane').loadTemplate($("#data-type-chooser-template"), data.types).find('span');
+	}
+
+	function addChangeListenerToDataTypeSelectBox() {
+		$('.button.dataTypeSelect').change(function() {
+			var type = $(this).find('option:selected').val();
+			selectDataType(type);
+		});
+	}
+	function addClickListenerToDataTypeTabButtons() {
+		var $tabs = $('.data-type-chooser .tab');
+		$tabs.click(function() {
+			if(!$(this).hasClass('active')) {
+				var type = $(this).data('type');
+				$('.button.dataTypeSelect').val(type);
+				tabScrollApi.scrollToX($(this).position().left-30);
+				selectDataType(type);
+			}
+		});
+	}
+
+	function initialSelectionOfDataTypeInGui() {
+		$('.button.dataTypeSelect').val(data.selectedType);
+		$('.data-type-chooser .tab[data-type='+data.selectedType+']').addClass('active');
+	}
+
+	function selectDataType(type) {
+		data.selectedType = type;
+		fillMapList();
+		adjustTabsToSelectedType();
+		$('.single-country-info').fadeOut();
+		adaptMapToNewDataTypeOrColorFunction();
+	}
+
+	function adaptMapToNewDataTypeOrColorFunction() {
+		setCurrentMaximumPercent();
+		setColorRangeDomain();
+
+		group.selectAll("path")
+		.style("fill", addBackgroundColor)
+		.style("cursor", setPointerCursor)
+		.style("stroke", addStrokeColor)
+		.on("click", clickHandler);
+
+		moveNoDataPathStrokesToTheBackground();
+	}
+
+	function adjustTabsToSelectedType() {
+		$scrollTabElement = $('.data-type-chooser .tab[data-type='+data.selectedType+']');
+
+		var $tabs = $('.data-type-chooser .tab');
+		$tabs.removeClass('active');
+		$tabs.filter('[data-type='+data.selectedType+']').addClass('active');
 	}
 
 	function displayMap() {
+		setCurrentMaximumPercent();
+		setColorRangeDomain();
+
 		group.selectAll("path")
 		.data(topo.features)
 		.enter()
 		.append("path")
 		.attr("d", path)
 		.style("fill", addBackgroundColor)
-		.style("stroke-width", styles.strokeWidthMax+"px")
+		.style("stroke-width", style.countryStrokeWidthMax+"px")
 		.style("stroke", addStrokeColor)
 		.style("cursor", setPointerCursor)
 		.on("click", clickHandler);
 
 		moveNoDataPathStrokesToTheBackground();
 		group.transition().duration(700).style("opacity", 1);
+		$('.spinner').fadeOut("fast");
+		$('.overlay').fadeIn(700);
 		d3.select(properties.container + " .overlay").transition().duration(700).style("opacity", 1);
 	}
 
 	function moveNoDataPathStrokesToTheBackground() {
 		group.selectAll("path").each(function(datum) {
-			if(!helper.hasPeerData(datum)) {
+			if(!hasCountryDataForSelectedType(datum)) {
 				var parent = $(this).parent()[0];
 				var firstChildOfParent = $(parent).children().first()[0];
 				parent.insertBefore(this, firstChildOfParent);
@@ -447,40 +669,50 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 	}
 
 	function setPointerCursor(datum) {
-		if(helper.hasPeerData(datum)) {
+		if(hasCountryDataForSelectedType(datum)) {
 			return "pointer";
 		}
 	}
 
 	function addBackgroundColor(datum) {
-		if(helper.hasPeerData(datum)) {
-			return helper.getColor(datum);
+		if(hasCountryDataForSelectedType(datum)) {
+			var code = datum.properties.country.code;
+			var color = getColor(datum);
+			addMapListRankingBackgroundColor(code, color);
+			return getColor(datum);
 		}
 		else {
-			return styles.colorNoData;
+			return style.countryColorNoData;
 		}
 	}
 
+	function addMapListRankingBackgroundColor(countryCode, color) {
+		$('.slide-menu .list')
+		.find('table tr[data-country-code='+countryCode+']')
+		.find('.ranking')
+		.css('backgroundColor', color);
+	}
+
 	function addStrokeColor(datum) {
-		if(helper.hasPeerData(datum)) {
-			return helper.getStrokeColor(datum);
+		if(hasCountryDataForSelectedType(datum)) {
+			return getStrokeColor(datum);
 		}
 		else {
-			return styles.strokeColor;
+			return style.countryStrokeColor;
 		}
 	}
 
 	function clickHandler(datum) {
 		/*jshint validthis:true */
-		var selectedColorString = d3.rgb(styles.selectedColor).toString();
-		var currentColorString = d3.rgb(d3.select(this).style("fill")).toString();
-		var isAlreadySelected = selectedColorString === currentColorString;
+		var selectedCountryColorString = d3.rgb(style.selectedCountryColor).toString();
+		var currentCountryColorString = d3.rgb(d3.select(this).style("fill")).toString();
+		var isAlreadySelected = selectedCountryColorString === currentCountryColorString;
 
-		if(helper.hasPeerData(datum) && !isAlreadySelected) {
+		if(hasCountryDataForSelectedType(datum) && !isAlreadySelected) {
 			group.selectAll("path").style("fill", addBackgroundColor).style("stroke", addStrokeColor);
 			d3.select(this.parentNode.appendChild(this)).transition().style({
-				"fill": styles.selectedColor,
-				"stroke": styles.selectedStrokeColor
+				"fill": style.selectedCountryColor,
+				"stroke": style.selectedCountryStrokeColor
 			});
 			addAndShowSingleCountryInfo(datum);
 			selectCountryOnMapList(datum);
@@ -488,12 +720,30 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 	}
 
 	function addAndShowSingleCountryInfo(datum) {
+		var country = datum.properties.country;
+		var singleInformation = {
+			countryLabel: country.label,
+			continent: country.continent,
+			dataType: getLabelByType(data.selectedType),
+			percent: country.values[data.selectedType].percent,
+			value: country.values[data.selectedType].value
+		};
+
 		$('.single-country-info').fadeIn();
-		$('.single-country-info').loadTemplate($("#single-country-info-template"), datum.properties);
+		$('.single-country-info').loadTemplate($("#single-country-info-template"), singleInformation);
+	}
+
+	function getLabelByType(type) {
+		for(var i=0; i<data.types.length; i++) {
+			if(data.types[i].type === type) {
+				return data.types[i].label;
+			}
+		}
+		return "";
 	}
 
 	function selectCountryOnMapList(datum) {
-		var $list = $(properties.container + " .mapList .list");
+		var $list = $(properties.container + " .slide-menu .list");
 		var $row = $list.find("table tbody tr");
 		$row.removeClass("selected");
 
@@ -520,10 +770,6 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 
 		group.selectAll("path").style("stroke-width", strokeRange(scale)+"px");
 		group.attr("transform", "translate(" + translate + ")scale(" + scale + ")");
-	}
-
-	function displayFunctionSelectButton() {
-		$(properties.container + " .functionSelect").fadeIn();
 	}
 
 	function addClickListenerToZoomButtons() {
@@ -563,61 +809,68 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 	}
 
 	function addClickListenerToFullScreenButtons() {
-		$(properties.container + " .fullscreen-open").click(function() {
-			if($(this).is(":not(:hidden)")) {
-				makeFullscreen($(properties.container));
-
-				$(properties.container).addClass(properties.fullscreenClass);
-				$("html").css({"overflow": "hidden"});
-				$(properties.container + " .single-country-info").fadeOut();
-				$(this).fadeOut();
-				$(properties.container + " .fullscreen-close").fadeIn();
-				addScrollingToList();
-				redraw();
-			}
-		});
-		$(properties.container + " .fullscreen-close").click(function() {
-			if($(this).is(":not(:hidden)")) {
-				exitFullscreen();
-				$(properties.container).removeClass(properties.fullscreenClass);
-				$("html").css({"overflow": "visible"});
-				$(properties.container + " .single-country-info").fadeOut();
-				$(this).fadeOut();
-				$(properties.container + " .fullscreen-open").fadeIn();
-				redraw();
-				addScrollingToList();
-			}
-		});
+		$(properties.container + " .fullscreen-open").click(enterFullscreen);
+		$(properties.container + " .fullscreen-close").click(closeFullscreen);
 	}
 
-	function makeFullscreen($element) {
-		var elem = $element[0];
+	function enterFullscreen() {
+		/* jshint validthis: true */
+		if($(this).is(":not(:hidden)")) {
 
-		if (elem.requestFullscreen) {
-			elem.requestFullscreen();
-		}
-		else if (elem.msRequestFullscreen) {
-			elem.msRequestFullscreen();
-		}
-		else if (elem.mozRequestFullScreen) {
-			elem.mozRequestFullScreen();
-		}
-		else if (elem.webkitRequestFullscreen) {
-			elem.webkitRequestFullscreen();
+			(function makeFullscreen($element) {
+				var elem = $element[0];
+
+				if (elem.requestFullscreen) {
+					elem.requestFullscreen();
+				}
+				else if (elem.msRequestFullscreen) {
+					elem.msRequestFullscreen();
+				}
+				else if (elem.mozRequestFullScreen) {
+					elem.mozRequestFullScreen();
+				}
+				else if (elem.webkitRequestFullscreen) {
+					elem.webkitRequestFullscreen();
+				}
+			})($(properties.container));
+
+			$(properties.container).addClass(properties.fullscreenClass);
+			$("html").css({"overflow": "hidden"});
+			$(properties.container + " .single-country-info").fadeOut();
+			$(this).fadeOut();
+			$(properties.container + " .fullscreen-close").fadeIn();
+			addScrollingToList();
+			timedRedraw();
 		}
 	}
 
-	function exitFullscreen() {
-		if(document.exitFullscreen) {
-			document.exitFullscreen();
-		}
-		else if(document.mozCancelFullScreen) {
-			document.mozCancelFullScreen();
-		}
-		else if(document.webkitExitFullscreen) {
-			document.webkitExitFullscreen();
+	function closeFullscreen() {
+		/* jshint validthis: true */
+		if($(this).is(":not(:hidden)")) {
+
+			(function exitFullscreen() {
+				if(document.exitFullscreen) {
+					document.exitFullscreen();
+				}
+				else if(document.mozCancelFullScreen) {
+					document.mozCancelFullScreen();
+				}
+				else if(document.webkitExitFullscreen) {
+					document.webkitExitFullscreen();
+				}
+			})();
+
+			$(properties.container).removeClass(properties.fullscreenClass);
+			$("html").css({"overflow": "visible"});
+			$(properties.container + " .single-country-info").fadeOut();
+			$(this).fadeOut();
+			$(properties.container + " .fullscreen-open").fadeIn();
+			timedRedraw();
+			addScrollingToList();
 		}
 	}
+
+
 
 	function addClickListenerToListButtons() {
 		var $list = $(properties.container + " .slide-menu .menu");
@@ -640,11 +893,10 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 	}
 
 	function addChangeListenerToFunctionSelect() {
-		$(properties.container + " .functionSelect").change(function() {
+		$(".button.functionSelect").change(function() {
 			valueMappingFunction = valueMappingFunctions[$(this).find("option:selected").val()];
-			setColorRangeDomain();
-			$(".single-country-info").hide();
-			redraw();
+			$('.single-country-info').fadeOut();
+			adaptMapToNewDataTypeOrColorFunction();
 		});
 	}
 
@@ -661,8 +913,9 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 			animateScroll: true,
 			speed: 200
 		}).data('jsp');
-	}
 
+		adjustTabsToSelectedType();
+	}
 
 	function addClickListenerToSettingsButton() {
 		$('.button.settings').click(function() {
@@ -686,36 +939,13 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 		});
 	}
 
-	function addChangeListenerToDataTypeSelectBox() {
-		$('.button.dataTypeSelect').change(function() {
-			var type = $(this).find('option:selected').val();
-			selectDataType(type);
-		});
-	}
-	function addClickListenerToDataTypeTabButtons() {
-		var $tabs = $('.data-type-chooser .tab');
-		$tabs.click(function() {
-			var type = $(this).data('type');
-			$('.button.dataTypeSelect').val(type);
-			tabScrollApi.scrollToX($(this).position().left-30);
-			selectDataType(type);
-		});
-	}
-	function selectDataType(type) {
-		$scrollTabElement = $('.data-type-chooser .tab[data-type='+type+']');
-
-		var $tabs = $('.data-type-chooser .tab');
-		$tabs.removeClass('active');
-		$tabs.filter('[data-type='+type+']').addClass('active');
-	}
-
 	function fillDataTypeSelectButtonWithEntries() {
-		$('select.dataTypeSelect').loadTemplate($("#data-type-chooser-select-template"), dataTypes);
+		$('select.dataTypeSelect').loadTemplate($("#data-type-chooser-select-template"), data.types);
 	}
 
 	function stopTranslateOnViewportBorders(translate, scale) {
 		// example on http://techslides.com/d3-map-starter-kit/
-		if(helper.isInFullscreen()) {
+		if(isInFullscreen()) {
 			var borderRight = ($(properties.container).width() - width) * (scale) - $(properties.container).width() * (scale-1);
 			translate[0] = Math.min(0, Math.max(borderRight, translate[0]));
 		}
@@ -743,26 +973,28 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 		}
 	}
 
-	var helper = {};
-	helper.hasPeerData = (function(datum) {
-		return typeof datum.properties.observedPeers !== "undefined";
-	});
-	helper.getPercentageBetweenUpperAndLowerColor = (function(datum) {
-		var value = datum.properties.observedPeers;
+	function hasCountryDataForSelectedType(datum) {
+		if(isset(datum.properties.country)) {
+			return isset(datum.properties.country.values[data.selectedType]);
+		}
+		return false;
+	}
+	function getPercentageBetweenUpperAndLowerColor(datum) {
+		var value = datum.properties.country.values[data.selectedType].percent;
 		var valueMapped = valueMappingFunction(value);
 		return colorRange(valueMapped);
-	});
-	helper.getColor = (function(datum) {
-		var percentValueBetweenUpperAndLowerColor = helper.getPercentageBetweenUpperAndLowerColor(datum);
-		var interpolationFunction = d3.interpolateRgb(styles.colorRangeStart, styles.colorRangeEnd);
+	}
+	function getColor(datum) {
+		var percentValueBetweenUpperAndLowerColor = getPercentageBetweenUpperAndLowerColor(datum);
+		var interpolationFunction = d3.interpolateRgb(style.countryColorRangeStart, style.countryColorRangeEnd);
 		return interpolationFunction(percentValueBetweenUpperAndLowerColor);
-	});
-	helper.getStrokeColor = (function(datum) {
-		return d3.rgb(helper.getColor(datum)).darker().toString();
-	});
-	helper.isInFullscreen = (function() {
+	}
+	function getStrokeColor(datum) {
+		return d3.rgb(getColor(datum)).darker().toString();
+	}
+	function isInFullscreen() {
 		return $(properties.container).hasClass(properties.fullscreenClass);
-	});
+	}
 
 	function makeFixedSize() {
 		fixedSize = true;
@@ -772,10 +1004,18 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, errorHandling) {
 		return typeof variable !== 'undefined';
 	}
 
+	function isObject(variable) {
+		return typeof variable === Object || typeof variable === 'object';
+	}
+
+	function isString(variable) {
+		return typeof variable === String || typeof variable === 'string';
+	}
+
 	return {
-		init: initialize,
-		initWithoutControls: initializeWithoutControls,
+		init: initialize.init,
+		initNoControls: initialize.initNoControls,
 		makeFixedSize: makeFixedSize
 	};
 
-}(jQuery, d3, topojson, moment, geochartjs.utils, geochartjs.errorHandling));
+}(jQuery, d3, topojson, moment, geochartjs.utils, geochartjs.htmlTemplate));

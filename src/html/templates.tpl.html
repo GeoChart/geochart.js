@@ -1,0 +1,42 @@
+<script type="text/html" id="single-country-info-template">
+	<div>
+		<span data-content="countryLabel"></span>
+		<span data-content="continent" class="continent"></span>
+	</div>
+	<div class="data-type">
+		<span class="value" data-content="value"></span>
+		<span class="percentage"><span data-content="percent"></span>%</span>
+		<span class="title" data-content="dataType"></span>
+	</div>
+</script>
+
+<script type="text/html" id="slide-menu-table-template">
+	<tr data-template-bind='{"attribute": "data-country-code", "value": "code"}'>
+		<td>
+			<span data-content="ranking" class="ranking"></span>
+		</td>
+		<td>
+			<span data-content="label" class="countryName"></span>
+			<span data-content="continent" class="continent"></td>
+		</td>
+		<td>
+			<span class="percentage">
+				<span data-content="percent"></span>%
+			</span>
+		</td>
+		<td>
+			<span class="observedPeers" data-content="value"></span>
+		</td>
+	</tr>
+</script>
+
+<script type="text/html" id="data-type-chooser-template">
+	<span class="tab" data-content="label" data-template-bind='[{
+		"attribute": "data-type",
+		"value": "type"
+	}]'></span>
+</script>
+
+<script type="text/html" id="data-type-chooser-select-template">
+	<option data-content="label" data-value="type"></option>
+</script>
