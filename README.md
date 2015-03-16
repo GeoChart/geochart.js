@@ -40,3 +40,22 @@ options.data.date = {
   "format": "DD.MM.YYYY"
 }
 ```
+#### options.data.types
+Type: `Array` of `Object`
+Mandatory: :ballot_box_with_check:
+Default value: `undefined`
+
+An array of data types in which the values are grouped. Each data type holds a set of values which are displayed in separate maps. The data type can easily be switched in the slide menu or the overlayed select box. The structure of each object needs to correspond to the following structure:
+```
+{
+  "type": "DATA_TYPE_KEY",
+  "label": "Data Type"
+}
+```
+
+#### options.data.selectedType
+Type: `String`
+Mandatory: :negative_squared_cross_mark:
+Default value: the first defined data type
+
+The key of the initially selected data type. If not specified, the first data type from the array of data types is taken.
