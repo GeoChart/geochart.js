@@ -383,6 +383,8 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 		function initialization(mapData) {
 			topo = topojson.feature(mapData, mapData.objects[properties.mapName]);
 
+			setSelectedTypeToFirstIfNotInitiallySet();
+
 			(function slideMenuMetaData() {
 				addCSVLink();
 				setDateStamp();
@@ -435,6 +437,12 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 		$('.button.functionSelect').find('option').text(function() {
 			return label.colorFunction[$(this).val()];
 		});
+	}
+
+	function setSelectedTypeToFirstIfNotInitiallySet() {
+		if(!isString(data.selectedType)) {
+			data.selectedType = data.types[0].type;
+		}
 	}
 
 	function addCSVLink() {
