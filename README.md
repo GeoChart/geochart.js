@@ -1,4 +1,4 @@
-# geochart.js
+# :chart_with_upwards_trend: geochart.js
 > A geo location based visualization chart application based on D3.js, TopoJSON and jQuery. It provides a simple interface for visualizing a dataset on a chloropleth world map.
 
 ## Getting Started
@@ -9,28 +9,28 @@ geochart.js expects a configuration object as an initial input. In the following
 
 ### options.map
 Type: `String` or `Object`
-Mandatory: Yes
+Mandatory: :ballot_box_with_check:
 Default value: `undefined`
 
 The URL path to the json file containing the map data or the object itself. This option is necessary and can be provided as a link or a TopoJSON JavaScript object.
 
 ### options.data
 Type: `String` or `Object`
-Mandatory: Yes
+Mandatory: :ballot_box_with_check:
 Default value: `undefined`
 
 The URL path to the data json or the object itself containing all the data which needs to be viualized on the map.
 
 #### options.data.csv
 Type: `String`
-Mandatory: No
+Mandatory: :negative_squared_cross_mark:
 Default value: `undefined`
 
 The URL path to the CSV file which holds the full dataset. If a link is provided, it will show a button in the slide menu leading to the provided link.
 
 #### options.data.date
 Type: `String` or `Object`
-Mandatory: No
+Mandatory: :negative_squared_cross_mark:
 Default value: `undefined`
 
 The date of the dataset, which is displayed on top of the slide menu. By default, the date needs to be given in the format YYYY-MM-DD. If the format needs to be passed too, the following schema can be used:
