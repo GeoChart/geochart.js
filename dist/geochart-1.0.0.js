@@ -316,6 +316,8 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 			// returned by the ajax call or instantly, if it is directly passed in the
 			// configuration object.
 
+			checkAvailabilityOfjQueryLibraries();
+
 			if(isObject(configuration.format)) {
 				format = $.extend(true, format, configuration.format);
 			}
@@ -359,6 +361,16 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 			}
 
 			postInitialization();
+		}
+
+		function checkAvailabilityOfjQueryLibraries() {
+			function check(library) {
+				if(!isset(library.lib)) {
+					throw 'LibraryMissingError: '+library.name+' is missing.';
+				}
+			}
+			check({lib: $(document).loadTemplate, name: 'jQuery loadTemplate'});
+			check({lib: $(document).jScrollPane, name: 'jQuery jScrollPane'});
 		}
 
 		function preInitialization() {
