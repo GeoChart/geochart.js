@@ -577,6 +577,9 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 
 		group.selectAll("path").style("stroke-width", strokeRange(scale)+"px");
 		group.attr("transform", "translate(" + translate + ")scale(" + scale + ")");
+
+		zoom.translate(translate);
+		zoom.scale(scale);
 	}
 
 	function addClickListenerToZoomButtons() {
