@@ -266,15 +266,12 @@
   width: 20px;
   height: 29px;
   bottom: 1px;
-  -webkit-transition: opacity 0.3s;
-          transition: opacity 0.3s;
+  transition: opacity 0.3s;
   border: 1px solid #a7a7a7;
   background: transparent;
-  background: -webkit-linear-gradient(top, #ccc 0%, #bbb 100%);
   background: linear-gradient(to bottom, #ccc 0%, #bbb 100%); }
   .data-type-chooser .jspArrow:active {
     background: transparent;
-    background: -webkit-linear-gradient(top, #bbb 0%, #ccc 100%);
     background: linear-gradient(to bottom, #bbb 0%, #ccc 100%); }
   .data-type-chooser .jspArrow.jspDisabled {
     opacity: 0; }
@@ -406,7 +403,6 @@
         padding: 8px 10px 5px 10px;
         font-size: 12px;
         border: 1px solid #bbb;
-        background: -webkit-linear-gradient(#eee, #dcdcdc) #dcdcdc;
         background: linear-gradient(#eee, #dcdcdc) #dcdcdc;
         border-radius: 4px;
         border-bottom-left-radius: 0;
@@ -417,7 +413,6 @@
                 user-select: none;
         cursor: pointer; }
         .geochart-map .slide-menu .menu .data-type-chooser .tab.active {
-          background: -webkit-linear-gradient(#fff, #f6f6f6) #f6f6f6;
           background: linear-gradient(#fff, #f6f6f6) #f6f6f6;
           cursor: default;
           border-bottom-color: #f6f6f6; }
@@ -486,7 +481,6 @@
       font-size: 14px;
       text-decoration: none;
       color: #434343;
-      background: -webkit-linear-gradient(#fff, #e6e6e6);
       background: linear-gradient(#fff, #e6e6e6);
       border-radius: 5px;
       -webkit-user-select: none;
@@ -494,7 +488,6 @@
           -ms-user-select: none;
               user-select: none; }
       .geochart-map .slide-menu .menu a.csvDownload:active {
-        background: -webkit-linear-gradient(#e6e6e6, #fff);
         background: linear-gradient(#e6e6e6, #fff); }
       .geochart-map .slide-menu .menu a.csvDownload span {
         display: inline-block;

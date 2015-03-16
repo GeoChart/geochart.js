@@ -27,9 +27,25 @@ module.exports = function(grunt) {
 
 		pkg: grunt.file.readJSON('package.json'),
 
+		minifyHtml: {
+			options: {
+				empty: true,
+				loose: true,
+				conditionals: true,
+				quotes: true
+			},
+			prod: {
+				files: [{
+					expand: true,
+					cwd: 'src/html/',
+					src: ['*.html'],
+					dest: 'tmp/html-not-concat',
+				}]
+			}
+		},
+
 		htmlConvert: {
 			options: {
-				base: 'src/html/',
 				quoteChar: '\'',
 				module: 'htmlTemplate',
 				prefix: getHtmlPrefix(),
@@ -37,8 +53,18 @@ module.exports = function(grunt) {
 				indentGlobal: '	',
 				indentString: '	'
 			},
-			htmlTemplate: {
-				src: ['src/html/overlays.tpl.html', 'src/html/templates.tpl.html'],
+			dev: {
+				options: {
+					base: 'src/html/'
+				},
+				src: ['src/html/*.html'],
+				dest: 'tmp/html/geochart.tpl.js'
+			},
+			prod: {
+				options: {
+					base: 'tmp/html-not-concat/'
+				},
+				src: ['tmp/html-not-concat/*.html'],
 				dest: 'tmp/html/geochart.tpl.js'
 			}
 		},
@@ -90,7 +116,7 @@ module.exports = function(grunt) {
 		uglify: {
 			dist: {
 				files: {
-					'dist/<%= pkg.name %>-<%= pkg.version %>.min.js': '<%= copy.js.dest %>'
+					'dist/<%= pkg.name %>-<%= pkg.version %>.min.js': '<%= concat.jsCustom.dest %>'
 				}
 			}
 		},
@@ -140,14 +166,22 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('default', [
 		'clean',
-		'htmlConvert',
+		'htmlConvert:dev',
 		'concat:jsCustom',
 		'jshint',
 		'copy:js',
-		'uglify',
 		'sass',
 		'concat:css',
 		'autoprefixer',
+		'clean:tmp'
+	]);
+
+	grunt.registerTask('productive', [
+		'default',
+		'minifyHtml:prod',
+		'htmlConvert:prod',
+		'concat:jsCustom',
+		'uglify',
 		'cssmin',
 		'clean:tmp'
 	]);
