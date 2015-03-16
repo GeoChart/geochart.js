@@ -232,8 +232,20 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 	}
 
 	function setDateStamp() {
-		var formattedDate = moment(data.date.value, data.date.format).format(format.date);
-		$(properties.container + " .slide-menu h2 .date").text("("+formattedDate+")");
+		var formattedDate;
+
+		function setDateInGui() {
+			$(properties.container + " .slide-menu h2 .date").text("("+formattedDate+")");
+		}
+
+		if(isString(data.date)) {
+			formattedDate = moment(data.date).format(format.date);
+			setDateInGui();
+		}
+		else if(isObject(data.date)) {
+			formattedDate = moment(data.date.value, data.date.format).format(format.date);
+			setDateInGui();
+		}
 	}
 
 	function setupMap() {
