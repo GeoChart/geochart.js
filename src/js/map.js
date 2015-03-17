@@ -268,7 +268,9 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 	}
 
 	function setupMap() {
-		svg = d3.select(properties.container).append("svg").style('background', style.seaColor);
+		svg = d3.select(properties.container).append("svg");
+		svg.style('background', style.seaColor);
+
 		projection = d3.geo.equirectangular();
 
 		if(isInFullscreen()) {
@@ -323,6 +325,7 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 	}
 
 	function timedRedraw() {
+		hideMapAndShowSpinner();
 		resizeTimer = window.setTimeout(function() {
 			redraw();
 		}, 300);
@@ -664,6 +667,11 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 	function addClickListenerToFullScreenButtons() {
 		$(properties.container + " .fullscreen-open").click(enterFullscreen);
 		$(properties.container + " .fullscreen-close").click(closeFullscreen);
+	}
+
+	function hideMapAndShowSpinner() {
+		$(properties.container).find('.spinner').show();
+		$(properties.container).find('svg > g').hide();
 	}
 
 	function enterFullscreen() {
