@@ -47,7 +47,7 @@ Type: `Object`
 Mandatory: :ballot_box_with_check:
 Default value: `undefined`
 
-The object holding the data of each country, which needs to be visualized. The key of every country is the ISO_3166-1 Alpha-2 country code (http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), which is used to match the data with the actual map. Its structure is depicted in the following example:
+The object holding the data of each country, which needs to be visualized. The key of every country is the [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code, which is used to match the data with the actual map. Its structure is depicted in the following example:
 ```
 options.data.countries = {
   "US": {
@@ -66,15 +66,15 @@ Default value: `undefined`
 
 ##### options.data.countries.continent
 Type: `String`
-Mandatory: :negative_box_with_check:
+Mandatory: :negative_squared_cross_mark:
 Default value: `undefined`
 
 ##### options.data.countries.values
 Type: `Object`
-Mandatory: :ballot_box_with_check:
+Mandatory: :negative_squared_cross_mark:
 Default value: `undefined`
 
-Lists all values for each data type of this specific country. Not every listed country needs to provide a value for each data type. The structure of the object needs to be like in the following example:
+Lists all values for each data type of this specific country. If `values` is not provided, this specific country entry becomes obsolete and is not used inside the map. Not every listed country needs to provide a value for each data type. The structure of the object needs to be like in the following example:
 
 ```
 options.data.countries.US.values = {
@@ -83,6 +83,13 @@ options.data.countries.US.values = {
   [...]
 }
 ```
+
+#### options.data.notLocatable
+Type: `Object`
+Mandatory: :negative_squared_cross_mark:
+Default value: `undefined`
+
+Often there are datasets which can not be located to a single country but need to be declared anyway. This option adds the not locatable data sets to only the slide menu, not the map. The structure of the `Object` is equal to a [regular country entry](#optionsdatacountries) with exception of the continent, which can not be provided.
 
 #### options.data.csv
 Type: `String`
