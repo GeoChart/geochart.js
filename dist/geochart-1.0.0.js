@@ -972,9 +972,9 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 			valueMappingFunction = valueMappingFunctions[$(this).find("option:selected").val()];
 			$('.single-country-info').fadeOut();
 
+			$('.slide-menu .list').find('tr').removeClass('selected').find('.ranking').removeAttr('style');
 			adaptColorParameters();
 			adaptMapToNewDataTypeOrColorFunction();
-			$('.slide-menu .list').find('tr').removeClass('selected').find('.ranking').removeAttr('style');
 		});
 	}
 
