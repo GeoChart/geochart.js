@@ -103,7 +103,7 @@ The URL path to the CSV file which holds the full dataset. If a link is provided
 * Mandatory: :negative_squared_cross_mark:
 * Default value: `undefined`
 
-The date of the dataset, which is displayed on top of the slide menu. By default, the date needs to be given in the format YYYY-MM-DD. If the input format needs to be passed too, the following schema can be used:
+The date of the dataset, which is displayed on top of the slide menu. By default, the date needs to be given in the format YYYY-MM-DD. If the input format needs to be passed too, the following schema can be used. The input date format needs to match the requirements of a format string of [moment.js](http://momentjs.com/).
 ```
 options.data.date = {
   "value": "01.01.2015",
@@ -128,7 +128,7 @@ If set to true, all controls on the map are hidden. This includes all buttons li
 * Mandatory: :negated_squared_cross_mark:
 * Default value: `'YYYY-MM-DD'`
 
-The output format for the date, if it is set in [`options.data.date`](#optionsdatadate).
+The output format for the date, if it is set in [`options.data.date`](#optionsdatadate). The output date format needs to match the requirements of a format string of [moment.js](http://momentjs.com/).
 
 ### options.label
 * Type: `Object`
