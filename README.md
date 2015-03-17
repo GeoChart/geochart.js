@@ -13,7 +13,7 @@ geochart.js expects a configuration object as an initial input. In the following
 * Mandatory: :ballot_box_with_check:
 * Default value: `undefined`
 
-The URL path to the json file containing the map data or the object itself. This option is necessary and can be provided as a link or a TopoJSON JavaScript object. Each country of the TopoJSON needs to provide a properties object with a key `iso_a2`. This value of it is a country code according to [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+The URL path to the json file containing the map data or the object itself. This option is necessary and can be provided as a link or a TopoJSON JavaScript object. Each country of the TopoJSON needs to provide a properties object with a key `iso_a2`. The value of it is a country code according to [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
 
 ### options.data
 * Type: `String` or `Object`
