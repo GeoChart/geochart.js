@@ -384,6 +384,7 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 			topo = topojson.feature(mapData, mapData.objects[properties.mapName]);
 
 			setSelectedTypeToFirstIfNotInitiallySet();
+			setAnEmptyValuesObjectForEveryCountryWithoutValuesObject();
 
 			(function slideMenuMetaData() {
 				addCSVLink();
@@ -442,6 +443,16 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 	function setSelectedTypeToFirstIfNotInitiallySet() {
 		if(!isString(data.selectedType)) {
 			data.selectedType = data.types[0].type;
+		}
+	}
+
+	function setAnEmptyValuesObjectForEveryCountryWithoutValuesObject() {
+		for(var key in data.countries) {
+			if(data.countries.hasOwnProperty(key)) {
+				if(!isset(data.countries[key].values)) {
+					data.countries[key].values = {};
+				}
+			}
 		}
 	}
 
