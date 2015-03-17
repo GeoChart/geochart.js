@@ -111,22 +111,22 @@ options.data.date = {
 }
 ```
 
-## options.noControls
+### options.noControls
 * Type: `Boolean`
 * Mandatory: :negated_squared_cross_mark:
 * Default value: `false`
 
 If set to true, all controls on the map are hidden. This includes all buttons like zoom-in, zoom-out, fullscreen, settings, slide-menu.
 
-## options.format
-### options.format.date
+### options.format
+#### options.format.date
 * Type: `String`
 * Mandatory: :negated_squared_cross_mark:
 * Default value: `'YYYY-MM-DD'`
 
 The output format for the date, if it is set in [`options.data.date`](#optionsdatadate).
 
-## options.label
+### options.label
 The labels used on the map can be configured easily. All of the values have a default value and therefore do not have to be redefined. Take a look at the following table to configure your individual labels.
 
 | Key                                        | Default Value     |
@@ -141,7 +141,7 @@ The labels used on the map can be configured easily. All of the values have a de
 | `options.label.colorFunction.cubicroot`    | Cubic Root        |
 | `options.label.colorFunction.neginverse`   | Negated Inverse   |
 
-## options.style
+### options.style
 The styles of the map can be configured easily. All of the values have a default value and therefore do not have to be redefined. Take a look at the following table to configure your individual styles.
 
 | Key                                        | Type         | Default Value    |
