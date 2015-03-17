@@ -593,7 +593,8 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 					label: country.label,
 					continent: country.continent,
 					value: country.values[data.selectedType],
-					percent: formatPercent(country.values[data.selectedType] / currentValueSum)
+					percent: formatPercent(country.values[data.selectedType] / currentValueSum),
+					displayContinent: !isset(country.continent) || isEmptyString(country.continent) ? 'display:none' : ''
 				});
 			}
 		}
@@ -1077,6 +1078,10 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 
 	function isTrue(variable) {
 		return variable === true || (isString(variable) && variable.toLowerCase() === 'true');
+	}
+
+	function isEmptyString(variable) {
+		return isString(variable) && variable === '';
 	}
 
 	function getCountriesInArray() {

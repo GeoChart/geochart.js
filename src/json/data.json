@@ -42,7 +42,6 @@
 			},
 			"IT": {
 				"label": "Italy",
-				"continent": "Europe",
 				"values": {
 					"OBSERVED_PEERS": 1038,
 					"MAX_SWARM_SIZE": 800
