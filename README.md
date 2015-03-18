@@ -68,8 +68,8 @@ options.data.countries = {
 ```
 ##### options.data.countries.label
 * Type: `String`
-* Mandatory: :ballot_box_with_check:
-* Default value: `undefined`
+* Mandatory: :negative_squared_cross_mark:
+* Default value: 2-character country code
 
 ##### options.data.countries.continent
 * Type: `String`

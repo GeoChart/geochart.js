@@ -41,7 +41,6 @@
 				}
 			},
 			"IT": {
-				"label": "Italy",
 				"values": {
 					"OBSERVED_PEERS": 1038,
 					"MAX_SWARM_SIZE": 800

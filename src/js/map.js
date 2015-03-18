@@ -432,7 +432,7 @@ geochartjs.map = ( function($, d3, topojson, moment, htmlTemplate) {
 			if(isset(country.values[data.selectedType])) {
 				mapList.push({
 					code: country.code,
-					label: country.label,
+					label: (isset(country.label) && !isEmptyString(country.label)) ? country.label : country.code,
 					continent: country.continent,
 					value: country.values[data.selectedType],
 					percent: formatPercent(country.values[data.selectedType] / currentValueSum),
@@ -619,7 +619,7 @@ geochartjs.map = ( function($, d3, topojson, moment, htmlTemplate) {
 	function addAndShowSingleCountryInfo(datum) {
 		var country = datum.properties.country;
 		var singleInformation = {
-			countryLabel: country.label,
+			countryLabel: (isset(country.label) && !isEmptyString(country.label)) ? country.label : country.code,
 			continent: country.continent,
 			dataType: getLabelByType(data.selectedType),
 			value: country.values[data.selectedType],
