@@ -14,7 +14,7 @@
 			padding: 20px;
 			margin: 0;
 		}
-		.geochart-map {
+		#geochart-map {
 			width: 1000px;
 			margin: 0 auto;
 		}
@@ -25,7 +25,7 @@
 <body>
 
 	<!-- geochart-element -->
-	<div class="geochart-map"></div>
+	<div id="geochart-map"></div>
 
 	<!-- dependencies -->
 	<script src="/bower_components/jquery/dist/jquery.js"></script>
@@ -44,6 +44,7 @@
 		$(document).ready(function() {
 
 			geochartjs.map.init({
+				bindTo: "#geochart-map",
 				map: "/src/json/world.json",
 				data: "/src/json/data.json",
 				format: {

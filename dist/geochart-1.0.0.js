@@ -85,7 +85,7 @@ geochartjs.htmlTemplate = (function() {
 		'	</div>\n' +
 		'</div>';
 
-	htmlTemplate['templates.tpl.html'] = '<script type="text/html" id="single-country-info-template">\n' +
+	htmlTemplate['templates.tpl.html'] = '<script type="text/html" id="geochart-single-country-info-template">\n' +
 		'	<div>\n' +
 		'		<span data-content="countryLabel"></span>\n' +
 		'		<span data-content="continent" class="continent"></span>\n' +
@@ -97,7 +97,7 @@ geochartjs.htmlTemplate = (function() {
 		'	</div>\n' +
 		'</script>\n' +
 		'\n' +
-		'<script type="text/html" id="slide-menu-table-template">\n' +
+		'<script type="text/html" id="geochart-slide-menu-table-template">\n' +
 		'	<tr data-template-bind=\'{"attribute": "data-country-code", "value": "code"}\'>\n' +
 		'		<td>\n' +
 		'			<span data-content="ranking" class="ranking"></span>\n' +
@@ -118,14 +118,14 @@ geochartjs.htmlTemplate = (function() {
 		'	</tr>\n' +
 		'</script>\n' +
 		'\n' +
-		'<script type="text/html" id="data-type-chooser-template">\n' +
+		'<script type="text/html" id="geochart-data-type-chooser-template">\n' +
 		'	<span class="tab" data-content="label" data-template-bind=\'[{\n' +
 		'		"attribute": "data-type",\n' +
 		'		"value": "type"\n' +
 		'	}]\'></span>\n' +
 		'</script>\n' +
 		'\n' +
-		'<script type="text/html" id="data-type-chooser-select-template">\n' +
+		'<script type="text/html" id="geochart-data-type-chooser-select-template">\n' +
 		'	<option data-content="label" data-value="type"></option>\n' +
 		'</script>';
 
@@ -219,7 +219,6 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 	"use strict";
 
 	var properties = {
-		container: ".geochart-map",
 		zoomRange: [1, 9],
 		mapName: "ne_50m_admin_0_countries",
 		hasDataClass: "hasData",
@@ -283,6 +282,11 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 	var $scrollTabElement;
 	var currentContainerWidth;
 
+	var containerClass = 'geochart-map-wrapper-element';
+	var topElement = '#geochart-map';
+	var d3container;
+	var $container;
+
 	var valueMappingFunctions = {
 		log: function(n) {
 			return Math.log(n);
@@ -315,20 +319,8 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 
 			checkAvailabilityOfjQueryLibraries();
 
-			if(isObject(configuration.format)) {
-				format = $.extend(true, format, configuration.format);
-			}
-			if(isObject(configuration.style)) {
-				style = $.extend(true, style, configuration.style);
-			}
-			if(isObject(configuration.label)) {
-				label = $.extend(true, label, configuration.label);
-			}
-			if(isTrue(configuration.noControls)) {
-				$(properties.container).addClass("noControls");
-			}
 
-			preInitialization();
+			preInitialization(configuration);
 
 			(function getMapDataAndContinueInitialization() {
 				if(isString(configuration.map)) {
@@ -373,7 +365,8 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 			check({lib: $(document).jScrollPane, name: 'jQuery jScrollPane'});
 		}
 
-		function preInitialization() {
+		function preInitialization(configuration) {
+			storeInitialConfiguration(configuration);
 			createDomStructure();
 			setLabelTexts();
 			setupMap();
@@ -426,16 +419,69 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 
 	})();
 
+	function storeInitialConfiguration(configuration) {
+
+		if(!isObject(configuration)) {
+			throw "'geochart.js' needs a valid configuration input";
+		}
+
+		if(isString(configuration.bindTo)) {
+			topElement = configuration.bindTo;
+		}
+		(function storeContainer() {
+			if($(topElement).length === 1) {
+				$(topElement).empty();
+				$container = $('<div class="'+containerClass+'">').appendTo($(topElement));
+				d3container = d3.select(topElement).select('.'+containerClass);
+			}
+			else if($(topElement).length === 0) {
+				$container = $('<div></div>').addClass(containerClass);
+				var $topElement;
+
+				if(topElement.charAt(0) === '.') {
+					$topElement = $('<div></div>').addClass(topElement.substr(1));
+				}
+				else {
+					if(topElement.charAt(0) === '#') {
+						$topElement = $('<div></div>').attr('id', topElement.substr(1));
+					}
+					else {
+						$topElement = $('<div></div>').attr('id', topElement);
+					}
+				}
+				$container.appendTo($topElement);
+				$topElement.appendTo('body');
+				d3container = d3.select(topElement).select('.'+containerClass);
+			}
+			else {
+				throw "'geochart.js' needs exactly one element to bind to";
+			}
+		})();
+
+		if(isObject(configuration.format)) {
+			format = $.extend(true, format, configuration.format);
+		}
+		if(isObject(configuration.style)) {
+			style = $.extend(true, style, configuration.style);
+		}
+		if(isObject(configuration.label)) {
+			label = $.extend(true, label, configuration.label);
+		}
+		if(isTrue(configuration.noControls)) {
+			$container.addClass("noControls");
+		}
+	}
+
 	function createDomStructure() {
-		$(htmlTemplate.overlays).appendTo(properties.container);
-		$(htmlTemplate.templates).appendTo('body');
+		$(htmlTemplate.overlays).appendTo($container);
+		$(htmlTemplate.templates).appendTo($(topElement));
 	}
 
 	function setLabelTexts() {
-		$('.slide-menu .menu h2 .title').text(label.mapListTitle);
-		$('.functionSelectWrapper .selectLabel').text(label.configurationColorFunction);
-		$('.dataTypeSelectWrapper .selectLabel').text(label.configurationDataType);
-		$('.button.functionSelect').find('option').text(function() {
+		$container.find('.slide-menu .menu h2 .title').text(label.mapListTitle);
+		$container.find('.functionSelectWrapper .selectLabel').text(label.configurationColorFunction);
+		$container.find('.dataTypeSelectWrapper .selectLabel').text(label.configurationDataType);
+		$container.find('.button.functionSelect').find('option').text(function() {
 			return label.colorFunction[$(this).val()];
 		});
 	}
@@ -457,7 +503,7 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 	}
 
 	function addCSVLink() {
-		var $button = $('.list .csvDownload');
+		var $button = $container.find('.list .csvDownload');
 		if(isset(data.csv)) {
 			$button.attr('href', data.csv);
 		}
@@ -470,7 +516,7 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 		var formattedDate;
 
 		function setDateInGui() {
-			$(properties.container + " .slide-menu h2 .date").text("("+formattedDate+")");
+			$container.find(".slide-menu h2 .date").text("("+formattedDate+")");
 		}
 
 		if(isString(data.date)) {
@@ -484,29 +530,29 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 	}
 
 	function setupMap() {
-		svg = d3.select(properties.container).append("svg");
+		svg = d3container.append("svg");
 		svg.style('background', style.seaColor);
 
 		projection = d3.geo.equirectangular();
 
 		if(isInFullscreen()) {
-			height = $(properties.container).height();
+			height = $container.height();
 			width = height * 2;
 
-			svg.attr({width: $(properties.container).width(), height: $(properties.container).height()});
+			svg.attr({width: $container.width(), height: $container.height()});
 			projection.translate([(width/2), (height/2)]).scale(width/2/Math.PI);
 		}
 		else {
-			width = $(properties.container).width();
+			width = $container.width();
 			height = width / 2;
 
 			svg.attr({width: width, height: height});
 			projection.translate([(width/2), (height/2)]).scale(width/2/Math.PI);
 		}
 
-		$(properties.container).removeClass(properties.smallMapClass);
+		$container.removeClass(properties.smallMapClass);
 		if(width < properties.thresholdToSmallMap) {
-			$(properties.container).addClass(properties.smallMapClass);
+			$container.addClass(properties.smallMapClass);
 		}
 
 		path = d3.geo.path().projection(projection);
@@ -525,16 +571,16 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 
 
 	function makeMapResizable() {
-		currentContainerWidth = $(properties.container).width();
+		currentContainerWidth = $container.width();
 		d3.select(window).on("resize", function() {
-			var isFullscreen = $(properties.container).is("."+properties.fullscreenClass);
-			var containerWidthChanged = currentContainerWidth !== $(properties.container).width();
+			var isFullscreen = $container.is("."+properties.fullscreenClass);
+			var containerWidthChanged = currentContainerWidth !== $container.width();
 
 			if(!(fixedSize && !isFullscreen) && (isFullscreen || containerWidthChanged)) {
-				currentContainerWidth = $(properties.container).width();
+				currentContainerWidth = $container.width();
 				window.clearTimeout(resizeTimer);
-				d3.select(properties.container + " .overlay").transition().duration(200).style("opacity", 0);
-				$(properties.container + " .single-country-info").hide();
+				d3container.select(".overlay").transition().duration(200).style("opacity", 0);
+				$container.find(".single-country-info").hide();
 				timedRedraw();
 			}
 		});
@@ -646,27 +692,27 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 	}
 
 	function fillMapListInGui() {
-		var $mapList = $(properties.container + " .slide-menu .list table tbody");
+		var $mapList = $container.find(".slide-menu .list table tbody");
 		$mapList.empty();
-		$mapList.loadTemplate($("#slide-menu-table-template"), mapList);
+		$mapList.loadTemplate($("#geochart-slide-menu-table-template"), mapList);
 	}
 
 	function addMapListTabs() {
-		$('.data-type-chooser .scroll-pane').loadTemplate($("#data-type-chooser-template"), data.types).find('span');
+		$container.find('.data-type-chooser .scroll-pane').loadTemplate($("#geochart-data-type-chooser-template"), data.types);
 	}
 
 	function addChangeListenerToDataTypeSelectBox() {
-		$('.button.dataTypeSelect').change(function() {
+		$container.find('.button.dataTypeSelect').change(function() {
 			var type = $(this).find('option:selected').val();
 			selectDataType(type);
 		});
 	}
 	function addClickListenerToDataTypeTabButtons() {
-		var $tabs = $('.data-type-chooser .tab');
+		var $tabs = $container.find('.data-type-chooser .tab');
 		$tabs.click(function() {
 			if(!$(this).hasClass('active')) {
 				var type = $(this).data('type');
-				$('.button.dataTypeSelect').val(type);
+				$container.find('.button.dataTypeSelect').val(type);
 				tabScrollApi.scrollToX($(this).position().left-30);
 				selectDataType(type);
 			}
@@ -674,8 +720,8 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 	}
 
 	function initialSelectionOfDataTypeInGui() {
-		$('.button.dataTypeSelect').val(data.selectedType);
-		$('.data-type-chooser .tab[data-type='+data.selectedType+']').addClass('active');
+		$container.find('.button.dataTypeSelect').val(data.selectedType);
+		$container.find('.data-type-chooser .tab[data-type='+data.selectedType+']').addClass('active');
 	}
 
 	function selectDataType(type) {
@@ -684,7 +730,7 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 		adaptColorParameters();
 
 		adjustTabsToSelectedType();
-		$('.single-country-info').fadeOut();
+		$container.find('.single-country-info').fadeOut();
 		fillMapList();
 		adaptMapToNewDataTypeOrColorFunction();
 	}
@@ -700,9 +746,9 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 	}
 
 	function adjustTabsToSelectedType() {
-		$scrollTabElement = $('.data-type-chooser .tab[data-type='+data.selectedType+']');
+		$scrollTabElement = $container.find('.data-type-chooser .tab[data-type='+data.selectedType+']');
 
-		var $tabs = $('.data-type-chooser .tab');
+		var $tabs = $container.find('.data-type-chooser .tab');
 		$tabs.removeClass('active');
 		$tabs.filter('[data-type='+data.selectedType+']').addClass('active');
 	}
@@ -721,9 +767,9 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 
 		moveNoDataPathStrokesToTheBackground();
 		group.transition().duration(700).style("opacity", 1);
-		$('.spinner').fadeOut("fast");
-		$('.overlay').fadeIn(700);
-		d3.select(properties.container + " .overlay").transition().duration(700).style("opacity", 1);
+		$container.find('.spinner').fadeOut("fast");
+		$container.find('.overlay').fadeIn(700);
+		d3container.select(".overlay").transition().duration(700).style("opacity", 1);
 	}
 
 	function moveNoDataPathStrokesToTheBackground() {
@@ -755,7 +801,8 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 	}
 
 	function addMapListRankingBackgroundColor(countryCode, color) {
-		$('.slide-menu .list')
+		$container
+		.find('.slide-menu .list')
 		.find('table tr[data-country-code='+countryCode+']')
 		.find('.ranking')
 		.css('backgroundColor', color);
@@ -797,8 +844,8 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 			percent: formatPercent(country.values[data.selectedType] / currentValueSum)
 		};
 
-		$('.single-country-info').fadeIn();
-		$('.single-country-info').loadTemplate($("#single-country-info-template"), singleInformation);
+		$container.find('.single-country-info').fadeIn();
+		$container.find('.single-country-info').loadTemplate($("#geochart-single-country-info-template"), singleInformation);
 	}
 
 	function getLabelByType(type) {
@@ -811,7 +858,7 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 	}
 
 	function selectCountryOnMapList(datum) {
-		var $list = $(properties.container + ' .slide-menu .list');
+		var $list = $container.find('.slide-menu .list');
 		var $row = $list.find('table tbody tr');
 		$row.removeClass('selected');
 
@@ -845,10 +892,10 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 	}
 
 	function addClickListenerToZoomButtons() {
-		$(properties.container + " .zoom-plus").click(function() {
+		$container.find(".zoom-plus").click(function() {
 			zoomMap.apply(this, [{zoomIn: true}]);
 		});
-		$(properties.container + " .zoom-minus").click(function() {
+		$container.find(".zoom-minus").click(function() {
 			zoomMap.apply(this, [{zoomIn: false}]);
 		});
 
@@ -881,13 +928,13 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 	}
 
 	function addClickListenerToFullScreenButtons() {
-		$(properties.container + " .fullscreen-open").click(enterFullscreen);
-		$(properties.container + " .fullscreen-close").click(closeFullscreen);
+		$container.find(".fullscreen-open").click(enterFullscreen);
+		$container.find(".fullscreen-close").click(closeFullscreen);
 	}
 
 	function hideMapAndShowSpinner() {
-		$(properties.container).find('.spinner').show();
-		$(properties.container).find('svg > g').hide();
+		$container.find('.spinner').show();
+		$container.find('svg > g').hide();
 	}
 
 	function enterFullscreen() {
@@ -909,13 +956,13 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 				else if (elem.webkitRequestFullscreen) {
 					elem.webkitRequestFullscreen();
 				}
-			})($(properties.container));
+			})($container);
 
-			$(properties.container).addClass(properties.fullscreenClass);
+			$container.addClass(properties.fullscreenClass);
 			$("html").css({"overflow": "hidden"});
-			$(properties.container + " .single-country-info").fadeOut();
+			$container.find(".single-country-info").fadeOut();
 			$(this).fadeOut();
-			$(properties.container + " .fullscreen-close").fadeIn();
+			$container.find(".fullscreen-close").fadeIn();
 			addScrollingToList();
 			timedRedraw();
 		}
@@ -937,20 +984,20 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 				}
 			})();
 
-			$(properties.container).removeClass(properties.fullscreenClass);
+			$container.removeClass(properties.fullscreenClass);
 			$("html").css({"overflow": "visible"});
-			$(properties.container + " .single-country-info").fadeOut();
+			$container.find(".single-country-info").fadeOut();
 			$(this).fadeOut();
-			$(properties.container + " .fullscreen-open").fadeIn();
+			$container.find(".fullscreen-open").fadeIn();
 			timedRedraw();
 			addScrollingToList();
 		}
 	}
 
 	function addClickListenerToListButtons() {
-		var $list = $(properties.container + " .slide-menu .menu");
-		var $showButton = $(properties.container + " .show-slide-menu-button");
-		var $hideArea = $(properties.container + " .hide-slide-menu-area");
+		var $list = $container.find(".slide-menu .menu");
+		var $showButton = $container.find(".show-slide-menu-button");
+		var $hideArea = $container.find(".hide-slide-menu-area");
 
 		$showButton.click(function() {
 			$list.animate({"left": 0});
@@ -968,11 +1015,11 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 	}
 
 	function addChangeListenerToFunctionSelect() {
-		$(".button.functionSelect").change(function() {
+		$container.find(".button.functionSelect").change(function() {
 			valueMappingFunction = valueMappingFunctions[$(this).find("option:selected").val()];
-			$('.single-country-info').fadeOut();
+			$container.find('.single-country-info').fadeOut();
 
-			$('.slide-menu .list').find('tr').removeClass('selected').find('.ranking').removeAttr('style');
+			$container.find('.slide-menu .list').find('tr').removeClass('selected').find('.ranking').removeAttr('style');
 			adaptColorParameters();
 			adaptMapToNewDataTypeOrColorFunction();
 		});
@@ -984,11 +1031,11 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 	}
 
 	function addScrollingToList() {
-		$('.list .scroll-pane').jScrollPane({ verticalDragMinHeight: 70 });
+		$container.find('.list .scroll-pane').jScrollPane({ verticalDragMinHeight: 70 });
 	}
 
 	function addScrollingToTabs() {
-		var $tabs = $('.data-type-chooser');
+		var $tabs = $container.find('.data-type-chooser');
 		var $scrollPane = $tabs.find('.scroll-pane');
 
 		tabScrollApi = $scrollPane.jScrollPane({
@@ -1001,21 +1048,21 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 	}
 
 	function addClickListenerToSettingsButton() {
-		$('.button.settings').click(function() {
+		$container.find('.button.settings').click(function() {
 			var $regularIcon = $(this).find('.icon-settings');
 			var $hideIcon = $(this).find('.icon-settings-hide');
 
 			if($(this).hasClass('shown')) {
 				$(this).removeClass('shown');
 				$(this).animate({ bottom: 10 }, "fast");
-				$('.settingsWrapper').animate({ bottom: -55 }, "fast");
+				$container.find('.settingsWrapper').animate({ bottom: -55 }, "fast");
 				$hideIcon.fadeOut("fast");
 				$regularIcon.fadeIn("fast");
 			}
 			else {
 				$(this).addClass('shown');
 				$(this).animate({ bottom: 50 }, "fast");
-				$('.settingsWrapper').animate({ bottom: 10 }, "fast");
+				$container.find('.settingsWrapper').animate({ bottom: 10 }, "fast");
 				$hideIcon.fadeIn("fast");
 				$regularIcon.fadeOut("fast");
 			}
@@ -1023,13 +1070,14 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 	}
 
 	function fillDataTypeSelectButtonWithEntries() {
-		$('select.dataTypeSelect').loadTemplate($("#data-type-chooser-select-template"), data.types);
+		$container.find('select.dataTypeSelect')
+		.loadTemplate($("#geochart-data-type-chooser-select-template"), data.types);
 	}
 
 	function stopTranslateOnViewportBorders(translate, scale) {
 		// example on http://techslides.com/d3-map-starter-kit/
 		if(isInFullscreen()) {
-			var borderRight = ($(properties.container).width() - width) * (scale) - $(properties.container).width() * (scale-1);
+			var borderRight = ($container.width() - width) * (scale) - $container.width() * (scale-1);
 			translate[0] = Math.min(0, Math.max(borderRight, translate[0]));
 		}
 		else {
@@ -1043,16 +1091,16 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 		var inaccuracyBuffer = 0.05;
 
 		if(scale < properties.zoomRange[0] + inaccuracyBuffer) {
-			$(properties.container + " .zoom-minus").addClass("inactive");
-			$(properties.container + " .zoom-plus").removeClass("inactive");
+			$container.find(".zoom-minus").addClass("inactive");
+			$container.find(".zoom-plus").removeClass("inactive");
 		}
 		else if(scale > properties.zoomRange[1] - inaccuracyBuffer) {
-			$(properties.container + " .zoom-plus").addClass("inactive");
-			$(properties.container + " .zoom-minus").removeClass("inactive");
+			$container.find(".zoom-plus").addClass("inactive");
+			$container.find(".zoom-minus").removeClass("inactive");
 		}
 		else {
-			$(properties.container + " .zoom-plus").removeClass("inactive");
-			$(properties.container + " .zoom-minus").removeClass("inactive");
+			$container.find(".zoom-plus").removeClass("inactive");
+			$container.find(".zoom-minus").removeClass("inactive");
 		}
 	}
 
@@ -1076,7 +1124,7 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 		return d3.rgb(getColor(datum)).darker().toString();
 	}
 	function isInFullscreen() {
-		return $(properties.container).hasClass(properties.fullscreenClass);
+		return $container.hasClass(properties.fullscreenClass);
 	}
 
 	function makeFixedSize() {
