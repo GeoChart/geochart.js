@@ -1,4 +1,4 @@
-geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
+geochartjs.map = ( function($, d3, topojson, moment, htmlTemplate) {
 
 	"use strict";
 
@@ -58,8 +58,6 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 	var zoom;
 	var topo;
 	var valueMappingFunction = Math.log;
-	var mapJsonUrl;
-	var dataJsonUrl;
 	var resizeTimer;
 	var fixedSize = false;
 	var tabScrollApi;
@@ -958,4 +956,4 @@ geochartjs.map = ( function($, d3, topojson, moment, utils, htmlTemplate) {
 		isTrue: isTrue
 	};
 
-}(jQuery, d3, topojson, moment, geochartjs.utils, geochartjs.htmlTemplate));
+}(jQuery, d3, topojson, moment, geochartjs.htmlTemplate));

@@ -1,4 +1,4 @@
-geochartjs.utils = ( function($) {
+geochartjs.utils = ( function() {
 
 	"use strict";
 
@@ -23,4 +23,4 @@ geochartjs.utils = ( function($) {
 		}
 	};
 
-}(jQuery));
+}());

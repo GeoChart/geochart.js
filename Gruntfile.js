@@ -82,12 +82,44 @@ module.exports = function(grunt) {
 		},
 
 		jshint: {
-			files: ['<%= concat.jsCustom.dest %>'],
 			options: {
-				globals: {
-					jQuery: true
-				}
+				curly: true,
+				eqeqeq: true,
+				unused: true,
+				bitwise: true,
+				forin: true,
+				freeze: true,
+				undef: true,
+			},
+			dev: {
+				options: {
+					globals: {
+						// console is allowed in dev mode
+						console: true,
+						window: true,
+						document: true,
+						d3: true,
+						jQuery: true,
+						topojson: true,
+						moment: true
+					}
+				},
+				src: ['<%= concat.jsCustom.dest %>']
+			},
+			dist: {
+				options: {
+					globals: {
+						window: true,
+						document: true,
+						d3: true,
+						jQuery: true,
+						topojson: true,
+						moment: true
+					}
+				},
+				src: ['<%= concat.jsCustom.dest %>']
 			}
+
 		},
 
 		sass: {
@@ -170,7 +202,7 @@ module.exports = function(grunt) {
 		'clean',
 		'htmlConvert:dev',
 		'concat:jsCustom',
-		'jshint',
+		'jshint:dev',
 		'copy:js',
 		'sass',
 		'concat:css',
@@ -183,6 +215,7 @@ module.exports = function(grunt) {
 		'minifyHtml:prod',
 		'htmlConvert:prod',
 		'concat:jsCustom',
+		'jshint:dist',
 		'uglify',
 		'cssmin',
 		'clean:tmp'
