@@ -11,7 +11,7 @@ geochart.js expects a configuration object as an initial input. In the following
 ### options.bindTo
 * Type: `String`
 * Mandatory: :negative_squared_cross_mark:
-* Default value: '#geochart-map'
+* Default value: `'#geochart-map'`
 
 The element to which the map is bound to. This is **not** a regular selector. Only class names or id names are allowed. The `.` or `#` in the beginning indicate the type (class or id). If no type indicator is given, an id is assumed. This value does neither allow selectors which are traversing the DOM, nor pure HTML elements or special selectors. It is recommended to use a unique id. The element can be only available once in the DOM. If it is not present yet, it will be appended to the `body` of the document.
 
