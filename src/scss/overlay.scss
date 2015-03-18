@@ -59,7 +59,6 @@
 			}
 			&.functionSelect,
 			&.dataTypeSelect {
-				outline: none;
 				color: #eee;
 				-moz-appearance: none;
 				-webkit-appearance: none;
@@ -67,6 +66,10 @@
 				border: 1px solid #434343;
 				padding: 7px;
 				padding-right: 25px;
+
+				&:focus {
+					outline: none;
+				}
 
 				option {
 					background: #bbb;

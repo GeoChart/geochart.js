@@ -51,7 +51,6 @@
 		.menu {
 			box-shadow: -2px 0 15px rgba(0,0,0,0.6);
 			height: 100%;
-			overflow: auto;
 			position: absolute;
 			left: -420px;
 			top: 0;
@@ -158,7 +157,7 @@
 							width: 0;
 						}
 					}
-					tr.selected {
+					.selected {
 						.ranking {
 							border: 1px solid #929292;
 							color: #000;

@@ -163,6 +163,26 @@ module.exports = function(grunt) {
 			}
 		},
 
+		csslint: {
+			options: {
+				"adjoining-classes": false,
+				"box-model": false,
+				"box-sizing": false,
+				"compatible-vendor-prefixes": false,
+				"fallback-colors": false,
+				"vendor-prefix": false,
+				"namespaced": false,
+				"important": false,
+				"font-sizes": false,
+				"universal-selector": false,
+				"qualified-headings": false,
+				"outline-none": false
+			},
+			dist: {
+				src: ['dist/*.css']
+			}
+		},
+
 		cssmin: {
 			options: {
 				keepSpecialComments: 0
@@ -207,6 +227,7 @@ module.exports = function(grunt) {
 		'sass',
 		'concat:css',
 		'autoprefixer',
+		'csslint',
 		'clean:tmp'
 	]);
 
