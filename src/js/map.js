@@ -101,7 +101,6 @@ geochartjs.map = ( function($, d3, topojson, moment, htmlTemplate) {
 
 			checkAvailabilityOfjQueryLibraries();
 
-
 			preInitialization(configuration);
 
 			(function getMapDataAndContinueInitialization() {
@@ -160,6 +159,7 @@ geochartjs.map = ( function($, d3, topojson, moment, htmlTemplate) {
 
 			setSelectedTypeToFirstIfNotInitiallySet();
 			setAnEmptyValuesObjectForEveryCountryWithoutValuesObject();
+			convertValuesToFloat();
 
 			(function slideMenuMetaData() {
 				addCSVLink();
@@ -266,6 +266,36 @@ geochartjs.map = ( function($, d3, topojson, moment, htmlTemplate) {
 		$container.find('.button.functionSelect').find('option').text(function() {
 			return label.colorFunction[$(this).val()];
 		});
+	}
+
+	function convertValuesToFloat() {
+		var valueType;
+
+		for(var countryCode in data.countries) {
+			if(data.countries.hasOwnProperty(countryCode) &&
+				isset(data.countries[countryCode].values)) {
+
+				for(valueType in data.countries[countryCode].values) {
+					if(data.countries[countryCode].values.hasOwnProperty(valueType) &&
+						isset(data.countries[countryCode].values[valueType])) {
+
+						data.countries[countryCode].values[valueType] =
+							parseFloat(data.countries[countryCode].values[valueType]);
+
+					}
+				}
+
+			}
+		}
+
+		valueType = undefined;
+		if(isset(data.notLocatable) && isset(data.notLocatable.values)) {
+			for(valueType in data.notLocatable.values) {
+				if(data.notLocatable.values.hasOwnProperty(valueType)) {
+					data.notLocatable.values[valueType] = parseFloat(data.notLocatable.values[valueType]);
+				}
+			}
+		}
 	}
 
 	function setSelectedTypeToFirstIfNotInitiallySet() {
@@ -391,7 +421,7 @@ geochartjs.map = ( function($, d3, topojson, moment, htmlTemplate) {
 		currentValueSum = 0;
 		currentMaximumValue = d3.max(countryArray, function(country) {
 			if(isset(country.values[data.selectedType])) {
-				var value = parseFloat(country.values[data.selectedType], 10);
+				var value = parseFloat(country.values[data.selectedType]);
 				currentValueSum += value;
 				return value;
 			}
