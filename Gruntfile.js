@@ -143,22 +143,23 @@ module.exports = function(grunt) {
 		},
 
 		watch: {
+			options: {
+				livereload: true
+			},
 			all: {
-				files: ['src/**/*.*'],
+				files: ['src/**/*.*', 'example/*'],
 				tasks: ['default']
 			}
 		},
 
 		connect: {
-			options: {
-				port: 9000,
-				open: 'http://<%= connect.options.hostname %>:<%= connect.options.port %>/example',
-				hostname: 'localhost'
-			},
 			dist: {
 				options: {
+					port: 9000,
 					base: '',
-					livereload: false
+					open: 'http://<%= connect.dist.options.hostname %>:<%= connect.dist.options.port %>/example',
+					hostname: 'localhost',
+					livereload: true
 				}
 			}
 		}
@@ -189,7 +190,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('serve', [
 		'default',
-		'connect:dist',
+		'connect',
 		'watch'
 	]);
 };
