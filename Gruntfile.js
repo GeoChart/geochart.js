@@ -11,6 +11,18 @@ module.exports = function(grunt) {
 		'src/js/map.js'
 	];
 
+	var libraries = [
+		'bower_components/jquery/dist/jquery.min.js',
+		'bower_components/jquery/dist/jquery.min.map',
+		'bower_components/jquery-load-template/jquery-loadTemplate/jquery.loadTemplate-1.4.5.min.js',
+		'bower_components/jScrollPane/script/jquery.mousewheel.js',
+		'bower_components/jScrollPane/script/jquery.jscrollpane.min.js',
+		'bower_components/jScrollPane/style/jquery.jscrollpane.css',
+		'bower_components/d3/d3.min.js',
+		'bower_components/topojson/topojson.js',
+		'bower_components/moment/min/moment.min.js'
+	];
+
 	function getHtmlPrefix() {
 		var prefix = 'geochartjs.htmlTemplate = (function() {\n\n';
 		prefix += '	"use strict";\n\n';
@@ -135,9 +147,31 @@ module.exports = function(grunt) {
 		},
 
 		copy: {
-			js: {
+			jsCustom: {
 				src: '<%= concat.jsCustom.dest %>',
 				dest: 'dist/<%= pkg.name %>-<%= pkg.version %>.js'
+			},
+			libraries: {
+				expand: true,
+				flatten: true,
+				src: libraries,
+				dest: 'dist/lib/'
+			},
+			json: {
+				expand: true,
+				flatten: true,
+				rename: function(dest, src) {
+					var nameAndVersion = grunt.template.process('<%= pkg.name %>-<%= pkg.version %>-');
+					return dest + nameAndVersion + src;
+				},
+				src: ['src/json/*.json'],
+				dest: 'dist/'
+			},
+			htmlExample: {
+				expand: true,
+				flatten: true,
+				src: 'src/example/index.html',
+				dest: 'dist/'
 			}
 		},
 
@@ -208,8 +242,8 @@ module.exports = function(grunt) {
 			dist: {
 				options: {
 					port: 9000,
-					base: '',
-					open: 'http://<%= connect.dist.options.hostname %>:<%= connect.dist.options.port %>/example',
+					base: 'dist/',
+					open: 'http://<%= connect.dist.options.hostname %>:<%= connect.dist.options.port %>',
 					hostname: 'localhost',
 					livereload: true
 				}
@@ -223,11 +257,14 @@ module.exports = function(grunt) {
 		'htmlConvert:dev',
 		'concat:jsCustom',
 		'jshint:dev',
-		'copy:js',
+		'copy:jsCustom',
+		'copy:libraries',
 		'sass',
 		'concat:css',
 		'autoprefixer',
 		'csslint',
+		'copy:htmlExample',
+		'copy:json',
 		'clean:tmp'
 	]);
 

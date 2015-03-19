@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>geochart.js</title>
+	<meta name="description" content="geochart-js">
+	<meta name="viewport" content="width=device-width">
+	<link rel="stylesheet" href="lib/jquery.jscrollpane.css">
+	<link rel="stylesheet" href="geochart-1.0.0.css">
+
+	<style type="text/css">
+		body {
+			background: white;
+			padding: 20px;
+			margin: 0;
+		}
+		#geochart-map {
+			width: 80%;
+			margin: 0 auto;
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<!-- geochart-element -->
+	<div id="geochart-map"></div>
+
+	<!-- dependencies -->
+	<script src="lib/jquery.min.js"></script>
+	<script src="lib/jquery.loadTemplate-1.4.5.min.js"></script>
+	<script src="lib/jquery.mousewheel.js"></script>
+	<script src="lib/jquery.jscrollpane.min.js"></script>
+	<script src="lib/d3.min.js"></script>
+	<script src="lib/topojson.js"></script>
+	<script src="lib/moment.min.js"></script>
+
+	<!-- geochart.js -->
+	<script src="geochart-1.0.0.js"></script>
+
+	<!-- initialization -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			geochartjs.map.init({
+				bindTo: "#geochart-map",
+				map: "./geochart-1.0.0-world.json",
+				data: "./geochart-1.0.0-example-data.json",
+				format: {
+					date: 'DD.MM.YYYY'
+				},
+				style: {
+					seaColor: '#B8D5EA',
+					countryColorRangeStart: "rgb(182,218,195)",
+					countryColorRangeEnd: "rgb(7,84,37)",
+					countryColorNoData: "#efefef",
+					countryStrokeColor: "#CCC",
+					countryStrokeWidthMin: "0.07",
+					countryStrokeWidthMax: "0.3",
+					selectedCountryColor: "#FFE700",
+					selectedCountryStrokeColor: "#000000"
+				},
+				label: {
+					mapListTitle: 'Data Distribution',
+					configurationDataType: 'DATA TYPE',
+					configurationColorFunction: 'COLOR FUNCTION',
+					colorFunction: {
+						log: 'Logarithmic',
+						linear: 'Linear',
+						quadratic: 'Quadratic',
+						sqrt: 'Square Root',
+						cubicroot: 'Cubic Root',
+						neginverse: 'Negated Inverse'
+					}
+				}
+			});
+
+		});
+	</script>
+
+</body>
+</html>

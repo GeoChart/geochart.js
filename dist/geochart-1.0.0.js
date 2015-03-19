@@ -622,6 +622,7 @@ geochartjs.map = ( function($, d3, topojson, moment, htmlTemplate) {
 		hideMapAndShowSpinner();
 		resizeTimer = window.setTimeout(function() {
 			redraw();
+			addScrollingToList();
 		}, 300);
 	}
 
@@ -995,7 +996,6 @@ geochartjs.map = ( function($, d3, topojson, moment, htmlTemplate) {
 			$container.find(".single-country-info").fadeOut();
 			$(this).fadeOut();
 			$container.find(".fullscreen-close").fadeIn();
-			addScrollingToList();
 			timedRedraw();
 		}
 	}

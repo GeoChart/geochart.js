@@ -1,0 +1,59 @@
+{
+	"data": {
+		"csv": "http://kraken-vm.csg.uzh.ch:8080/kraken-ui/request/generic-map.csv",
+		"date": {
+			"value": "2014-09-15",
+			"format": "YYYY-MM-DD"
+		},
+		"types": [
+			{
+				"type": "OBSERVED_PEERS",
+				"label": "Observed Peers"
+			}, {
+				"type": "MAX_SWARM_SIZE",
+				"label": "Max. Swarm Size"
+			}, {
+				"type": "TEST_TYPE_1",
+				"label": "Test Type 1"
+			}, {
+				"type": "TEST_TYPE_2",
+				"label": "Test Type 2"
+			}, {
+				"type": "TEST_TYPE_3",
+				"label": "Test Type 3"
+			}
+		],
+		"selectedType": "TEST_TYPE_1",
+		"notLocatable": {
+			"label": "Not Locatable",
+			"values": {
+				"OBSERVED_PEERS": 598,
+				"MAX_SWARM_SIZE": 490
+			}
+		},
+		"countries": {
+			"ES": {
+				"label": "Spain",
+				"continent": "Europe",
+				"values": {
+					"OBSERVED_PEERS": 2302,
+					"MAX_SWARM_SIZE": 451
+				}
+			},
+			"IT": {
+				"values": {
+					"OBSERVED_PEERS": 1038,
+					"MAX_SWARM_SIZE": 800
+				}
+			},
+			"RU": {
+				"label": "Russia",
+				"continent": "Europe",
+				"values": {
+					"TEST_TYPE_1": 1038,
+					"MAX_SWARM_SIZE": 2020
+				}
+			}
+		}
+	}
+}

@@ -351,7 +351,6 @@
   .geochart-map-wrapper-element .slide-menu .menu {
     box-shadow: -2px 0 15px rgba(0, 0, 0, 0.6);
     height: 100%;
-    overflow: auto;
     position: absolute;
     left: -420px;
     top: 0;
@@ -441,7 +440,7 @@
             text-align: right;
             font-weight: 500;
             width: 0; }
-        .geochart-map-wrapper-element .slide-menu .menu .list table tr.selected .ranking {
+        .geochart-map-wrapper-element .slide-menu .menu .list table .selected .ranking {
           border: 1px solid #929292;
           color: #000;
           font-weight: bold; }
@@ -546,7 +545,6 @@
   .geochart-map-wrapper-element .overlay .button.fullscreen-close {
     display: none; }
   .geochart-map-wrapper-element .overlay .button.functionSelect, .geochart-map-wrapper-element .overlay .button.dataTypeSelect {
-    outline: none;
     color: #eee;
     -moz-appearance: none;
     -webkit-appearance: none;
@@ -554,6 +552,8 @@
     border: 1px solid #434343;
     padding: 7px;
     padding-right: 25px; }
+    .geochart-map-wrapper-element .overlay .button.functionSelect:focus, .geochart-map-wrapper-element .overlay .button.dataTypeSelect:focus {
+      outline: none; }
     .geochart-map-wrapper-element .overlay .button.functionSelect option, .geochart-map-wrapper-element .overlay .button.dataTypeSelect option {
       background: #bbb;
       color: black; }
