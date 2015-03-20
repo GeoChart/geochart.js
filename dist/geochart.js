@@ -129,7 +129,7 @@
 		'	<option data-content="label" data-value="type"></option>\n' +
 		'</script>';
 
-	var data = [];
+	var data = {};
 	
 	var format = {
 		date: 'YYYY-MM-DD'
@@ -257,7 +257,7 @@
 					getDataObjectAndContinueInitialization(configuration.map);
 				}
 				else {
-					throw "'geochart.js' needs a valid input map";
+					throw "geochart needs a valid input map";
 				}
 			})();
 	
@@ -271,7 +271,7 @@
 							data = config;
 						}
 						else {
-							throw "'geochart' needs a valid data object";
+							throw "geochart needs a valid data object";
 						}
 						initialization(mapData);
 					});
@@ -281,7 +281,7 @@
 					initialization(mapData);
 				}
 				else {
-					throw "'geochart.js' needs a valid data object";
+					throw "geochart needs a valid data object";
 				}
 			}
 	
@@ -356,7 +356,7 @@
 	function storeInitialConfiguration(configuration) {
 	
 		if(!isObject(configuration)) {
-			throw "'geochart.js' needs a valid configuration input";
+			throw "geochart needs a valid configuration input";
 		}
 	
 		if(isString(configuration.bindTo)) {
@@ -388,7 +388,7 @@
 				d3container = d3.select(topElement).select('.'+classes.container);
 			}
 			else {
-				throw "'geochart.js' needs exactly one element to bind to";
+				throw "geochart needs exactly one element to bind to";
 			}
 		})();
 	
@@ -623,7 +623,7 @@
 					code: country.code,
 					label: (isset(country.label) && !isEmptyString(country.label)) ? country.label : country.code,
 					continent: country.continent,
-					value: country.values[data.selectedType],
+					value: country.values[data.selectedType] + getUnitOfCurrentDataType(),
 					percent: formatPercent(country.values[data.selectedType] / currentValueSum),
 					displayContinent: !isset(country.continent) || isEmptyString(country.continent) ? 'display:none' : ''
 				});
@@ -811,12 +811,21 @@
 			countryLabel: (isset(country.label) && !isEmptyString(country.label)) ? country.label : country.code,
 			continent: country.continent,
 			dataType: getLabelByType(data.selectedType),
-			value: country.values[data.selectedType],
+			value: country.values[data.selectedType] + getUnitOfCurrentDataType(),
 			percent: formatPercent(country.values[data.selectedType] / currentValueSum)
 		};
 	
 		$container.find('.single-country-info').fadeIn();
 		$container.find('.single-country-info').loadTemplate($("#gc-single-country-info-template"), singleInformation);
+	}
+	
+	function getUnitOfCurrentDataType() {
+		for(var i=0; i<data.types.length; i++) {
+			if(data.types[i].type === data.selectedType) {
+				return isString(data.types[i].unit) ? data.types[i].unit : '';
+			}
+		}
+		return '';
 	}
 	
 	function getLabelByType(type) {

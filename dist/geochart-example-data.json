@@ -13,6 +13,7 @@
 				"type": "MAX_SWARM_SIZE",
 				"label": "Max. Swarm Size"
 			}, {
+				"unit": "px",
 				"type": "TEST_TYPE_1",
 				"label": "Test Type 1"
 			}, {
@@ -43,7 +44,8 @@
 			"IT": {
 				"values": {
 					"OBSERVED_PEERS": 1038,
-					"MAX_SWARM_SIZE": 800
+					"MAX_SWARM_SIZE": 800,
+					"TEST_TYPE_1": 400
 				}
 			},
 			"RU": {
