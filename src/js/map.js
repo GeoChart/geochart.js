@@ -133,7 +133,15 @@ var initialize = (function() {
 		function getDataObjectAndContinueInitialization(mapData) {
 			if(isString(configuration.data)) {
 				d3.json(configuration.data, function(config) {
-					data = config.data;
+					if(config.hasOwnProperty("data")) {
+						data = config.data;
+					}
+					else if(isObject(config)) {
+						data = config;
+					}
+					else {
+						throw "'geochart' needs a valid data object";
+					}
 					initialization(mapData);
 				});
 			}
@@ -279,7 +287,7 @@ function createDomStructure() {
 }
 
 function setLabelTexts() {
-	$container.find('.slide-menu .menu h2 .title').text(label.mapListTitle);
+	$container.find('.slide-menu .gc-title .value').text(label.mapListTitle);
 	$container.find('.functionSelectWrapper .selectLabel').text(label.configurationColorFunction);
 	$container.find('.dataTypeSelectWrapper .selectLabel').text(label.configurationDataType);
 	$container.find('.gc-button.functionSelect').find('option').text(function() {
@@ -334,7 +342,7 @@ function setAnEmptyValuesObjectForEveryCountryWithoutValuesObject() {
 }
 
 function addCSVLink() {
-	var $button = $container.find('.list .csvDownload');
+	var $button = $container.find('.gc-list .csvDownload');
 	if(isset(data.csv)) {
 		$button.attr('href', data.csv);
 	}
@@ -347,7 +355,7 @@ function setDateStamp() {
 	var formattedDate;
 
 	function setDateInGui() {
-		$container.find(".slide-menu h2 .date").text("("+formattedDate+")");
+		$container.find(".slide-menu .gc-title .date").text("("+formattedDate+")");
 	}
 
 	if(isString(data.date)) {
@@ -523,7 +531,7 @@ function formatPercent(percent) {
 }
 
 function fillMapListInGui() {
-	var $mapList = $container.find(".slide-menu .list table tbody");
+	var $mapList = $container.find(".slide-menu .gc-list table tbody");
 	$mapList.empty();
 	$mapList.loadTemplate($("#gc-slide-menu-table-template"), mapList);
 }
@@ -633,7 +641,7 @@ function addBackgroundColor(datum) {
 
 function addMapListRankingBackgroundColor(countryCode, color) {
 	$container
-	.find('.slide-menu .list')
+	.find('.slide-menu .gc-list')
 	.find('table tr[data-country-code='+countryCode+']')
 	.find('.ranking')
 	.css('backgroundColor', color);
@@ -689,7 +697,7 @@ function getLabelByType(type) {
 }
 
 function selectCountryOnMapList(datum) {
-	var $list = $container.find('.slide-menu .list');
+	var $list = $container.find('.slide-menu .gc-list');
 	var $row = $list.find('table tbody tr');
 	$row.removeClass(classes.selectedCountryInMapList);
 
@@ -723,10 +731,10 @@ function move() {
 }
 
 function addClickListenerToZoomButtons() {
-	$container.find(".zoom-plus").click(function() {
+	$container.find(".gc-zoom-plus").click(function() {
 		zoomMap.apply(this, [{zoomIn: true}]);
 	});
-	$container.find(".zoom-minus").click(function() {
+	$container.find(".gc-zoom-minus").click(function() {
 		zoomMap.apply(this, [{zoomIn: false}]);
 	});
 
@@ -852,7 +860,7 @@ function addChangeListenerToFunctionSelect() {
 		valueMappingFunction = valueMappingFunctions[$(this).find("option:selected").val()];
 		$container.find('.single-country-info').fadeOut();
 
-		$container.find('.slide-menu .list').find('tr').removeClass('selected').find('.ranking').removeAttr('style');
+		$container.find('.slide-menu .gc-list').find('tr').removeClass('selected').find('.ranking').removeAttr('style');
 		adaptColorParameters();
 		adaptMapToNewDataTypeOrColorFunction();
 	});
@@ -864,7 +872,7 @@ function adaptColorParameters() {
 }
 
 function addScrollingToList() {
-	$container.find('.list .scroll-pane').jScrollPane({ verticalDragMinHeight: 70 });
+	$container.find('.gc-list .scroll-pane').jScrollPane({ verticalDragMinHeight: 70 });
 }
 
 function addScrollingToTabs() {
@@ -881,7 +889,7 @@ function addScrollingToTabs() {
 }
 
 function addClickListenerToSettingsButton() {
-	$container.find('.gc-button.settings').click(function() {
+	$container.find('.gc-button.gc-settings').click(function() {
 		var $regularIcon = $(this).find('.icon-settings');
 		var $hideIcon = $(this).find('.icon-settings-hide');
 
@@ -924,16 +932,16 @@ function adaptZoomButtonDisableColor(scale) {
 	var inaccuracyBuffer = 0.05;
 
 	if(scale < properties.zoomRange[0] + inaccuracyBuffer) {
-		$container.find(".zoom-minus").addClass(classes.inactiveOverlayButton);
-		$container.find(".zoom-plus").removeClass(classes.inactiveOverlayButton);
+		$container.find(".gc-zoom-minus").addClass(classes.inactiveOverlayButton);
+		$container.find(".gc-zoom-plus").removeClass(classes.inactiveOverlayButton);
 	}
 	else if(scale > properties.zoomRange[1] - inaccuracyBuffer) {
-		$container.find(".zoom-plus").addClass(classes.inactiveOverlayButton);
-		$container.find(".zoom-minus").removeClass(classes.inactiveOverlayButton);
+		$container.find(".gc-zoom-plus").addClass(classes.inactiveOverlayButton);
+		$container.find(".gc-zoom-minus").removeClass(classes.inactiveOverlayButton);
 	}
 	else {
-		$container.find(".zoom-plus").removeClass(classes.inactiveOverlayButton);
-		$container.find(".zoom-minus").removeClass(classes.inactiveOverlayButton);
+		$container.find(".gc-zoom-plus").removeClass(classes.inactiveOverlayButton);
+		$container.find(".gc-zoom-minus").removeClass(classes.inactiveOverlayButton);
 	}
 }
 

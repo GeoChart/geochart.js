@@ -9,25 +9,25 @@
 	htmlTemplate['overlays.tpl'] = '<div class="gc-spinner"></div>\n' +
 		'<div class="gc-overlay" style="opacity: 0">\n' +
 		'	<div class="gc-button gc-show-slide-menu">\n' +
-		'		<span class="icon icon-menu">\n' +
+		'		<span class="gc-icon icon-menu">\n' +
 		'			<span class="inner"></span>\n' +
 		'		</span>\n' +
 		'	</div>\n' +
-		'	<div class="gc-button zoom-plus">\n' +
-		'		<div class="icon icon-plus"></div>\n' +
+		'	<div class="gc-button gc-zoom-plus">\n' +
+		'		<div class="gc-icon icon-plus"></div>\n' +
 		'	</div>\n' +
-		'	<div class="gc-button zoom-minus">\n' +
-		'		<div class="icon icon-minus"></div>\n' +
+		'	<div class="gc-button gc-zoom-minus">\n' +
+		'		<div class="gc-icon icon-minus"></div>\n' +
 		'	</div>\n' +
-		'	<div class="gc-button settings">\n' +
-		'		<div class="icon icon-settings">\n' +
+		'	<div class="gc-button gc-settings">\n' +
+		'		<div class="gc-icon icon-settings">\n' +
 		'			<div class="inner"></div>\n' +
 		'		</div>\n' +
-		'		<div class="icon icon-settings-hide"></div>\n' +
+		'		<div class="gc-icon icon-settings-hide"></div>\n' +
 		'	</div>\n' +
 		'	<div class="settingsWrapper">\n' +
 		'		<div class="functionSelectWrapper">\n' +
-		'			<div class="icon icon-select"></div>\n' +
+		'			<div class="gc-icon icon-select"></div>\n' +
 		'			<div class="selectLabel"></div>\n' +
 		'			<select class="gc-button functionSelect">\n' +
 		'				<option value="log"></option>\n' +
@@ -39,7 +39,7 @@
 		'			</select>\n' +
 		'		</div>\n' +
 		'		<div class="dataTypeSelectWrapper">\n' +
-		'			<div class="icon icon-select"></div>\n' +
+		'			<div class="gc-icon icon-select"></div>\n' +
 		'			<div class="selectLabel"></div>\n' +
 		'			<select class="gc-button dataTypeSelect"></select>\n' +
 		'		</div>\n' +
@@ -50,18 +50,18 @@
 		'		<div class="hide-slide-menu-area"></div>\n' +
 		'		<div class="listWrapper">\n' +
 		'			<div class="menu">\n' +
-		'				<h2>\n' +
-		'					<span class="title"></span><span class="date"></span>\n' +
-		'				</h2>\n' +
+		'				<div class="gc-title">\n' +
+		'					<span class="value"></span><span class="date"></span>\n' +
+		'				</div>\n' +
 		'				<div class="data-type-chooser">\n' +
 		'					<div class="bottomLine"></div>\n' +
 		'					<div class="scroll-pane"></div>\n' +
 		'					<a class="left-scroll"></a>\n' +
 		'					<a class="right-scroll"></a>\n' +
 		'				</div>\n' +
-		'				<div class="list">\n' +
+		'				<div class="gc-list">\n' +
 		'					<a class="csvDownload" target="_blank">\n' +
-		'						<span class="icon icon-download"><span class="inner"></span></span>\n' +
+		'						<span class="gc-icon icon-download"><span class="inner"></span></span>\n' +
 		'						<span>.csv</span>\n' +
 		'					</a>\n' +
 		'					<div class="scroll-pane">\n' +
@@ -74,12 +74,12 @@
 		'		</div>\n' +
 		'	</div>\n' +
 		'	<div class="gc-button fullscreen-open">\n' +
-		'		<span class="icon icon-fullscreen-open">\n' +
+		'		<span class="gc-icon icon-fullscreen-open">\n' +
 		'			<span class="inner"></span>\n' +
 		'		</span>\n' +
 		'	</div>\n' +
 		'	<div class="gc-button fullscreen-close">\n' +
-		'		<span class="icon icon-fullscreen-close">\n' +
+		'		<span class="gc-icon icon-fullscreen-close">\n' +
 		'			<span class="inner"></span>\n' +
 		'		</span>\n' +
 		'	</div>\n' +
@@ -264,7 +264,15 @@
 			function getDataObjectAndContinueInitialization(mapData) {
 				if(isString(configuration.data)) {
 					d3.json(configuration.data, function(config) {
-						data = config.data;
+						if(config.hasOwnProperty("data")) {
+							data = config.data;
+						}
+						else if(isObject(config)) {
+							data = config;
+						}
+						else {
+							throw "'geochart' needs a valid data object";
+						}
 						initialization(mapData);
 					});
 				}
@@ -410,7 +418,7 @@
 	}
 	
 	function setLabelTexts() {
-		$container.find('.slide-menu .menu h2 .title').text(label.mapListTitle);
+		$container.find('.slide-menu .gc-title .value').text(label.mapListTitle);
 		$container.find('.functionSelectWrapper .selectLabel').text(label.configurationColorFunction);
 		$container.find('.dataTypeSelectWrapper .selectLabel').text(label.configurationDataType);
 		$container.find('.gc-button.functionSelect').find('option').text(function() {
@@ -465,7 +473,7 @@
 	}
 	
 	function addCSVLink() {
-		var $button = $container.find('.list .csvDownload');
+		var $button = $container.find('.gc-list .csvDownload');
 		if(isset(data.csv)) {
 			$button.attr('href', data.csv);
 		}
@@ -478,7 +486,7 @@
 		var formattedDate;
 	
 		function setDateInGui() {
-			$container.find(".slide-menu h2 .date").text("("+formattedDate+")");
+			$container.find(".slide-menu .gc-title .date").text("("+formattedDate+")");
 		}
 	
 		if(isString(data.date)) {
@@ -654,7 +662,7 @@
 	}
 	
 	function fillMapListInGui() {
-		var $mapList = $container.find(".slide-menu .list table tbody");
+		var $mapList = $container.find(".slide-menu .gc-list table tbody");
 		$mapList.empty();
 		$mapList.loadTemplate($("#gc-slide-menu-table-template"), mapList);
 	}
@@ -764,7 +772,7 @@
 	
 	function addMapListRankingBackgroundColor(countryCode, color) {
 		$container
-		.find('.slide-menu .list')
+		.find('.slide-menu .gc-list')
 		.find('table tr[data-country-code='+countryCode+']')
 		.find('.ranking')
 		.css('backgroundColor', color);
@@ -820,7 +828,7 @@
 	}
 	
 	function selectCountryOnMapList(datum) {
-		var $list = $container.find('.slide-menu .list');
+		var $list = $container.find('.slide-menu .gc-list');
 		var $row = $list.find('table tbody tr');
 		$row.removeClass(classes.selectedCountryInMapList);
 	
@@ -854,10 +862,10 @@
 	}
 	
 	function addClickListenerToZoomButtons() {
-		$container.find(".zoom-plus").click(function() {
+		$container.find(".gc-zoom-plus").click(function() {
 			zoomMap.apply(this, [{zoomIn: true}]);
 		});
-		$container.find(".zoom-minus").click(function() {
+		$container.find(".gc-zoom-minus").click(function() {
 			zoomMap.apply(this, [{zoomIn: false}]);
 		});
 	
@@ -983,7 +991,7 @@
 			valueMappingFunction = valueMappingFunctions[$(this).find("option:selected").val()];
 			$container.find('.single-country-info').fadeOut();
 	
-			$container.find('.slide-menu .list').find('tr').removeClass('selected').find('.ranking').removeAttr('style');
+			$container.find('.slide-menu .gc-list').find('tr').removeClass('selected').find('.ranking').removeAttr('style');
 			adaptColorParameters();
 			adaptMapToNewDataTypeOrColorFunction();
 		});
@@ -995,7 +1003,7 @@
 	}
 	
 	function addScrollingToList() {
-		$container.find('.list .scroll-pane').jScrollPane({ verticalDragMinHeight: 70 });
+		$container.find('.gc-list .scroll-pane').jScrollPane({ verticalDragMinHeight: 70 });
 	}
 	
 	function addScrollingToTabs() {
@@ -1012,7 +1020,7 @@
 	}
 	
 	function addClickListenerToSettingsButton() {
-		$container.find('.gc-button.settings').click(function() {
+		$container.find('.gc-button.gc-settings').click(function() {
 			var $regularIcon = $(this).find('.icon-settings');
 			var $hideIcon = $(this).find('.icon-settings-hide');
 	
@@ -1055,16 +1063,16 @@
 		var inaccuracyBuffer = 0.05;
 	
 		if(scale < properties.zoomRange[0] + inaccuracyBuffer) {
-			$container.find(".zoom-minus").addClass(classes.inactiveOverlayButton);
-			$container.find(".zoom-plus").removeClass(classes.inactiveOverlayButton);
+			$container.find(".gc-zoom-minus").addClass(classes.inactiveOverlayButton);
+			$container.find(".gc-zoom-plus").removeClass(classes.inactiveOverlayButton);
 		}
 		else if(scale > properties.zoomRange[1] - inaccuracyBuffer) {
-			$container.find(".zoom-plus").addClass(classes.inactiveOverlayButton);
-			$container.find(".zoom-minus").removeClass(classes.inactiveOverlayButton);
+			$container.find(".gc-zoom-plus").addClass(classes.inactiveOverlayButton);
+			$container.find(".gc-zoom-minus").removeClass(classes.inactiveOverlayButton);
 		}
 		else {
-			$container.find(".zoom-plus").removeClass(classes.inactiveOverlayButton);
-			$container.find(".zoom-minus").removeClass(classes.inactiveOverlayButton);
+			$container.find(".gc-zoom-plus").removeClass(classes.inactiveOverlayButton);
+			$container.find(".gc-zoom-minus").removeClass(classes.inactiveOverlayButton);
 		}
 	}
 	

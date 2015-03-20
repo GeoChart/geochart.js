@@ -70,9 +70,10 @@
 			.scroll-pane {
 				height: 100%;
 			}
-			h2 {
-				padding: 20px 25px 51px 25px;
+			.gc-title {
+				padding: 22px 25px 51px 22px;
 				position: absolute;
+				font-size: 24px;
 				top: 0;
 				left: 0;
 				white-space: nowrap;
@@ -136,7 +137,7 @@
 					}
 				}
 			}
-			.list {
+			.gc-list {
 				height: 100%;
 				margin: 0 15px;
 

@@ -1,43 +1,43 @@
-.gc-map-wrapper .icon {
+.gc-map-wrapper .gc-icon {
   position: relative;
   display: block;
   width: 1em;
   height: 1em; }
-  .gc-map-wrapper .icon:before, .gc-map-wrapper .icon:after, .gc-map-wrapper .icon .inner:before, .gc-map-wrapper .icon .inner:after {
+  .gc-map-wrapper .gc-icon:before, .gc-map-wrapper .gc-icon:after, .gc-map-wrapper .gc-icon .inner:before, .gc-map-wrapper .gc-icon .inner:after {
     content: ""; }
-  .gc-map-wrapper .icon.icon-plus:before, .gc-map-wrapper .icon.icon-plus:after {
+  .gc-map-wrapper .gc-icon.icon-plus:before, .gc-map-wrapper .gc-icon.icon-plus:after {
     position: absolute;
     background-color: #bbb; }
-  .gc-map-wrapper .icon.icon-plus:before {
+  .gc-map-wrapper .gc-icon.icon-plus:before {
     width: 100%;
     height: 25%;
     top: 37.5%;
     left: 0; }
-  .gc-map-wrapper .icon.icon-plus:after {
+  .gc-map-wrapper .gc-icon.icon-plus:after {
     width: 25%;
     height: 100%;
     top: 0;
     left: 37.5%; }
-  .gc-map-wrapper .icon.icon-minus:before {
+  .gc-map-wrapper .gc-icon.icon-minus:before {
     position: absolute;
     background-color: #bbb;
     width: 100%;
     height: 25%;
     top: 37.5%;
     left: 0; }
-  .gc-map-wrapper .icon.icon-menu:before, .gc-map-wrapper .icon.icon-menu:after, .gc-map-wrapper .icon.icon-menu .inner {
+  .gc-map-wrapper .gc-icon.icon-menu:before, .gc-map-wrapper .gc-icon.icon-menu:after, .gc-map-wrapper .gc-icon.icon-menu .inner {
     position: absolute;
     background-color: #bbb;
     border-radius: 0.1em;
     width: 100%;
     height: 25%; }
-  .gc-map-wrapper .icon.icon-menu:after {
+  .gc-map-wrapper .gc-icon.icon-menu:after {
     top: 37.5%; }
-  .gc-map-wrapper .icon.icon-menu .inner {
+  .gc-map-wrapper .gc-icon.icon-menu .inner {
     top: 75%; }
-  .gc-map-wrapper .icon.icon-fullscreen-open {
+  .gc-map-wrapper .gc-icon.icon-fullscreen-open {
     margin: 0.06em -0.05em -0.06em 0.05em; }
-    .gc-map-wrapper .icon.icon-fullscreen-open:before, .gc-map-wrapper .icon.icon-fullscreen-open:after {
+    .gc-map-wrapper .gc-icon.icon-fullscreen-open:before, .gc-map-wrapper .gc-icon.icon-fullscreen-open:after {
       position: absolute;
       left: 0.4em;
       width: 0.15em;
@@ -47,14 +47,14 @@
       -webkit-transform: rotate(45deg);
           -ms-transform: rotate(45deg);
               transform: rotate(45deg); }
-    .gc-map-wrapper .icon.icon-fullscreen-open:after {
+    .gc-map-wrapper .gc-icon.icon-fullscreen-open:after {
       -webkit-transform: rotate(-45deg);
           -ms-transform: rotate(-45deg);
               transform: rotate(-45deg); }
-    .gc-map-wrapper .icon.icon-fullscreen-open .inner {
+    .gc-map-wrapper .gc-icon.icon-fullscreen-open .inner {
       position: absolute;
       display: block; }
-      .gc-map-wrapper .icon.icon-fullscreen-open .inner:before, .gc-map-wrapper .icon.icon-fullscreen-open .inner:after {
+      .gc-map-wrapper .gc-icon.icon-fullscreen-open .inner:before, .gc-map-wrapper .gc-icon.icon-fullscreen-open .inner:after {
         display: block;
         width: 0.25em;
         height: 0;
@@ -62,10 +62,10 @@
         border-style: solid;
         border-color: rgba(0, 0, 0, 0) #bbb;
         background: rgba(0, 0, 0, 0); }
-      .gc-map-wrapper .icon.icon-fullscreen-open .inner:after {
+      .gc-map-wrapper .gc-icon.icon-fullscreen-open .inner:after {
         border-width: 0.35em 0.35em 0;
         margin-top: 0.2em; }
-  .gc-map-wrapper .icon.icon-fullscreen-close:before, .gc-map-wrapper .icon.icon-fullscreen-close:after {
+  .gc-map-wrapper .gc-icon.icon-fullscreen-close:before, .gc-map-wrapper .gc-icon.icon-fullscreen-close:after {
     position: absolute;
     top: 0.5em;
     left: 0.42em;
@@ -77,14 +77,14 @@
     -webkit-transform: rotate(45deg);
         -ms-transform: rotate(45deg);
             transform: rotate(45deg); }
-  .gc-map-wrapper .icon.icon-fullscreen-close:after {
+  .gc-map-wrapper .gc-icon.icon-fullscreen-close:after {
     -webkit-transform: rotate(-45deg);
         -ms-transform: rotate(-45deg);
             transform: rotate(-45deg); }
-  .gc-map-wrapper .icon.icon-fullscreen-close .inner {
+  .gc-map-wrapper .gc-icon.icon-fullscreen-close .inner {
     position: absolute;
     display: block; }
-    .gc-map-wrapper .icon.icon-fullscreen-close .inner:before, .gc-map-wrapper .icon.icon-fullscreen-close .inner:after {
+    .gc-map-wrapper .gc-icon.icon-fullscreen-close .inner:before, .gc-map-wrapper .gc-icon.icon-fullscreen-close .inner:after {
       position: absolute;
       display: block;
       left: 0.1em;
@@ -97,13 +97,13 @@
       -webkit-transform: rotate(-45deg);
           -ms-transform: rotate(-45deg);
               transform: rotate(-45deg); }
-    .gc-map-wrapper .icon.icon-fullscreen-close .inner:after {
+    .gc-map-wrapper .gc-icon.icon-fullscreen-close .inner:after {
       -webkit-transform: rotate(45deg);
           -ms-transform: rotate(45deg);
               transform: rotate(45deg); }
-  .gc-map-wrapper .icon.icon-download {
+  .gc-map-wrapper .gc-icon.icon-download {
     margin-top: -0.14em; }
-    .gc-map-wrapper .icon.icon-download:before {
+    .gc-map-wrapper .gc-icon.icon-download:before {
       position: absolute;
       display: block;
       border-width: 0.46em 0.36em 0;
@@ -112,7 +112,7 @@
       border-color: #999 rgba(0, 0, 0, 0);
       border-style: solid;
       background: rgba(0, 0, 0, 0); }
-    .gc-map-wrapper .icon.icon-download:after {
+    .gc-map-wrapper .gc-icon.icon-download:after {
       position: absolute;
       display: block;
       left: 0.36em;
@@ -120,14 +120,14 @@
       height: 0.35em;
       background: #999;
       bottom: 50%; }
-    .gc-map-wrapper .icon.icon-download .inner {
+    .gc-map-wrapper .gc-icon.icon-download .inner {
       position: absolute;
       background: #999;
       bottom: 0;
       left: 0;
       width: 100%;
       height: 1px; }
-  .gc-map-wrapper .icon.icon-settings:before {
+  .gc-map-wrapper .gc-icon.icon-settings:before {
     position: absolute;
     display: block;
     left: 0.25em;
@@ -138,7 +138,7 @@
         -ms-transform: rotate(45deg);
             transform: rotate(45deg);
     background: #999; }
-  .gc-map-wrapper .icon.icon-settings:after {
+  .gc-map-wrapper .gc-icon.icon-settings:after {
     position: absolute;
     left: 0.73em;
     width: 0.22em;
@@ -147,7 +147,7 @@
     -webkit-transform: rotate(45deg);
         -ms-transform: rotate(45deg);
             transform: rotate(45deg); }
-  .gc-map-wrapper .icon.icon-settings .inner {
+  .gc-map-wrapper .gc-icon.icon-settings .inner {
     position: absolute;
     display: block;
     right: 0;
@@ -156,7 +156,7 @@
     height: 0.5em;
     background: #999;
     border-radius: 0.5em; }
-  .gc-map-wrapper .icon.icon-settings-hide:before, .gc-map-wrapper .icon.icon-settings-hide:after {
+  .gc-map-wrapper .gc-icon.icon-settings-hide:before, .gc-map-wrapper .gc-icon.icon-settings-hide:after {
     position: absolute;
     display: block;
     width: 0.7em;
@@ -166,22 +166,22 @@
             transform: rotate(45deg);
     background: #999;
     top: 0.35em; }
-  .gc-map-wrapper .icon.icon-settings-hide:after {
+  .gc-map-wrapper .gc-icon.icon-settings-hide:after {
     -webkit-transform: rotate(-45deg);
         -ms-transform: rotate(-45deg);
             transform: rotate(-45deg);
     left: 0.325em; }
-  .gc-map-wrapper .icon.icon-select:before, .gc-map-wrapper .icon.icon-select:after {
+  .gc-map-wrapper .gc-icon.icon-select:before, .gc-map-wrapper .gc-icon.icon-select:after {
     position: absolute;
     display: block;
     width: 0;
     height: 0;
     border: 0.4em solid transparent;
     left: 0.1em; }
-  .gc-map-wrapper .icon.icon-select:before {
+  .gc-map-wrapper .gc-icon.icon-select:before {
     border-top: 0;
     border-bottom-color: #999; }
-  .gc-map-wrapper .icon.icon-select:after {
+  .gc-map-wrapper .gc-icon.icon-select:after {
     border-bottom: 0;
     border-top-color: #999;
     top: 0.6em; }
@@ -234,23 +234,23 @@
  */
 .gc-map-wrapper .jspScrollable:focus, .gc-map-wrapper .jspContainer:focus {
   outline: none; }
-.gc-map-wrapper .list .jspVerticalBar {
+.gc-map-wrapper .gc-list .jspVerticalBar {
   width: 10px;
   background: initial; }
-.gc-map-wrapper .list .jspHorizontalBar {
+.gc-map-wrapper .gc-list .jspHorizontalBar {
   height: 10px;
   background: initial; }
-.gc-map-wrapper .list .jspTrack {
+.gc-map-wrapper .gc-list .jspTrack {
   background: #DEDEDE;
   border-radius: 10px; }
-.gc-map-wrapper .list .jspDrag {
+.gc-map-wrapper .gc-list .jspDrag {
   background: #AAAAAA;
   border-radius: 10px; }
-  .gc-map-wrapper .list .jspDrag:hover, .gc-map-wrapper .list .jspDrag:active {
+  .gc-map-wrapper .gc-list .jspDrag:hover, .gc-map-wrapper .gc-list .jspDrag:active {
     background: #8F8F8F; }
-.gc-map-wrapper .list .jspVerticalBar .jspArrow {
+.gc-map-wrapper .gc-list .jspVerticalBar .jspArrow {
   height: 10px; }
-.gc-map-wrapper .list .jspHorizontalBar .jspArrow {
+.gc-map-wrapper .gc-list .jspHorizontalBar .jspArrow {
   width: 10px; }
 .gc-map-wrapper .data-type-chooser .jspPane, .gc-map-wrapper .data-type-chooser .jspHorizontalBar {
   background: transparent;
@@ -364,9 +364,10 @@
     background: #f6f6f6; }
     .gc-map-wrapper .slide-menu .menu .scroll-pane {
       height: 100%; }
-    .gc-map-wrapper .slide-menu .menu h2 {
-      padding: 20px 25px 51px 25px;
+    .gc-map-wrapper .slide-menu .menu .gc-title {
+      padding: 22px 25px 51px 22px;
       position: absolute;
+      font-size: 24px;
       top: 0;
       left: 0;
       white-space: nowrap;
@@ -374,7 +375,7 @@
       font-weight: 200;
       margin: 0;
       background: #e6e6e6; }
-      .gc-map-wrapper .slide-menu .menu h2 .date {
+      .gc-map-wrapper .slide-menu .menu .gc-title .date {
         font-size: 60%;
         display: inline-block;
         margin-left: 7px; }
@@ -421,32 +422,32 @@
           margin-left: 12px; }
         .gc-map-wrapper .slide-menu .menu .data-type-chooser .tab:last-child {
           margin-right: 12px; }
-    .gc-map-wrapper .slide-menu .menu .list {
+    .gc-map-wrapper .slide-menu .menu .gc-list {
       height: 100%;
       margin: 0 15px; }
-      .gc-map-wrapper .slide-menu .menu .list table {
+      .gc-map-wrapper .slide-menu .menu .gc-list table {
         border-spacing: 0;
         border-collapse: collapse;
         width: 100%; }
-        .gc-map-wrapper .slide-menu .menu .list table tr:nth-child(2n-1) {
+        .gc-map-wrapper .slide-menu .menu .gc-list table tr:nth-child(2n-1) {
           background: #efefef; }
-        .gc-map-wrapper .slide-menu .menu .list table td {
+        .gc-map-wrapper .slide-menu .menu .gc-list table td {
           vertical-align: middle;
           padding-top: 6px;
           padding-bottom: 6px; }
-          .gc-map-wrapper .slide-menu .menu .list table td:first-child {
+          .gc-map-wrapper .slide-menu .menu .gc-list table td:first-child {
             text-align: right;
             width: 50px; }
-          .gc-map-wrapper .slide-menu .menu .list table td:last-child {
+          .gc-map-wrapper .slide-menu .menu .gc-list table td:last-child {
             padding-right: 10px;
             text-align: right;
             font-weight: 500;
             width: 0; }
-        .gc-map-wrapper .slide-menu .menu .list table .selected .ranking {
+        .gc-map-wrapper .slide-menu .menu .gc-list table .selected .ranking {
           border: 1px solid #929292;
           color: #000;
           font-weight: bold; }
-        .gc-map-wrapper .slide-menu .menu .list table .ranking {
+        .gc-map-wrapper .slide-menu .menu .gc-list table .ranking {
           border-radius: 2px;
           color: #fff;
           display: inline-block;
@@ -456,16 +457,16 @@
           padding: 4px 0;
           text-align: center;
           background: #d6d6d6; }
-        .gc-map-wrapper .slide-menu .menu .list table .countryName {
+        .gc-map-wrapper .slide-menu .menu .gc-list table .countryName {
           display: block;
           font-size: 15px;
           padding-right: 10px; }
-        .gc-map-wrapper .slide-menu .menu .list table .continent {
+        .gc-map-wrapper .slide-menu .menu .gc-list table .continent {
           display: block;
           font-size: 12px;
           padding-top: 4px;
           padding-right: 10px; }
-        .gc-map-wrapper .slide-menu .menu .list table .percent {
+        .gc-map-wrapper .slide-menu .menu .gc-list table .percent {
           padding-right: 25px;
           text-align: right;
           display: block;
@@ -518,15 +519,15 @@
     left: 10px;
     top: 10px;
     padding: 10px; }
-  .gc-map-wrapper .gc-overlay .gc-button.zoom-plus {
+  .gc-map-wrapper .gc-overlay .gc-button.gc-zoom-plus {
     position: absolute;
     right: 10px;
     top: 10px; }
-  .gc-map-wrapper .gc-overlay .gc-button.zoom-minus {
+  .gc-map-wrapper .gc-overlay .gc-button.gc-zoom-minus {
     position: absolute;
     right: 10px;
     top: 42px; }
-  .gc-map-wrapper .gc-overlay .gc-button.settings {
+  .gc-map-wrapper .gc-overlay .gc-button.gc-settings {
     position: absolute;
     right: 10px;
     bottom: 10px;
@@ -534,9 +535,9 @@
     font-size: 20px;
     height: 32px;
     width: 32px; }
-    .gc-map-wrapper .gc-overlay .gc-button.settings .icon-settings, .gc-map-wrapper .gc-overlay .gc-button.settings .icon-settings-hide {
+    .gc-map-wrapper .gc-overlay .gc-button.gc-settings .icon-settings, .gc-map-wrapper .gc-overlay .gc-button.gc-settings .icon-settings-hide {
       position: absolute; }
-    .gc-map-wrapper .gc-overlay .gc-button.settings .icon-settings-hide {
+    .gc-map-wrapper .gc-overlay .gc-button.gc-settings .icon-settings-hide {
       display: none; }
   .gc-map-wrapper .gc-overlay .gc-button.fullscreen-open, .gc-map-wrapper .gc-overlay .gc-button.fullscreen-close {
     position: absolute;
