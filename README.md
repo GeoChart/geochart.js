@@ -38,7 +38,8 @@ An array of data types in which the values are grouped. Each data type holds a s
 ```
 {
   "type": "DATA_TYPE_KEY",
-  "label": "Data Type"
+  "label": "Data Type",
+  "unit": "°F"
 }
 ```
 
@@ -118,12 +119,6 @@ options.data.date = {
 }
 ```
 
-### options.noControls
-* Type: `Boolean`
-* Mandatory: :negative_squared_cross_mark:
-* Default value: `false`
-
-If set to true, all controls on the map are hidden. This includes all buttons like zoom-in, zoom-out, fullscreen, settings, slide-menu.
 
 ### options.format
 * Type: `Object`
@@ -154,7 +149,6 @@ The labels used on the map can be configured easily. All of the values have a de
 | `options.label.colorFunction.quadratic`    | Quadratic         |
 | `options.label.colorFunction.sqrt`         | Square Root       |
 | `options.label.colorFunction.cubicroot`    | Cubic Root        |
-| `options.label.colorFunction.neginverse`   | Negated Inverse   |
 
 ### options.style
 * Type: `Object`
@@ -174,3 +168,55 @@ The styles of the map can be configured easily. All of the values have a default
 | `options.style.countryStrokeWidthMax`      | Number [0,1] | 0.3              |
 | `options.style.selectedCountryColor`       | Color String | #FFE700          |
 | `options.style.selectedCountryStrokeColor` | Color String | #000             |
+
+### options.properties
+* Type: `Object`
+* Mandatory: :negative_squared_cross_mark:
+* Default value: *see subsection*
+
+#### options.properties.mapName
+* Type: `String`
+* Mandatory: :negative_square_cross_mark:
+* Default value: `'geochart-world-map'`
+
+This value is used only to specify the TopoJSON object name of the given TopoJSON map. See [the specification of TopoJSON](https://github.com/topojson/topojson-specification#2-topojson-objects) for more information.
+
+#### options.properties.zoomRange
+* Type: `Array` of 2 `Number`s
+* Mandatory: :negative_squared_cross_mark:
+* Default value: `[1, 9]`
+
+Sets the zoom range to an individual range. The first number needs to be 1 and the second number needs to be greater than 1.
+
+#### options.properties.fullscreen
+* Type: `Boolean`
+* Mandatory: :negative_squared_cross_mark:
+* Default value: `true`
+
+Allows to hide all fullscreen functionality.
+
+#### options.properties.noControls
+* Type: `Object`
+* Mandatory: :negative_squared_cross_mark:
+* Default value: *see subsection*
+
+##### options.properties.noControls.inGeneral
+* Type: `Boolean`
+* Mandatory: :negative_squared_cross_mark:
+* Default value: `false`
+
+Hides all controls of the map, including the configuration, slide-menu, zooming and fullscreen. It does not allow the user to switch anymore between the various data types. The first selected data type will be the final data type, which is presented.
+
+##### options.properties.noControls.inSmallMap
+* Type: `Boolean`
+* Mandatory: :negative_squared_cross_mark:
+* Default value: `true`
+
+Hides all controls of the map, similar to the previous option. The main difference is, that the controls are only invisible, if the container is smaller than a defined threshold. The container can not display the buttons anymore, if there is not enough space on the map anymore. Therefore, by default, the map hides the controls on a small map.
+
+##### options.properties.noControls.smallMapThreshold
+* Type: `Number` in Pixel
+* Mandatory: :negative_squared_cross_mark:
+* Default value: `600`
+
+Defines the threshold in pixel from where below the map is classified as a small map and therefore the map controls are hidden. This option is only reasonable if `inSmallMap` is set to `true`.
