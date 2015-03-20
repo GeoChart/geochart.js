@@ -91,7 +91,9 @@
 		'		<span data-content="continent" class="continent"></span>\n' +
 		'	</div>\n' +
 		'	<div class="data-type">\n' +
-		'		<span class="value" data-content="value"></span>\n' +
+		'		<span class="value">\n' +
+		'			<span data-content="value"></span><span data-content="unit"></span>\n' +
+		'		</span>\n' +
 		'		<span class="percent" data-content="percent"></span>\n' +
 		'		<span class="title" data-content="dataType"></span>\n' +
 		'	</div>\n' +
@@ -113,7 +115,7 @@
 		'			<span class="percent" data-content="percent"></span>\n' +
 		'		</td>\n' +
 		'		<td>\n' +
-		'			<span class="observedPeers" data-content="value"></span>\n' +
+		'			<span data-content="value"></span><span data-content="unit"></span>\n' +
 		'		</td>\n' +
 		'	</tr>\n' +
 		'</script>\n' +
@@ -623,9 +625,10 @@
 					code: country.code,
 					label: (isset(country.label) && !isEmptyString(country.label)) ? country.label : country.code,
 					continent: country.continent,
-					value: country.values[data.selectedType] + getUnitOfCurrentDataType(),
+					value: country.values[data.selectedType],
 					percent: formatPercent(country.values[data.selectedType] / currentValueSum),
-					displayContinent: !isset(country.continent) || isEmptyString(country.continent) ? 'display:none' : ''
+					displayContinent: !isset(country.continent) || isEmptyString(country.continent) ? 'display:none' : '',
+					unit: getUnitOfCurrentDataType()
 				});
 			}
 		}
@@ -811,8 +814,9 @@
 			countryLabel: (isset(country.label) && !isEmptyString(country.label)) ? country.label : country.code,
 			continent: country.continent,
 			dataType: getLabelByType(data.selectedType),
-			value: country.values[data.selectedType] + getUnitOfCurrentDataType(),
-			percent: formatPercent(country.values[data.selectedType] / currentValueSum)
+			value: country.values[data.selectedType],
+			percent: formatPercent(country.values[data.selectedType] / currentValueSum),
+			unit: getUnitOfCurrentDataType()
 		};
 	
 		$container.find('.single-country-info').fadeIn();

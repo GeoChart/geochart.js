@@ -492,9 +492,10 @@ function fillMapListInData() {
 				code: country.code,
 				label: (isset(country.label) && !isEmptyString(country.label)) ? country.label : country.code,
 				continent: country.continent,
-				value: country.values[data.selectedType] + getUnitOfCurrentDataType(),
+				value: country.values[data.selectedType],
 				percent: formatPercent(country.values[data.selectedType] / currentValueSum),
-				displayContinent: !isset(country.continent) || isEmptyString(country.continent) ? 'display:none' : ''
+				displayContinent: !isset(country.continent) || isEmptyString(country.continent) ? 'display:none' : '',
+				unit: getUnitOfCurrentDataType()
 			});
 		}
 	}
@@ -680,8 +681,9 @@ function addAndShowSingleCountryInfo(datum) {
 		countryLabel: (isset(country.label) && !isEmptyString(country.label)) ? country.label : country.code,
 		continent: country.continent,
 		dataType: getLabelByType(data.selectedType),
-		value: country.values[data.selectedType] + getUnitOfCurrentDataType(),
-		percent: formatPercent(country.values[data.selectedType] / currentValueSum)
+		value: country.values[data.selectedType],
+		percent: formatPercent(country.values[data.selectedType] / currentValueSum),
+		unit: getUnitOfCurrentDataType()
 	};
 
 	$container.find('.single-country-info').fadeIn();
