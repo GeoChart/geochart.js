@@ -1,1 +1,0 @@
-var geochartjs = geochartjs || {};

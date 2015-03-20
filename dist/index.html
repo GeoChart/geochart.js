@@ -6,7 +6,7 @@
 	<meta name="description" content="geochart-js">
 	<meta name="viewport" content="width=device-width">
 	<link rel="stylesheet" href="lib/jquery.jscrollpane.css">
-	<link rel="stylesheet" href="geochart-1.0.0.css">
+	<link rel="stylesheet" href="geochart.css">
 
 	<style type="text/css">
 		body {
@@ -37,16 +37,16 @@
 	<script src="lib/moment.min.js"></script>
 
 	<!-- geochart.js -->
-	<script src="geochart-1.0.0.js"></script>
+	<script src="geochart.js"></script>
 
 	<!-- initialization -->
 	<script type="text/javascript">
 		$(document).ready(function() {
 
-			geochartjs.map.init({
+			geochart.init({
 				bindTo: "#geochart-map",
-				map: "./geochart-1.0.0-world.json",
-				data: "./geochart-1.0.0-example-data.json",
+				map: "./geochart-world.json",
+				data: "./geochart-example-data.json",
 				format: {
 					date: 'DD.MM.YYYY'
 				},
@@ -72,6 +72,16 @@
 						sqrt: 'Square Root',
 						cubicroot: 'Cubic Root',
 						neginverse: 'Negated Inverse'
+					}
+				},
+				properties: {
+					zoomRange: [1, 9],
+					mapName: 'geochart-world-map',
+					fullscreen: true,
+					noControls: {
+						inGeneral: false,
+						inSmallMap: true,
+						smallMapThreshold: 600
 					}
 				}
 			});

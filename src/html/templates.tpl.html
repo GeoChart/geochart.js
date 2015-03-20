@@ -1,4 +1,4 @@
-<script type="text/html" id="geochart-single-country-info-template">
+<script type="text/html" id="gc-single-country-info-template">
 	<div>
 		<span data-content="countryLabel"></span>
 		<span data-content="continent" class="continent"></span>
@@ -10,7 +10,7 @@
 	</div>
 </script>
 
-<script type="text/html" id="geochart-slide-menu-table-template">
+<script type="text/html" id="gc-slide-menu-table-template">
 	<tr data-template-bind='{"attribute": "data-country-code", "value": "code"}'>
 		<td>
 			<span data-content="ranking" class="ranking"></span>
@@ -31,13 +31,13 @@
 	</tr>
 </script>
 
-<script type="text/html" id="geochart-data-type-chooser-template">
+<script type="text/html" id="gc-data-type-chooser-template">
 	<span class="tab" data-content="label" data-template-bind='[{
 		"attribute": "data-type",
 		"value": "type"
 	}]'></span>
 </script>
 
-<script type="text/html" id="geochart-data-type-chooser-select-template">
+<script type="text/html" id="gc-data-type-chooser-select-template">
 	<option data-content="label" data-value="type"></option>
 </script>

@@ -4,11 +4,10 @@ module.exports = function(grunt) {
 	require('time-grunt')(grunt);
 
 	var jsCustom = [
-		'src/js/main.js',
+		'src/js/head.js',
 		'tmp/html/geochart.tpl.js',
-		'src/js/utils.js',
-		'src/js/error-handling.js',
-		'src/js/map.js'
+		'src/js/map.js',
+		'src/js/tail.js'
 	];
 
 	var libraries = [
@@ -22,19 +21,6 @@ module.exports = function(grunt) {
 		'bower_components/topojson/topojson.js',
 		'bower_components/moment/min/moment.min.js'
 	];
-
-	function getHtmlPrefix() {
-		var prefix = 'geochartjs.htmlTemplate = (function() {\n\n';
-		prefix += '	"use strict";\n\n';
-		return prefix;
-	}
-	function getHtmlSuffix() {
-		var suffix = '\n	return {\n';
-		suffix += '\		overlays: htmlTemplate[\'overlays.tpl.html\'],\n';
-		suffix += '\		templates: htmlTemplate[\'templates.tpl.html\']';
-		suffix += '\n	};\n\n})();\n';
-		return suffix;
-	}
 
 	grunt.initConfig({
 
@@ -61,10 +47,10 @@ module.exports = function(grunt) {
 			options: {
 				quoteChar: '\'',
 				module: 'htmlTemplate',
-				prefix: getHtmlPrefix(),
-				suffix: getHtmlSuffix(),
-				indentGlobal: '	',
-				indentString: '	'
+				indentString: '	',
+				rename: function(moduleName) {
+					return moduleName.replace('.html', '');
+				}
 			},
 			dev: {
 				options: {
@@ -84,12 +70,24 @@ module.exports = function(grunt) {
 
 		concat: {
 			jsCustom: {
+				options: {
+					process: function(src, filepath) {
+						if(filepath !== 'src/js/head.js' && filepath !== 'src/js/head.js') {
+							var lines = [];
+							src.split('\n').forEach(function(line) {
+								return lines.push((line.length > 0 ? '	' : '') + line);
+							});
+							src = lines.join('\n');
+						}
+						return src;
+					}
+				},
 				src: jsCustom,
-				dest: 'tmp/js/<%= pkg.name %>-<%= pkg.version %>.js'
+				dest: 'tmp/js/<%= pkg.name %>.js'
 			},
 			css: {
 				src: ['tmp/styles/*.css'],
-				dest: 'dist/<%= pkg.name %>-<%= pkg.version %>.css'
+				dest: 'dist/<%= pkg.name %>.css'
 			}
 		},
 
@@ -149,7 +147,7 @@ module.exports = function(grunt) {
 		copy: {
 			jsCustom: {
 				src: '<%= concat.jsCustom.dest %>',
-				dest: 'dist/<%= pkg.name %>-<%= pkg.version %>.js'
+				dest: 'dist/<%= pkg.name %>.js'
 			},
 			libraries: {
 				expand: true,
@@ -161,7 +159,7 @@ module.exports = function(grunt) {
 				expand: true,
 				flatten: true,
 				rename: function(dest, src) {
-					var nameAndVersion = grunt.template.process('<%= pkg.name %>-<%= pkg.version %>-');
+					var nameAndVersion = grunt.template.process('<%= pkg.name %>-');
 					return dest + nameAndVersion + src;
 				},
 				src: ['src/json/*.json'],
@@ -183,7 +181,7 @@ module.exports = function(grunt) {
 		uglify: {
 			dist: {
 				files: {
-					'dist/<%= pkg.name %>-<%= pkg.version %>.min.js': '<%= concat.jsCustom.dest %>'
+					'dist/<%= pkg.name %>.min.js': '<%= concat.jsCustom.dest %>'
 				}
 			}
 		},
@@ -193,7 +191,7 @@ module.exports = function(grunt) {
 				browsers: '> 2% in CH'
 			},
 			css: {
-				src: 'dist/<%= pkg.name %>-<%= pkg.version %>.css'
+				src: 'dist/<%= pkg.name %>.css'
 			}
 		},
 
@@ -223,7 +221,7 @@ module.exports = function(grunt) {
 			},
 			target: {
 				files: {
-					'dist/<%= pkg.name %>-<%= pkg.version %>.min.css': 'dist/<%= pkg.name %>-<%= pkg.version %>.css'
+					'dist/<%= pkg.name %>.min.css': 'dist/<%= pkg.name %>.css'
 				}
 			}
 		},

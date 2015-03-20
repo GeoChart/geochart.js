@@ -1,7 +1,6 @@
 {
 	"name": "geochart",
-	"description": "geochart.js - a charting library for generating chloropleth maps",
-	"version": "1.0.0",
+	"description": "geochart - a charting library for generating chloropleth maps",
 	"devDependencies": {
 		"grunt": "^0.4.5",
 		"grunt-open": "^0.2.3",

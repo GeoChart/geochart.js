@@ -1,6 +1,6 @@
-.geochart-map-wrapper-element {
-	.overlay {
-		.button {
+.gc-map-wrapper {
+	.gc-overlay {
+		.gc-button {
 			cursor: pointer;
 			background: #434343;
 			display: inline-block;
@@ -8,12 +8,12 @@
 			font-size: 16px;
 			user-select: none;
 
-			&.inactive {
+			&.gc-inactive {
 				background: #808080;
 				cursor: default;
 			}
 
-			&.show-slide-menu-button {
+			&.gc-show-slide-menu {
 				position: absolute;
 				left: 10px;
 				top: 10px;

@@ -1,6 +1,6 @@
 (function($) {
 
-	geochartjs.errorHandling = function(jsonResult, successCallback) {
+	geochart.errorHandling = function(jsonResult, successCallback) {
 
 		/* Error Handling
 		 *

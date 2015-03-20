@@ -1,4 +1,4 @@
-.geochart-map-wrapper-element {
+.gc-map-wrapper {
 	overflow: hidden;
 	position: relative;
 	width: 100%;
@@ -31,7 +31,13 @@
 	}
 	&.noControls:not(.fullscreen),
 	&.smallMap:not(.fullscreen) {
-		.overlay {
+		.gc-overlay {
+			display: none !important;
+		}
+	}
+	&.no-fullscreen {
+		.fullscreen-open,
+		.fullscreen-close {
 			display: none !important;
 		}
 	}
