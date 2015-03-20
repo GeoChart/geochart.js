@@ -25,14 +25,13 @@ var label = {
 		linear: 'Linear',
 		quadratic: 'Quadratic',
 		sqrt: 'Square Root',
-		cubicroot: 'Cubic Root',
-		neginverse: 'Negated Inverse'
+		cubicroot: 'Cubic Root'
 	}
 };
 
 var properties = {
-	zoomRange: [1, 9],
 	mapName: "geochart-world-map",
+	zoomRange: [1, 9],
 	fullscreen: true,
 	noControls: {
 		inGeneral: false,
@@ -68,9 +67,6 @@ var valueMappingFunctions = {
 	},
 	cubicroot: function(n) {
 		return Math.pow(n, 1/3);
-	},
-	neginverse: function(n) {
-		return -1/n + 1;
 	}
 };
 
@@ -176,6 +172,9 @@ var initialize = (function() {
 	}
 
 	function initialization(mapData) {
+		if(!isset(mapData.objects[properties.mapName])) {
+			throw 'geochart needs a valid map as input. you probably did not set the TopoJSON mapName correctly.';
+		}
 		topo = topojson.feature(mapData, mapData.objects[properties.mapName]);
 
 		setSelectedTypeToFirstIfNotInitiallySet();
