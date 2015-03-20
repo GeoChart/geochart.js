@@ -34,12 +34,12 @@ The URL path to the data json or the object itself containing all the data which
 * Mandatory: :ballot_box_with_check:
 * Default value: `undefined`
 
-An array of data types in which the values are grouped. Each data type holds a set of values which are displayed in separate maps. The data type can easily be switched in the slide menu or the overlayed select box. The structure of each object needs to correspond to the following structure:
+An array of data types in which the values are grouped. Each data type holds a set of values which are displayed in separate maps. The data type can easily be switched in the slide menu or the overlayed select box. The structure of each object needs to correspond to the following structure  (whereas the `unit` is optional):
 ```
 {
   "type": "DATA_TYPE_KEY",
   "label": "Data Type",
-  "unit": "°F"
+  "unit": "Â°F"
 }
 ```
 
