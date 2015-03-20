@@ -502,6 +502,7 @@
 	function setupMap() {
 		svg = d3container.append("svg");
 		svg.style('background', style.seaColor);
+		$container.css('background', style.seaColor);
 	
 		projection = d3.geo.equirectangular();
 	
