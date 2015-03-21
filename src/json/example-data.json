@@ -53,7 +53,8 @@
 				"continent": "Europe",
 				"values": {
 					"TEST_TYPE_1": 1038,
-					"MAX_SWARM_SIZE": 2020
+					"MAX_SWARM_SIZE": 2020,
+					"TEST_TYPE_3": 123
 				}
 			}
 		}
