@@ -222,7 +222,7 @@ Hides all controls of the map, similar to the previous option. The main differen
 Defines the threshold in pixel from where below the map is classified as a small map and therefore the map controls are hidden. This option is only reasonable if `inSmallMap` is set to `true`.
 
 ## Map Generation (TopoJSON)
-The default map of this framework is a cultural, medium scale world map from (naturalearthdata.com)[http://www.naturalearthdata.com]. It has been converted from the shape data with the (TopoJSON command-line tool)[https://github.com/mbostock/topojson/wiki/Command-Line-Reference]. One single property remained in the data: the [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of a country. This is needed for matching the map data with the to be presented data.
+The default map of this framework is a cultural, medium scale world map from [naturalearthdata.com](http://www.naturalearthdata.com). It has been converted from the shape data with the [TopoJSON command-line tool](https://github.com/mbostock/topojson/wiki/Command-Line-Reference). One single property remained in the data: the [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of a country. This is needed for matching the map data with the to be presented data.
 If you like to present your own map data, you need to provide a TopoJSON map with a country code stored in the properties of the map. The key a country code needs to be named: `'iso_a2'`. For converting a map in the format of shape data (like on naturalearthdata.com) to the required TopoJSON format, you can use the following shell command:
 ```
 $ topojson -o map.json -p iso_a2 map.shp
