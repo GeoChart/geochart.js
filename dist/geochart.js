@@ -314,6 +314,7 @@
 			}
 			topo = topojson.feature(mapData, mapData.objects[properties.mapName]);
 	
+			removeEmptyTypes();
 			setSelectedTypeToFirstIfNotInitiallySet();
 			setAnEmptyValuesObjectForEveryCountryWithoutValuesObject();
 			convertValuesToFloat();
@@ -463,9 +464,60 @@
 		}
 	}
 	
+	function removeEmptyTypes() {
+	
+		/* removes all data types to which no single country has a dataset */
+	
+		function removeDataType(type) {
+			for(var j=0; j<data.types.length; j++) {
+				if(data.types[j].type === type) {
+					data.types.splice(j, 1);
+					return;
+				}
+			}
+			return;
+		}
+	
+		var availableDataTypes = {};
+	
+		for(var i=0; i<data.types.length; i++) {
+			availableDataTypes[data.types[i].type] = false;
+		}
+	
+		for(var country in data.countries) {
+			if(data.countries.hasOwnProperty(country)) {
+				for(var dataType in data.countries[country].values) {
+					if(data.countries[country].values.hasOwnProperty(dataType)) {
+						availableDataTypes[dataType] = true;
+					}
+				}
+			}
+		}
+	
+		for(var availableDataType in availableDataTypes) {
+			if(availableDataTypes.hasOwnProperty(availableDataType)) {
+				if(!availableDataTypes[availableDataType]) {
+					removeDataType(availableDataType);
+				}
+			}
+		}
+	}
+	
 	function setSelectedTypeToFirstIfNotInitiallySet() {
 		if(!isString(data.selectedType)) {
 			data.selectedType = data.types[0].type;
+		}
+		else {
+			var typeAvailable = false;
+			for(var i=0; i<data.types.length; i++) {
+				if(data.selectedType === data.types[i].type) {
+					typeAvailable = true;
+					break;
+				}
+			}
+			if(!typeAvailable) {
+				data.selectedType = data.types[0].type;
+			}
 		}
 	}
 	
