@@ -1,5 +1,7 @@
 .gc-map-wrapper {
 	.gc-overlay {
+		opacity: 0;
+
 		.gc-button {
 			cursor: pointer;
 			background: #434343;
@@ -38,27 +40,27 @@
 				height: 20px + 2 * 6px;
 				width: 20px + 2 * 6px;
 
-				.icon-settings,
-				.icon-settings-hide {
+				.gc-icon-settings,
+				.gc-icon-settings-hide {
 					position: absolute;
 				}
-				.icon-settings-hide {
+				.gc-icon-settings-hide {
 					display: none;
 				}
 			}
-			&.fullscreen-open,
-			&.fullscreen-close {
+			&.gc-fullscreen-open,
+			&.gc-fullscreen-close {
 				position: absolute;
 				right: 10px;
 				top: 80px;
 				font-size: 20px;
 				padding: 7px 6px 6px 6px;
 			}
-			&.fullscreen-close {
+			&.gc-fullscreen-close {
 				display: none;
 			}
-			&.functionSelect,
-			&.dataTypeSelect {
+			&.gc-color-function-select,
+			&.gc-data-type-select {
 				color: #eee;
 				-moz-appearance: none;
 				-webkit-appearance: none;
@@ -77,17 +79,17 @@
 				}
 			}
 		}
-		.settingsWrapper {
+		.gc-settings-wrapper {
 			position: absolute;
 			bottom: -55px;
 			right: 10px;
 		}
-		.functionSelectWrapper,
-		.dataTypeSelectWrapper {
+		.gc-color-function-select-wrapper,
+		.gc-data-type-select-wrapper {
 			display: inline-block;
 			position: relative;
 
-			.icon-select {
+			.gc-icon-select {
 				font-size: 14px;
 				position: absolute;
 				pointer-events: none;
@@ -107,7 +109,7 @@
 			}
 		}
 
-		.single-country-info {
+		.gc-single-country-info {
 			display: none;
 			position: absolute;
 			bottom: 10px;

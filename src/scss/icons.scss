@@ -10,12 +10,12 @@
 
 		&:before,
 		&:after,
-		& .inner:before,
-		& .inner:after {
+		& .gc-inner:before,
+		& .gc-inner:after {
 			content: "";
 		}
 
-		&.icon-plus {
+		&.gc-icon-plus {
 			&:before,
 			&:after {
 				position: absolute;
@@ -35,7 +35,7 @@
 				left: 37.5%;
 			}
 		}
-		&.icon-minus {
+		&.gc-icon-minus {
 			&:before {
 				position: absolute;
 				background-color: $color;
@@ -45,10 +45,10 @@
 				left: 0;
 			}
 		}
-		&.icon-menu {
+		&.gc-icon-menu {
 			&:before,
 			&:after,
-			.inner {
+			.gc-inner {
 				position: absolute;
 				background-color: $color;
 				border-radius: 0.1em;
@@ -58,11 +58,11 @@
 			&:after {
 				top: 37.5%;
 			}
-			.inner {
+			.gc-inner {
 				top: 75%;
 			}
 		}
-		&.icon-fullscreen-open {
+		&.gc-icon-fullscreen-open {
 			margin: 0.06em -0.05em -0.06em 0.05em;
 
 			&:before,
@@ -78,7 +78,7 @@
 			&:after {
 				transform: rotate(-45deg);
 			}
-			.inner {
+			.gc-inner {
 				position: absolute;
 				display: block;
 
@@ -98,7 +98,7 @@
 				}
 			}
 		}
-		&.icon-fullscreen-close {
+		&.gc-icon-fullscreen-close {
 			&:before,
 			&:after {
 				position: absolute;
@@ -114,7 +114,7 @@
 			&:after {
 				transform: rotate(-45deg);
 			}
-			.inner {
+			.gc-inner {
 				position: absolute;
 				display: block;
 
@@ -136,7 +136,7 @@
 				}
 			}
 		}
-		&.icon-download {
+		&.gc-icon-download {
 		$color: #999;
 			margin-top: -0.14em;
 			&:before {
@@ -158,7 +158,7 @@
 				background: $color;
 				bottom: 50%;
 			}
-			.inner {
+			.gc-inner {
 				position: absolute;
 				background: $color;
 				bottom: 0;
@@ -167,7 +167,7 @@
 				height: 1px;
 			}
 		}
-		&.icon-settings {
+		&.gc-icon-settings {
 			&:before {
 				position: absolute;
 				display: block;
@@ -186,7 +186,7 @@
 				background: $background;
 				transform: rotate(45deg);
 			}
-			.inner {
+			.gc-inner {
 				position: absolute;
 				display: block;
 				right: 0;
@@ -197,7 +197,7 @@
 				border-radius: 0.5em;
 			}
 		}
-		&.icon-settings-hide {
+		&.gc-icon-settings-hide {
 			&:before,
 			&:after {
 				position: absolute;
@@ -213,7 +213,7 @@
 				left: 0.325em;
 			}
 		}
-		&.icon-select {
+		&.gc-icon-select {
 			&:before,
 			&:after {
 				position: absolute;
@@ -232,7 +232,6 @@
 				border-top-color: $color;
 				top: 0.6em;
 			}
-
 		}
 	}
 
@@ -258,7 +257,7 @@
 			position: absolute;
 			top: 0;
 			left: 0;
-			animation: bounce 1.5s infinite ease-in-out;
+			animation: gc-bounce 1.5s infinite ease-in-out;
 		}
 
 		&:after {
@@ -267,11 +266,11 @@
 	}
 }
 
-@keyframes bounce {
+@keyframes gc-bounce {
 	0%, 100% {
 		transform: scale(0.0);
-  }
-  50% {
+	}
+	50% {
 		transform: scale(1.0);
 	}
 }

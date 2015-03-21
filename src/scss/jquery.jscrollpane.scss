@@ -38,7 +38,7 @@
 		}
 	}
 
-	.data-type-chooser {
+	.gc-data-type-chooser {
 		@mixin grey-background-gradient($color1, $color2) {
 			background: transparent;
 			background: linear-gradient(to bottom, $color1 0%, $color2 100%);

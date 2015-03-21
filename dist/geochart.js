@@ -7,29 +7,29 @@
 	var htmlTemplate = {};
 
 	htmlTemplate['overlays.tpl'] = '<div class="gc-spinner"></div>\n' +
-		'<div class="gc-overlay" style="opacity: 0">\n' +
+		'<div class="gc-overlay">\n' +
 		'	<div class="gc-button gc-show-slide-menu">\n' +
-		'		<span class="gc-icon icon-menu">\n' +
-		'			<span class="inner"></span>\n' +
+		'		<span class="gc-icon gc-icon-menu">\n' +
+		'			<span class="gc-inner"></span>\n' +
 		'		</span>\n' +
 		'	</div>\n' +
 		'	<div class="gc-button gc-zoom-plus">\n' +
-		'		<div class="gc-icon icon-plus"></div>\n' +
+		'		<div class="gc-icon gc-icon-plus"></div>\n' +
 		'	</div>\n' +
 		'	<div class="gc-button gc-zoom-minus">\n' +
-		'		<div class="gc-icon icon-minus"></div>\n' +
+		'		<div class="gc-icon gc-icon-minus"></div>\n' +
 		'	</div>\n' +
 		'	<div class="gc-button gc-settings">\n' +
-		'		<div class="gc-icon icon-settings">\n' +
-		'			<div class="inner"></div>\n' +
+		'		<div class="gc-icon gc-icon-settings">\n' +
+		'			<div class="gc-inner"></div>\n' +
 		'		</div>\n' +
-		'		<div class="gc-icon icon-settings-hide"></div>\n' +
+		'		<div class="gc-icon gc-icon-settings-hide"></div>\n' +
 		'	</div>\n' +
-		'	<div class="settingsWrapper">\n' +
-		'		<div class="functionSelectWrapper">\n' +
-		'			<div class="gc-icon icon-select"></div>\n' +
+		'	<div class="gc-settings-wrapper">\n' +
+		'		<div class="gc-color-function-select-wrapper">\n' +
+		'			<div class="gc-icon gc-icon-select"></div>\n' +
 		'			<div class="selectLabel"></div>\n' +
-		'			<select class="gc-button functionSelect">\n' +
+		'			<select class="gc-button gc-color-function-select">\n' +
 		'				<option value="log"></option>\n' +
 		'				<option value="linear"></option>\n' +
 		'				<option value="quadratic"></option>\n' +
@@ -37,14 +37,14 @@
 		'				<option value="cubicroot"></option>\n' +
 		'			</select>\n' +
 		'		</div>\n' +
-		'		<div class="dataTypeSelectWrapper">\n' +
-		'			<div class="gc-icon icon-select"></div>\n' +
+		'		<div class="gc-data-type-select-wrapper">\n' +
+		'			<div class="gc-icon gc-icon-select"></div>\n' +
 		'			<div class="selectLabel"></div>\n' +
-		'			<select class="gc-button dataTypeSelect"></select>\n' +
+		'			<select class="gc-button gc-data-type-select"></select>\n' +
 		'		</div>\n' +
 		'	</div>\n' +
 		'\n' +
-		'	<div class="single-country-info"></div>\n' +
+		'	<div class="gc-single-country-info"></div>\n' +
 		'	<div class="slide-menu">\n' +
 		'		<div class="hide-slide-menu-area"></div>\n' +
 		'		<div class="listWrapper">\n' +
@@ -52,18 +52,18 @@
 		'				<div class="gc-title">\n' +
 		'					<span class="value"></span><span class="date"></span>\n' +
 		'				</div>\n' +
-		'				<div class="data-type-chooser">\n' +
+		'				<div class="gc-data-type-chooser">\n' +
 		'					<div class="bottomLine"></div>\n' +
-		'					<div class="scroll-pane"></div>\n' +
+		'					<div class="gc-scroll-pane"></div>\n' +
 		'					<a class="left-scroll"></a>\n' +
 		'					<a class="right-scroll"></a>\n' +
 		'				</div>\n' +
 		'				<div class="gc-list">\n' +
 		'					<a class="csvDownload" target="_blank">\n' +
-		'						<span class="gc-icon icon-download"><span class="inner"></span></span>\n' +
+		'						<span class="gc-icon gc-icon-download"><span class="gc-inner"></span></span>\n' +
 		'						<span>.csv</span>\n' +
 		'					</a>\n' +
-		'					<div class="scroll-pane">\n' +
+		'					<div class="gc-scroll-pane">\n' +
 		'						<table>\n' +
 		'							<tbody></tbody>\n' +
 		'						</table>\n' +
@@ -72,14 +72,14 @@
 		'			</div>\n' +
 		'		</div>\n' +
 		'	</div>\n' +
-		'	<div class="gc-button fullscreen-open">\n' +
-		'		<span class="gc-icon icon-fullscreen-open">\n' +
-		'			<span class="inner"></span>\n' +
+		'	<div class="gc-button gc-fullscreen-open">\n' +
+		'		<span class="gc-icon gc-icon-fullscreen-open">\n' +
+		'			<span class="gc-inner"></span>\n' +
 		'		</span>\n' +
 		'	</div>\n' +
-		'	<div class="gc-button fullscreen-close">\n' +
-		'		<span class="gc-icon icon-fullscreen-close">\n' +
-		'			<span class="inner"></span>\n' +
+		'	<div class="gc-button gc-fullscreen-close">\n' +
+		'		<span class="gc-icon gc-icon-fullscreen-close">\n' +
+		'			<span class="gc-inner"></span>\n' +
 		'		</span>\n' +
 		'	</div>\n' +
 		'</div>';
@@ -230,7 +230,6 @@
 	var d3container;
 	var $container;
 	
-	
 	var initialize = (function() {
 	
 		function init(configuration) {
@@ -254,6 +253,7 @@
 					getDataObjectAndContinueInitialization(configuration.map);
 				}
 				else {
+					destroy();
 					throw "geochart needs a valid input map";
 				}
 			})();
@@ -261,14 +261,15 @@
 			function getDataObjectAndContinueInitialization(mapData) {
 				if(isString(configuration.data)) {
 					d3.json(configuration.data, function(config) {
-						if(config.hasOwnProperty("data")) {
+						if(!isObject(config)){
+							destroy();
+							throw "geochart needs a valid data object";
+						}
+						else if(config.hasOwnProperty("data")) {
 							data = config.data;
 						}
 						else if(isObject(config)) {
 							data = config;
-						}
-						else {
-							throw "geochart needs a valid data object";
 						}
 						initialization(mapData);
 					});
@@ -278,17 +279,20 @@
 					initialization(mapData);
 				}
 				else {
+					destroy();
 					throw "geochart needs a valid data object";
 				}
 			}
 	
 			postInitialization();
+	
 		}
 	
 		function checkAvailabilityOfjQueryLibraries() {
 			function check(library) {
 				if(!isset(library.lib)) {
-					throw 'LibraryMissingError: '+library.name+' is missing.';
+					destroy();
+					throw 'geochart needs the library '+library.name;
 				}
 			}
 			check({lib: $(document).loadTemplate, name: 'jQuery loadTemplate'});
@@ -305,6 +309,7 @@
 	
 		function initialization(mapData) {
 			if(!isset(mapData.objects[properties.mapName])) {
+				destroy();
 				throw 'geochart needs a valid map as input. you probably did not set the TopoJSON mapName correctly.';
 			}
 			topo = topojson.feature(mapData, mapData.objects[properties.mapName]);
@@ -356,6 +361,7 @@
 	function storeInitialConfiguration(configuration) {
 	
 		if(!isObject(configuration)) {
+			destroy();
 			throw "geochart needs a valid configuration input";
 		}
 	
@@ -388,6 +394,7 @@
 				d3container = d3.select(topElement).select('.'+classes.container);
 			}
 			else {
+				destroy();
 				throw "geochart needs exactly one element to bind to";
 			}
 		})();
@@ -419,9 +426,9 @@
 	
 	function setLabelTexts() {
 		$container.find('.slide-menu .gc-title .value').text(label.mapListTitle);
-		$container.find('.functionSelectWrapper .selectLabel').text(label.configurationColorFunction);
-		$container.find('.dataTypeSelectWrapper .selectLabel').text(label.configurationDataType);
-		$container.find('.gc-button.functionSelect').find('option').text(function() {
+		$container.find('.gc-color-function-select-wrapper .selectLabel').text(label.configurationColorFunction);
+		$container.find('.gc-data-type-select-wrapper .selectLabel').text(label.configurationDataType);
+		$container.find('.gc-button.gc-color-function-select').find('option').text(function() {
 			return label.colorFunction[$(this).val()];
 		});
 	}
@@ -550,7 +557,7 @@
 				currentContainerWidth = $container.width();
 				window.clearTimeout(resizeTimer);
 				d3container.select(".gc-overlay").transition().duration(200).style("opacity", 0);
-				$container.find(".single-country-info").hide();
+				$container.find(".gc-single-country-info").hide();
 				timedRedraw();
 			}
 		});
@@ -670,21 +677,21 @@
 	}
 	
 	function addMapListTabs() {
-		$container.find('.data-type-chooser .scroll-pane').loadTemplate($("#gc-data-type-chooser-template"), data.types);
+		$container.find('.gc-data-type-chooser .gc-scroll-pane').loadTemplate($("#gc-data-type-chooser-template"), data.types);
 	}
 	
 	function addChangeListenerToDataTypeSelectBox() {
-		$container.find('.gc-button.dataTypeSelect').change(function() {
+		$container.find('.gc-button.gc-data-type-select').change(function() {
 			var type = $(this).find('option:selected').val();
 			selectDataType(type);
 		});
 	}
 	function addClickListenerToDataTypeTabButtons() {
-		var $tabs = $container.find('.data-type-chooser .tab');
+		var $tabs = $container.find('.gc-data-type-chooser .tab');
 		$tabs.click(function() {
 			if(!$(this).hasClass(classes.activeTab)) {
 				var type = $(this).data('type');
-				$container.find('.gc-button.dataTypeSelect').val(type);
+				$container.find('.gc-button.gc-data-type-select').val(type);
 				tabScrollApi.scrollToX($(this).position().left-30);
 				selectDataType(type);
 			}
@@ -692,8 +699,8 @@
 	}
 	
 	function initialSelectionOfDataTypeInGui() {
-		$container.find('.gc-button.dataTypeSelect').val(data.selectedType);
-		$container.find('.data-type-chooser .tab[data-type='+data.selectedType+']').addClass(classes.activeTab);
+		$container.find('.gc-button.gc-data-type-select').val(data.selectedType);
+		$container.find('.gc-data-type-chooser .tab[data-type='+data.selectedType+']').addClass(classes.activeTab);
 	}
 	
 	function selectDataType(type) {
@@ -702,7 +709,7 @@
 		adaptColorParameters();
 	
 		adjustTabsToSelectedType();
-		$container.find('.single-country-info').fadeOut();
+		$container.find('.gc-single-country-info').fadeOut();
 		fillMapList();
 		adaptMapToNewDataTypeOrColorFunction();
 	}
@@ -718,9 +725,9 @@
 	}
 	
 	function adjustTabsToSelectedType() {
-		$scrollTabElement = $container.find('.data-type-chooser .tab[data-type='+data.selectedType+']');
+		$scrollTabElement = $container.find('.gc-data-type-chooser .tab[data-type='+data.selectedType+']');
 	
-		var $tabs = $container.find('.data-type-chooser .tab');
+		var $tabs = $container.find('.gc-data-type-chooser .tab');
 		$tabs.removeClass(classes.activeTab);
 		$tabs.filter('[data-type='+data.selectedType+']').addClass(classes.activeTab);
 	}
@@ -817,8 +824,8 @@
 			unit: getUnitOfCurrentDataType()
 		};
 	
-		$container.find('.single-country-info').fadeIn();
-		$container.find('.single-country-info').loadTemplate($("#gc-single-country-info-template"), singleInformation);
+		$container.find('.gc-single-country-info').fadeIn();
+		$container.find('.gc-single-country-info').loadTemplate($("#gc-single-country-info-template"), singleInformation);
 	}
 	
 	function getUnitOfCurrentDataType() {
@@ -910,8 +917,8 @@
 	}
 	
 	function addClickListenerToFullScreenButtons() {
-		$container.find(".fullscreen-open").click(enterFullscreen);
-		$container.find(".fullscreen-close").click(closeFullscreen);
+		$container.find(".gc-fullscreen-open").click(enterFullscreen);
+		$container.find(".gc-fullscreen-close").click(closeFullscreen);
 	}
 	
 	function hideMapAndShowSpinner() {
@@ -944,9 +951,9 @@
 				$container.addClass(classes.fullscreen);
 			}
 			$("html").css({"overflow": "hidden"});
-			$container.find(".single-country-info").fadeOut();
+			$container.find(".gc-single-country-info").fadeOut();
 			$(this).fadeOut();
-			$container.find(".fullscreen-close").fadeIn();
+			$container.find(".gc-fullscreen-close").fadeIn();
 			timedRedraw();
 		}
 	}
@@ -970,9 +977,9 @@
 				$container.removeClass(classes.fullscreen);
 			}
 			$("html").css({"overflow": "visible"});
-			$container.find(".single-country-info").fadeOut();
+			$container.find(".gc-single-country-info").fadeOut();
 			$(this).fadeOut();
-			$container.find(".fullscreen-open").fadeIn();
+			$container.find(".gc-fullscreen-open").fadeIn();
 			timedRedraw();
 			addScrollingToList();
 		}
@@ -999,9 +1006,9 @@
 	}
 	
 	function addChangeListenerToFunctionSelect() {
-		$container.find(".gc-button.functionSelect").change(function() {
+		$container.find(".gc-button.gc-color-function-select").change(function() {
 			valueMappingFunction = valueMappingFunctions[$(this).find("option:selected").val()];
-			$container.find('.single-country-info').fadeOut();
+			$container.find('.gc-single-country-info').fadeOut();
 	
 			$container.find('.slide-menu .gc-list').find('tr').removeClass('selected').find('.ranking').removeAttr('style');
 			adaptColorParameters();
@@ -1015,12 +1022,12 @@
 	}
 	
 	function addScrollingToList() {
-		$container.find('.gc-list .scroll-pane').jScrollPane({ verticalDragMinHeight: 70 });
+		$container.find('.gc-list .gc-scroll-pane').jScrollPane({ verticalDragMinHeight: 70 });
 	}
 	
 	function addScrollingToTabs() {
-		var $tabs = $container.find('.data-type-chooser');
-		var $scrollPane = $tabs.find('.scroll-pane');
+		var $tabs = $container.find('.gc-data-type-chooser');
+		var $scrollPane = $tabs.find('.gc-scroll-pane');
 	
 		tabScrollApi = $scrollPane.jScrollPane({
 			showArrows: true,
@@ -1033,20 +1040,20 @@
 	
 	function addClickListenerToSettingsButton() {
 		$container.find('.gc-button.gc-settings').click(function() {
-			var $regularIcon = $(this).find('.icon-settings');
-			var $hideIcon = $(this).find('.icon-settings-hide');
+			var $regularIcon = $(this).find('.gc-icon-settings');
+			var $hideIcon = $(this).find('.gc-icon-settings-hide');
 	
 			if($(this).hasClass(classes.settingsShown)) {
 				$(this).removeClass(classes.settingsShown);
 				$(this).animate({ bottom: 10 }, "fast");
-				$container.find('.settingsWrapper').animate({ bottom: -55 }, "fast");
+				$container.find('.gc-settings-wrapper').animate({ bottom: -55 }, "fast");
 				$hideIcon.fadeOut("fast");
 				$regularIcon.fadeIn("fast");
 			}
 			else {
 				$(this).addClass(classes.settingsShown);
 				$(this).animate({ bottom: 50 }, "fast");
-				$container.find('.settingsWrapper').animate({ bottom: 10 }, "fast");
+				$container.find('.gc-settings-wrapper').animate({ bottom: 10 }, "fast");
 				$hideIcon.fadeIn("fast");
 				$regularIcon.fadeOut("fast");
 			}
@@ -1054,7 +1061,7 @@
 	}
 	
 	function fillDataTypeSelectButtonWithEntries() {
-		$container.find('select.dataTypeSelect')
+		$container.find('select.gc-data-type-select')
 		.loadTemplate($("#gc-data-type-chooser-select-template"), data.types);
 	}
 	
@@ -1088,6 +1095,10 @@
 		}
 	}
 	
+	function destroy() {
+		$(topElement).empty().removeAttr('class').removeAttr('style');
+	}
+	
 	function hasCountryDataForSelectedType(datum) {
 		if(isset(datum.properties.country)) {
 			return isset(datum.properties.country.values[data.selectedType]);
@@ -1116,15 +1127,15 @@
 	}
 	
 	function isset(variable) {
-		return typeof variable !== 'undefined';
+		return typeof variable !== 'undefined' && variable !== null;
 	}
 	
 	function isObject(variable) {
-		return typeof variable === Object || typeof variable === 'object';
+		return isset(variable) && (typeof variable === Object || typeof variable === 'object');
 	}
 	
 	function isString(variable) {
-		return typeof variable === String || typeof variable === 'string';
+		return isset(variable) && (typeof variable === String || typeof variable === 'string');
 	}
 	
 	function isEmptyString(variable) {
@@ -1150,7 +1161,8 @@
 		window.geochart = {
 			version: version,
 			init: initialize.init,
-			makeFixedSize: makeFixedSize
+			makeFixedSize: makeFixedSize,
+			destroy: destroy
 		};
 	
 	})(window, jQuery, d3, topojson, moment);

@@ -36,8 +36,8 @@
 		}
 	}
 	&.no-fullscreen {
-		.fullscreen-open,
-		.fullscreen-close {
+		.gc-fullscreen-open,
+		.gc-fullscreen-close {
 			display: none !important;
 		}
 	}
@@ -67,7 +67,7 @@
 			padding-bottom: 15px;
 			background: #f6f6f6;
 
-			.scroll-pane {
+			.gc-scroll-pane {
 				height: 100%;
 			}
 			.gc-title {
@@ -88,7 +88,7 @@
 					margin-left: 7px;
 				}
 			}
-			.data-type-chooser {
+			.gc-data-type-chooser {
 				position: absolute;
 				top: 72px;
 				padding-left: 12px;
