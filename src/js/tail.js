@@ -1,3 +1,4 @@
+
 	window.geochart = {
 		version: version,
 		generate: generate,

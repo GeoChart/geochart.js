@@ -1219,10 +1219,10 @@
 		}
 		return array;
 	}
-		window.geochart = {
-			version: version,
-			generate: generate,
-			makeFixedSize: makeFixedSize
-		};
-	
-	})(window, jQuery, d3, topojson, moment);
+	window.geochart = {
+		version: version,
+		generate: generate,
+		makeFixedSize: makeFixedSize
+	};
+
+})(window, jQuery, d3, topojson, moment);
