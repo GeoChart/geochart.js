@@ -1,8 +1,7 @@
 
 	window.geochart = {
 		version: version,
-		generate: generate,
-		makeFixedSize: makeFixedSize
+		generate: generate
 	};
 
 })(window, jQuery, d3, topojson, moment);

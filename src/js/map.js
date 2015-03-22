@@ -89,7 +89,6 @@ var zoom;
 var topo;
 var valueMappingFunction = Math.log;
 var resizeTimer;
-var fixedSize = false;
 var tabScrollApi;
 var $scrollTabElement;
 var currentContainerWidth;
@@ -473,7 +472,7 @@ function makeMapResizable() {
 	d3.select(window).on("resize", function() {
 		var containerWidthChanged = currentContainerWidth !== $container.width();
 
-		if(!(fixedSize && !isInFullscreen()) && (isInFullscreen() || containerWidthChanged)) {
+		if(isInFullscreen() || containerWidthChanged) {
 			currentContainerWidth = $container.width();
 			window.clearTimeout(resizeTimer);
 			d3container.select(".gc-overlay").transition().duration(200).style("opacity", 0);
@@ -1053,10 +1052,6 @@ function getStrokeColor(datum) {
 }
 function isInFullscreen() {
 	return $container.hasClass(classes.fullscreen);
-}
-
-function makeFixedSize() {
-	fixedSize = true;
 }
 
 function isset(variable) {
