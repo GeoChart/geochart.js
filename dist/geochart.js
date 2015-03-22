@@ -764,6 +764,7 @@
 	
 	function adaptMapToNewDataTypeOrColorFunction() {
 		group.selectAll("path")
+		.transition(150)
 		.style("fill", addBackgroundColor)
 		.style("cursor", setPointerCursor)
 		.style("stroke", addStrokeColor)
