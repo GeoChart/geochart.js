@@ -72,7 +72,7 @@ module.exports = function(grunt) {
 			jsCustom: {
 				options: {
 					process: function(src, filepath) {
-						if(filepath !== 'src/js/head.js' && filepath !== 'src/js/head.js') {
+						if(filepath !== 'src/js/head.js' && filepath !== 'src/js/tail.js') {
 							var lines = [];
 							src.split('\n').forEach(function(line) {
 								return lines.push((line.length > 0 ? '	' : '') + line);
