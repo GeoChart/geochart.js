@@ -28,7 +28,7 @@
 		'	<div class="gc-settings-wrapper">\n' +
 		'		<div class="gc-color-function-select-wrapper">\n' +
 		'			<div class="gc-icon gc-icon-select"></div>\n' +
-		'			<div class="selectLabel"></div>\n' +
+		'			<div class="gc-select-label"></div>\n' +
 		'			<select class="gc-button gc-color-function-select">\n' +
 		'				<option value="log"></option>\n' +
 		'				<option value="linear"></option>\n' +
@@ -39,35 +39,31 @@
 		'		</div>\n' +
 		'		<div class="gc-data-type-select-wrapper">\n' +
 		'			<div class="gc-icon gc-icon-select"></div>\n' +
-		'			<div class="selectLabel"></div>\n' +
+		'			<div class="gc-select-label"></div>\n' +
 		'			<select class="gc-button gc-data-type-select"></select>\n' +
 		'		</div>\n' +
 		'	</div>\n' +
 		'\n' +
 		'	<div class="gc-single-country-info"></div>\n' +
-		'	<div class="slide-menu">\n' +
-		'		<div class="hide-slide-menu-area"></div>\n' +
-		'		<div class="listWrapper">\n' +
-		'			<div class="menu">\n' +
-		'				<div class="gc-title">\n' +
-		'					<span class="value"></span><span class="date"></span>\n' +
-		'				</div>\n' +
-		'				<div class="gc-data-type-chooser">\n' +
-		'					<div class="bottomLine"></div>\n' +
-		'					<div class="gc-scroll-pane"></div>\n' +
-		'					<a class="left-scroll"></a>\n' +
-		'					<a class="right-scroll"></a>\n' +
-		'				</div>\n' +
-		'				<div class="gc-list">\n' +
-		'					<a class="csvDownload" target="_blank">\n' +
-		'						<span class="gc-icon gc-icon-download"><span class="gc-inner"></span></span>\n' +
-		'						<span>.csv</span>\n' +
-		'					</a>\n' +
-		'					<div class="gc-scroll-pane">\n' +
-		'						<table>\n' +
-		'							<tbody></tbody>\n' +
-		'						</table>\n' +
-		'					</div>\n' +
+		'	<div class="gc-slide-menu">\n' +
+		'		<div class="gc-hide-slide-menu-area"></div>\n' +
+		'		<div class="gc-menu">\n' +
+		'			<div class="gc-title">\n' +
+		'				<span class="gc-value"></span><span class="gc-date"></span>\n' +
+		'			</div>\n' +
+		'			<div class="gc-data-type-chooser">\n' +
+		'				<div class="gc-menu-separator-line"></div>\n' +
+		'				<div class="gc-scroll-pane"></div>\n' +
+		'			</div>\n' +
+		'			<div class="gc-list">\n' +
+		'				<a class="gc-csv-download" target="_blank">\n' +
+		'					<span class="gc-icon gc-icon-download"><span class="gc-inner"></span></span>\n' +
+		'					<span>.csv</span>\n' +
+		'				</a>\n' +
+		'				<div class="gc-scroll-pane">\n' +
+		'					<table>\n' +
+		'						<tbody></tbody>\n' +
+		'					</table>\n' +
 		'				</div>\n' +
 		'			</div>\n' +
 		'		</div>\n' +
@@ -87,31 +83,31 @@
 	htmlTemplate['templates.tpl'] = '<script type="text/html" id="gc-single-country-info-template">\n' +
 		'	<div>\n' +
 		'		<span data-content="countryLabel"></span>\n' +
-		'		<span data-content="continent" class="continent"></span>\n' +
+		'		<span data-content="continent" class="gc-continent"></span>\n' +
 		'	</div>\n' +
-		'	<div class="data-type">\n' +
-		'		<span class="value">\n' +
+		'	<div class="gc-data-type">\n' +
+		'		<span class="gc-value">\n' +
 		'			<span data-content="value"></span><span data-content="unit"></span>\n' +
 		'		</span>\n' +
-		'		<span class="percent" data-content="percent"></span>\n' +
-		'		<span class="title" data-content="dataType"></span>\n' +
+		'		<span class="gc-percent" data-content="percent"></span>\n' +
+		'		<span class="gc-title" data-content="dataType"></span>\n' +
 		'	</div>\n' +
 		'</script>\n' +
 		'\n' +
 		'<script type="text/html" id="gc-slide-menu-table-template">\n' +
 		'	<tr data-template-bind=\'{"attribute": "data-country-code", "value": "code"}\'>\n' +
 		'		<td>\n' +
-		'			<span data-content="ranking" class="ranking"></span>\n' +
+		'			<span data-content="ranking" class="gc-ranking"></span>\n' +
 		'		</td>\n' +
 		'		<td>\n' +
-		'			<span data-content="label" class="countryName"></span>\n' +
-		'			<span data-content="continent" class="continent" data-template-bind=\'{\n' +
+		'			<span data-content="label" class="gc-country-name"></span>\n' +
+		'			<span data-content="continent" class="gc-continent" data-template-bind=\'{\n' +
 		'				"attribute": "style",\n' +
 		'				"value": "displayContinent"\n' +
 		'			}\'></span>\n' +
 		'		</td>\n' +
 		'		<td>\n' +
-		'			<span class="percent" data-content="percent"></span>\n' +
+		'			<span class="gc-percent" data-content="percent"></span>\n' +
 		'		</td>\n' +
 		'		<td>\n' +
 		'			<span data-content="value"></span><span data-content="unit"></span>\n' +
@@ -120,7 +116,7 @@
 		'</script>\n' +
 		'\n' +
 		'<script type="text/html" id="gc-data-type-chooser-template">\n' +
-		'	<span class="tab" data-content="label" data-template-bind=\'[{\n' +
+		'	<span class="gc-tab" data-content="label" data-template-bind=\'[{\n' +
 		'		"attribute": "data-type",\n' +
 		'		"value": "type"\n' +
 		'	}]\'></span>\n' +
@@ -174,14 +170,14 @@
 	
 	var classes = {
 		container: "gc-map-wrapper",
-		fullscreen: "fullscreen",
-		noFullscreen: "no-fullscreen",
-		smallMap: "smallMap",
-		noControls: "noControls",
-		activeTab: 'active',
-		selectedCountryInMapList: 'selected',
+		fullscreen: "gc-fullscreen",
+		noFullscreen: "gc-no-fullscreen",
+		smallMap: "gc-small-map",
+		noControls: "gc-no-controls",
+		activeTab: 'gc-active',
+		selectedCountryInMapList: 'gc-selected',
 		inactiveOverlayButton: 'gc-inactive',
-		settingsShown: 'shown'
+		settingsShown: 'gc-shown'
 	};
 	
 	var valueMappingFunctions = {
@@ -426,9 +422,9 @@
 	}
 	
 	function setLabelTexts() {
-		$container.find('.slide-menu .gc-title .value').text(label.mapListTitle);
-		$container.find('.gc-color-function-select-wrapper .selectLabel').text(label.configurationColorFunction);
-		$container.find('.gc-data-type-select-wrapper .selectLabel').text(label.configurationDataType);
+		$container.find('.gc-slide-menu .gc-title .gc-value').text(label.mapListTitle);
+		$container.find('.gc-color-function-select-wrapper .gc-select-label').text(label.configurationColorFunction);
+		$container.find('.gc-data-type-select-wrapper .gc-select-label').text(label.configurationDataType);
 		$container.find('.gc-button.gc-color-function-select').find('option').text(function() {
 			return label.colorFunction[$(this).val()];
 		});
@@ -532,7 +528,7 @@
 	}
 	
 	function addCSVLink() {
-		var $button = $container.find('.gc-list .csvDownload');
+		var $button = $container.find('.gc-list .gc-csv-download');
 		if(isset(data.csv)) {
 			$button.attr('href', data.csv);
 		}
@@ -545,7 +541,7 @@
 		var formattedDate;
 	
 		function setDateInGui() {
-			$container.find(".slide-menu .gc-title .date").text("("+formattedDate+")");
+			$container.find(".gc-slide-menu .gc-title .gc-date").text("("+formattedDate+")");
 		}
 	
 		if(isString(data.date)) {
@@ -723,7 +719,7 @@
 	}
 	
 	function fillMapListInGui() {
-		var $mapList = $container.find(".slide-menu .gc-list table tbody");
+		var $mapList = $container.find(".gc-slide-menu .gc-list table tbody");
 		$mapList.empty();
 		$mapList.loadTemplate($("#gc-slide-menu-table-template"), mapList);
 	}
@@ -739,7 +735,7 @@
 		});
 	}
 	function addClickListenerToDataTypeTabButtons() {
-		var $tabs = $container.find('.gc-data-type-chooser .tab');
+		var $tabs = $container.find('.gc-data-type-chooser .gc-tab');
 		$tabs.click(function() {
 			if(!$(this).hasClass(classes.activeTab)) {
 				var type = $(this).data('type');
@@ -752,7 +748,7 @@
 	
 	function initialSelectionOfDataTypeInGui() {
 		$container.find('.gc-button.gc-data-type-select').val(data.selectedType);
-		$container.find('.gc-data-type-chooser .tab[data-type='+data.selectedType+']').addClass(classes.activeTab);
+		$container.find('.gc-data-type-chooser .gc-tab[data-type='+data.selectedType+']').addClass(classes.activeTab);
 	}
 	
 	function selectDataType(type) {
@@ -777,9 +773,9 @@
 	}
 	
 	function adjustTabsToSelectedType() {
-		$scrollTabElement = $container.find('.gc-data-type-chooser .tab[data-type='+data.selectedType+']');
+		$scrollTabElement = $container.find('.gc-data-type-chooser .gc-tab[data-type='+data.selectedType+']');
 	
-		var $tabs = $container.find('.gc-data-type-chooser .tab');
+		var $tabs = $container.find('.gc-data-type-chooser .gc-tab');
 		$tabs.removeClass(classes.activeTab);
 		$tabs.filter('[data-type='+data.selectedType+']').addClass(classes.activeTab);
 	}
@@ -833,9 +829,9 @@
 	
 	function addMapListRankingBackgroundColor(countryCode, color) {
 		$container
-		.find('.slide-menu .gc-list')
+		.find('.gc-slide-menu .gc-list')
 		.find('table tr[data-country-code='+countryCode+']')
-		.find('.ranking')
+		.find('.gc-ranking')
 		.css('backgroundColor', color);
 	}
 	
@@ -899,7 +895,7 @@
 	}
 	
 	function selectCountryOnMapList(datum) {
-		var $list = $container.find('.slide-menu .gc-list');
+		var $list = $container.find('.gc-slide-menu .gc-list');
 		var $row = $list.find('table tbody tr');
 		$row.removeClass(classes.selectedCountryInMapList);
 	
@@ -909,7 +905,7 @@
 			$row.each(function() {
 				if($(this).data("country-code") === countryCode) {
 					$(this).addClass(classes.selectedCountryInMapList);
-					$(this).find('.ranking').css('backgroundColor', style.selectedCountryColor);
+					$(this).find('.gc-ranking').css('backgroundColor', style.selectedCountryColor);
 				}
 			});
 		}
@@ -1038,9 +1034,9 @@
 	}
 	
 	function addClickListenerToListButtons() {
-		var $list = $container.find(".slide-menu .menu");
+		var $list = $container.find(".gc-slide-menu .gc-menu");
 		var $showButton = $container.find(".gc-button.gc-show-slide-menu");
-		var $hideArea = $container.find(".hide-slide-menu-area");
+		var $hideArea = $container.find(".gc-hide-slide-menu-area");
 	
 		$showButton.click(function() {
 			$list.animate({"left": 0});
@@ -1062,7 +1058,7 @@
 			valueMappingFunction = valueMappingFunctions[$(this).find("option:selected").val()];
 			$container.find('.gc-single-country-info').fadeOut();
 	
-			$container.find('.slide-menu .gc-list').find('tr').removeClass('selected').find('.ranking').removeAttr('style');
+			$container.find('.gc-slide-menu .gc-list').find('tr').removeClass('selected').find('.gc-ranking').removeAttr('style');
 			adaptColorParameters();
 			adaptMapToNewDataTypeOrColorFunction();
 		});

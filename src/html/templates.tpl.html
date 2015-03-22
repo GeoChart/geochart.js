@@ -1,31 +1,31 @@
 <script type="text/html" id="gc-single-country-info-template">
 	<div>
 		<span data-content="countryLabel"></span>
-		<span data-content="continent" class="continent"></span>
+		<span data-content="continent" class="gc-continent"></span>
 	</div>
-	<div class="data-type">
-		<span class="value">
+	<div class="gc-data-type">
+		<span class="gc-value">
 			<span data-content="value"></span><span data-content="unit"></span>
 		</span>
-		<span class="percent" data-content="percent"></span>
-		<span class="title" data-content="dataType"></span>
+		<span class="gc-percent" data-content="percent"></span>
+		<span class="gc-title" data-content="dataType"></span>
 	</div>
 </script>
 
 <script type="text/html" id="gc-slide-menu-table-template">
 	<tr data-template-bind='{"attribute": "data-country-code", "value": "code"}'>
 		<td>
-			<span data-content="ranking" class="ranking"></span>
+			<span data-content="ranking" class="gc-ranking"></span>
 		</td>
 		<td>
-			<span data-content="label" class="countryName"></span>
-			<span data-content="continent" class="continent" data-template-bind='{
+			<span data-content="label" class="gc-country-name"></span>
+			<span data-content="continent" class="gc-continent" data-template-bind='{
 				"attribute": "style",
 				"value": "displayContinent"
 			}'></span>
 		</td>
 		<td>
-			<span class="percent" data-content="percent"></span>
+			<span class="gc-percent" data-content="percent"></span>
 		</td>
 		<td>
 			<span data-content="value"></span><span data-content="unit"></span>
@@ -34,7 +34,7 @@
 </script>
 
 <script type="text/html" id="gc-data-type-chooser-template">
-	<span class="tab" data-content="label" data-template-bind='[{
+	<span class="gc-tab" data-content="label" data-template-bind='[{
 		"attribute": "data-type",
 		"value": "type"
 	}]'></span>

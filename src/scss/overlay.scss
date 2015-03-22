@@ -96,7 +96,7 @@
 				right: 10px;
 				top: 12px;
 			}
-			.selectLabel {
+			.gc-select-label {
 				position: absolute;
 				top: -15px;
 				left: 4px;
@@ -118,7 +118,7 @@
 			color: white;
 			padding: 10px;
 			text-align: center;
-			.continent {
+			.gc-continent {
 				display: block;
 				font-size: 12px;
 			}
@@ -126,25 +126,25 @@
 				border: 1px solid #757575;
 				margin-top: 7px;
 			}
-			.data-type {
+			.gc-data-type {
 				display: block;
 				width: 100%;
 				padding: 4px 6px;
-				.title,
-				.value,
-				.percent {
+				.gc-title,
+				.gc-value,
+				.gc-percent {
 					text-align: center;
 					display: block;
 				}
-				.title {
+				.gc-title {
 					font-size: 14px;
 					color: #9b9b9b;
 				}
-				.value {
+				.gc-value {
 					font-size: 20px;
 					padding-bottom: 4px;
 				}
-				.percent {
+				.gc-percent {
 					font-size: 14px;
 					padding-bottom: 4px;
 				}

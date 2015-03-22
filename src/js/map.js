@@ -42,14 +42,14 @@ var properties = {
 
 var classes = {
 	container: "gc-map-wrapper",
-	fullscreen: "fullscreen",
-	noFullscreen: "no-fullscreen",
-	smallMap: "smallMap",
-	noControls: "noControls",
-	activeTab: 'active',
-	selectedCountryInMapList: 'selected',
+	fullscreen: "gc-fullscreen",
+	noFullscreen: "gc-no-fullscreen",
+	smallMap: "gc-small-map",
+	noControls: "gc-no-controls",
+	activeTab: 'gc-active',
+	selectedCountryInMapList: 'gc-selected',
 	inactiveOverlayButton: 'gc-inactive',
-	settingsShown: 'shown'
+	settingsShown: 'gc-shown'
 };
 
 var valueMappingFunctions = {
@@ -294,9 +294,9 @@ function createDomStructure() {
 }
 
 function setLabelTexts() {
-	$container.find('.slide-menu .gc-title .value').text(label.mapListTitle);
-	$container.find('.gc-color-function-select-wrapper .selectLabel').text(label.configurationColorFunction);
-	$container.find('.gc-data-type-select-wrapper .selectLabel').text(label.configurationDataType);
+	$container.find('.gc-slide-menu .gc-title .gc-value').text(label.mapListTitle);
+	$container.find('.gc-color-function-select-wrapper .gc-select-label').text(label.configurationColorFunction);
+	$container.find('.gc-data-type-select-wrapper .gc-select-label').text(label.configurationDataType);
 	$container.find('.gc-button.gc-color-function-select').find('option').text(function() {
 		return label.colorFunction[$(this).val()];
 	});
@@ -400,7 +400,7 @@ function setAnEmptyValuesObjectForEveryCountryWithoutValuesObject() {
 }
 
 function addCSVLink() {
-	var $button = $container.find('.gc-list .csvDownload');
+	var $button = $container.find('.gc-list .gc-csv-download');
 	if(isset(data.csv)) {
 		$button.attr('href', data.csv);
 	}
@@ -413,7 +413,7 @@ function setDateStamp() {
 	var formattedDate;
 
 	function setDateInGui() {
-		$container.find(".slide-menu .gc-title .date").text("("+formattedDate+")");
+		$container.find(".gc-slide-menu .gc-title .gc-date").text("("+formattedDate+")");
 	}
 
 	if(isString(data.date)) {
@@ -591,7 +591,7 @@ function formatPercent(percent) {
 }
 
 function fillMapListInGui() {
-	var $mapList = $container.find(".slide-menu .gc-list table tbody");
+	var $mapList = $container.find(".gc-slide-menu .gc-list table tbody");
 	$mapList.empty();
 	$mapList.loadTemplate($("#gc-slide-menu-table-template"), mapList);
 }
@@ -607,7 +607,7 @@ function addChangeListenerToDataTypeSelectBox() {
 	});
 }
 function addClickListenerToDataTypeTabButtons() {
-	var $tabs = $container.find('.gc-data-type-chooser .tab');
+	var $tabs = $container.find('.gc-data-type-chooser .gc-tab');
 	$tabs.click(function() {
 		if(!$(this).hasClass(classes.activeTab)) {
 			var type = $(this).data('type');
@@ -620,7 +620,7 @@ function addClickListenerToDataTypeTabButtons() {
 
 function initialSelectionOfDataTypeInGui() {
 	$container.find('.gc-button.gc-data-type-select').val(data.selectedType);
-	$container.find('.gc-data-type-chooser .tab[data-type='+data.selectedType+']').addClass(classes.activeTab);
+	$container.find('.gc-data-type-chooser .gc-tab[data-type='+data.selectedType+']').addClass(classes.activeTab);
 }
 
 function selectDataType(type) {
@@ -645,9 +645,9 @@ function adaptMapToNewDataTypeOrColorFunction() {
 }
 
 function adjustTabsToSelectedType() {
-	$scrollTabElement = $container.find('.gc-data-type-chooser .tab[data-type='+data.selectedType+']');
+	$scrollTabElement = $container.find('.gc-data-type-chooser .gc-tab[data-type='+data.selectedType+']');
 
-	var $tabs = $container.find('.gc-data-type-chooser .tab');
+	var $tabs = $container.find('.gc-data-type-chooser .gc-tab');
 	$tabs.removeClass(classes.activeTab);
 	$tabs.filter('[data-type='+data.selectedType+']').addClass(classes.activeTab);
 }
@@ -701,9 +701,9 @@ function addBackgroundColor(datum) {
 
 function addMapListRankingBackgroundColor(countryCode, color) {
 	$container
-	.find('.slide-menu .gc-list')
+	.find('.gc-slide-menu .gc-list')
 	.find('table tr[data-country-code='+countryCode+']')
-	.find('.ranking')
+	.find('.gc-ranking')
 	.css('backgroundColor', color);
 }
 
@@ -767,7 +767,7 @@ function getLabelByType(type) {
 }
 
 function selectCountryOnMapList(datum) {
-	var $list = $container.find('.slide-menu .gc-list');
+	var $list = $container.find('.gc-slide-menu .gc-list');
 	var $row = $list.find('table tbody tr');
 	$row.removeClass(classes.selectedCountryInMapList);
 
@@ -777,7 +777,7 @@ function selectCountryOnMapList(datum) {
 		$row.each(function() {
 			if($(this).data("country-code") === countryCode) {
 				$(this).addClass(classes.selectedCountryInMapList);
-				$(this).find('.ranking').css('backgroundColor', style.selectedCountryColor);
+				$(this).find('.gc-ranking').css('backgroundColor', style.selectedCountryColor);
 			}
 		});
 	}
@@ -906,9 +906,9 @@ function closeFullscreen() {
 }
 
 function addClickListenerToListButtons() {
-	var $list = $container.find(".slide-menu .menu");
+	var $list = $container.find(".gc-slide-menu .gc-menu");
 	var $showButton = $container.find(".gc-button.gc-show-slide-menu");
-	var $hideArea = $container.find(".hide-slide-menu-area");
+	var $hideArea = $container.find(".gc-hide-slide-menu-area");
 
 	$showButton.click(function() {
 		$list.animate({"left": 0});
@@ -930,7 +930,7 @@ function addChangeListenerToFunctionSelect() {
 		valueMappingFunction = valueMappingFunctions[$(this).find("option:selected").val()];
 		$container.find('.gc-single-country-info').fadeOut();
 
-		$container.find('.slide-menu .gc-list').find('tr').removeClass('selected').find('.ranking').removeAttr('style');
+		$container.find('.gc-slide-menu .gc-list').find('tr').removeClass('selected').find('.gc-ranking').removeAttr('style');
 		adaptColorParameters();
 		adaptMapToNewDataTypeOrColorFunction();
 	});

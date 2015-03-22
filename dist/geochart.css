@@ -323,7 +323,7 @@
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box; }
-  .gc-map-wrapper.fullscreen {
+  .gc-map-wrapper.gc-fullscreen {
     background: #b8d5ea;
     height: 100%;
     left: 0;
@@ -332,16 +332,13 @@
     top: 0;
     width: 100%;
     z-index: 1000; }
-    .gc-map-wrapper.fullscreen svg {
+    .gc-map-wrapper.gc-fullscreen svg {
       border-radius: 0; }
-    .gc-map-wrapper.fullscreen .dateStamp {
-      top: 19px;
-      right: 125px; }
-  .gc-map-wrapper.noControls:not(.fullscreen) .gc-overlay, .gc-map-wrapper.smallMap:not(.fullscreen) .gc-overlay {
+  .gc-map-wrapper.gc-no-controls:not(.gc-fullscreen) .gc-overlay, .gc-map-wrapper.gc-small-map:not(.gc-fullscreen) .gc-overlay {
     display: none !important; }
-  .gc-map-wrapper.no-fullscreen .gc-fullscreen-open, .gc-map-wrapper.no-fullscreen .gc-fullscreen-close {
+  .gc-map-wrapper.gc-no-fullscreen .gc-fullscreen-open, .gc-map-wrapper.gc-no-fullscreen .gc-fullscreen-close {
     display: none !important; }
-  .gc-map-wrapper .hide-slide-menu-area {
+  .gc-map-wrapper .gc-hide-slide-menu-area {
     display: none;
     position: absolute;
     top: 0;
@@ -350,7 +347,7 @@
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
     z-index: 10; }
-  .gc-map-wrapper .slide-menu .menu {
+  .gc-map-wrapper .gc-slide-menu .gc-menu {
     box-shadow: -2px 0 15px rgba(0, 0, 0, 0.6);
     height: 100%;
     position: absolute;
@@ -362,9 +359,9 @@
     padding-top: 120px;
     padding-bottom: 15px;
     background: #f6f6f6; }
-    .gc-map-wrapper .slide-menu .menu .gc-scroll-pane {
+    .gc-map-wrapper .gc-slide-menu .gc-menu .gc-scroll-pane {
       height: 100%; }
-    .gc-map-wrapper .slide-menu .menu .gc-title {
+    .gc-map-wrapper .gc-slide-menu .gc-menu .gc-title {
       padding: 22px 25px 51px 22px;
       position: absolute;
       font-size: 24px;
@@ -375,11 +372,11 @@
       font-weight: 200;
       margin: 0;
       background: #e6e6e6; }
-      .gc-map-wrapper .slide-menu .menu .gc-title .date {
+      .gc-map-wrapper .gc-slide-menu .gc-menu .gc-title .gc-date {
         font-size: 60%;
         display: inline-block;
         margin-left: 7px; }
-    .gc-map-wrapper .slide-menu .menu .gc-data-type-chooser {
+    .gc-map-wrapper .gc-slide-menu .gc-menu .gc-data-type-chooser {
       position: absolute;
       top: 72px;
       padding-left: 12px;
@@ -389,7 +386,7 @@
       padding: 0;
       height: 30px;
       white-space: nowrap; }
-      .gc-map-wrapper .slide-menu .menu .gc-data-type-chooser .bottomLine {
+      .gc-map-wrapper .gc-slide-menu .gc-menu .gc-data-type-chooser .gc-menu-separator-line {
         display: block;
         background: #bbb;
         position: absolute;
@@ -397,7 +394,7 @@
         left: 0;
         height: 1px;
         width: 100%; }
-      .gc-map-wrapper .slide-menu .menu .gc-data-type-chooser .tab {
+      .gc-map-wrapper .gc-slide-menu .gc-menu .gc-data-type-chooser .gc-tab {
         display: inline-block;
         position: relative;
         padding: 8px 10px 5px 10px;
@@ -412,42 +409,42 @@
             -ms-user-select: none;
                 user-select: none;
         cursor: pointer; }
-        .gc-map-wrapper .slide-menu .menu .gc-data-type-chooser .tab.active {
+        .gc-map-wrapper .gc-slide-menu .gc-menu .gc-data-type-chooser .gc-tab.gc-active {
           background: linear-gradient(#fff, #f6f6f6) #f6f6f6;
           cursor: default;
           border-bottom-color: #f6f6f6; }
-        .gc-map-wrapper .slide-menu .menu .gc-data-type-chooser .tab + .tab {
+        .gc-map-wrapper .gc-slide-menu .gc-menu .gc-data-type-chooser .gc-tab + .gc-tab {
           margin-left: 3px; }
-        .gc-map-wrapper .slide-menu .menu .gc-data-type-chooser .tab:first-child {
+        .gc-map-wrapper .gc-slide-menu .gc-menu .gc-data-type-chooser .gc-tab:first-child {
           margin-left: 12px; }
-        .gc-map-wrapper .slide-menu .menu .gc-data-type-chooser .tab:last-child {
+        .gc-map-wrapper .gc-slide-menu .gc-menu .gc-data-type-chooser .gc-tab:last-child {
           margin-right: 12px; }
-    .gc-map-wrapper .slide-menu .menu .gc-list {
+    .gc-map-wrapper .gc-slide-menu .gc-menu .gc-list {
       height: 100%;
       margin: 0 15px; }
-      .gc-map-wrapper .slide-menu .menu .gc-list table {
+      .gc-map-wrapper .gc-slide-menu .gc-menu .gc-list table {
         border-spacing: 0;
         border-collapse: collapse;
         width: 100%; }
-        .gc-map-wrapper .slide-menu .menu .gc-list table tr:nth-child(2n-1) {
+        .gc-map-wrapper .gc-slide-menu .gc-menu .gc-list table tr:nth-child(2n-1) {
           background: #efefef; }
-        .gc-map-wrapper .slide-menu .menu .gc-list table td {
+        .gc-map-wrapper .gc-slide-menu .gc-menu .gc-list table td {
           vertical-align: middle;
           padding-top: 6px;
           padding-bottom: 6px; }
-          .gc-map-wrapper .slide-menu .menu .gc-list table td:first-child {
+          .gc-map-wrapper .gc-slide-menu .gc-menu .gc-list table td:first-child {
             text-align: right;
             width: 50px; }
-          .gc-map-wrapper .slide-menu .menu .gc-list table td:last-child {
+          .gc-map-wrapper .gc-slide-menu .gc-menu .gc-list table td:last-child {
             padding-right: 10px;
             text-align: right;
             font-weight: 500;
             width: 0; }
-        .gc-map-wrapper .slide-menu .menu .gc-list table .selected .ranking {
+        .gc-map-wrapper .gc-slide-menu .gc-menu .gc-list table .gc-selected .gc-ranking {
           border: 1px solid #929292;
           color: #000;
           font-weight: bold; }
-        .gc-map-wrapper .slide-menu .menu .gc-list table .ranking {
+        .gc-map-wrapper .gc-slide-menu .gc-menu .gc-list table .gc-ranking {
           border-radius: 2px;
           color: #fff;
           display: inline-block;
@@ -457,21 +454,21 @@
           padding: 4px 0;
           text-align: center;
           background: #d6d6d6; }
-        .gc-map-wrapper .slide-menu .menu .gc-list table .countryName {
+        .gc-map-wrapper .gc-slide-menu .gc-menu .gc-list table .gc-country-name {
           display: block;
           font-size: 15px;
           padding-right: 10px; }
-        .gc-map-wrapper .slide-menu .menu .gc-list table .continent {
+        .gc-map-wrapper .gc-slide-menu .gc-menu .gc-list table .gc-continent {
           display: block;
           font-size: 12px;
           padding-top: 4px;
           padding-right: 10px; }
-        .gc-map-wrapper .slide-menu .menu .gc-list table .percent {
+        .gc-map-wrapper .gc-slide-menu .gc-menu .gc-list table .gc-percent {
           padding-right: 25px;
           text-align: right;
           display: block;
           font-size: 14px; }
-    .gc-map-wrapper .slide-menu .menu a.csvDownload {
+    .gc-map-wrapper .gc-slide-menu .gc-menu a.gc-csv-download {
       position: absolute;
       top: 16px;
       right: 13px;
@@ -486,9 +483,9 @@
          -moz-user-select: none;
           -ms-user-select: none;
               user-select: none; }
-      .gc-map-wrapper .slide-menu .menu a.csvDownload:active {
+      .gc-map-wrapper .gc-slide-menu .gc-menu a.gc-csv-download:active {
         background: linear-gradient(#e6e6e6, #fff); }
-      .gc-map-wrapper .slide-menu .menu a.csvDownload span {
+      .gc-map-wrapper .gc-slide-menu .gc-menu a.gc-csv-download span {
         display: inline-block;
         vertical-align: middle; }
   .gc-map-wrapper > svg {
@@ -575,7 +572,7 @@
       pointer-events: none;
       right: 10px;
       top: 12px; }
-    .gc-map-wrapper .gc-overlay .gc-color-function-select-wrapper .selectLabel, .gc-map-wrapper .gc-overlay .gc-data-type-select-wrapper .selectLabel {
+    .gc-map-wrapper .gc-overlay .gc-color-function-select-wrapper .gc-select-label, .gc-map-wrapper .gc-overlay .gc-data-type-select-wrapper .gc-select-label {
       position: absolute;
       top: -15px;
       left: 4px;
@@ -597,25 +594,25 @@
     color: white;
     padding: 10px;
     text-align: center; }
-    .gc-map-wrapper .gc-overlay .gc-single-country-info .continent {
+    .gc-map-wrapper .gc-overlay .gc-single-country-info .gc-continent {
       display: block;
       font-size: 12px; }
     .gc-map-wrapper .gc-overlay .gc-single-country-info > div:first-child + div {
       border: 1px solid #757575;
       margin-top: 7px; }
-    .gc-map-wrapper .gc-overlay .gc-single-country-info .data-type {
+    .gc-map-wrapper .gc-overlay .gc-single-country-info .gc-data-type {
       display: block;
       width: 100%;
       padding: 4px 6px; }
-      .gc-map-wrapper .gc-overlay .gc-single-country-info .data-type .title, .gc-map-wrapper .gc-overlay .gc-single-country-info .data-type .value, .gc-map-wrapper .gc-overlay .gc-single-country-info .data-type .percent {
+      .gc-map-wrapper .gc-overlay .gc-single-country-info .gc-data-type .gc-title, .gc-map-wrapper .gc-overlay .gc-single-country-info .gc-data-type .gc-value, .gc-map-wrapper .gc-overlay .gc-single-country-info .gc-data-type .gc-percent {
         text-align: center;
         display: block; }
-      .gc-map-wrapper .gc-overlay .gc-single-country-info .data-type .title {
+      .gc-map-wrapper .gc-overlay .gc-single-country-info .gc-data-type .gc-title {
         font-size: 14px;
         color: #9b9b9b; }
-      .gc-map-wrapper .gc-overlay .gc-single-country-info .data-type .value {
+      .gc-map-wrapper .gc-overlay .gc-single-country-info .gc-data-type .gc-value {
         font-size: 20px;
         padding-bottom: 4px; }
-      .gc-map-wrapper .gc-overlay .gc-single-country-info .data-type .percent {
+      .gc-map-wrapper .gc-overlay .gc-single-country-info .gc-data-type .gc-percent {
         font-size: 14px;
         padding-bottom: 4px; }
