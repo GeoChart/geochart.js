@@ -241,7 +241,7 @@ module.exports = function(grunt) {
 				options: {
 					port: 9000,
 					base: 'dist/',
-					open: 'http://<%= connect.dist.options.hostname %>:<%= connect.dist.options.port %>',
+					open: 'http://<%= connect.dist.options.hostname %>:<%= connect.dist.options.port %>/example',
 					hostname: 'localhost',
 					livereload: true
 				}
