@@ -1147,6 +1147,18 @@
 		}
 	}
 	
+	function generate(configuration) {
+		/* jshint validthis:true */
+		initialize.init(configuration);
+		return getApi();
+	}
+	
+	function getApi() {
+		return {
+			destroy: destroy
+		};
+	}
+	
 	function destroy() {
 		$(topElement).empty().removeAttr('class').removeAttr('style');
 	}
@@ -1212,9 +1224,8 @@
 	}
 		window.geochart = {
 			version: version,
-			init: initialize.init,
-			makeFixedSize: makeFixedSize,
-			destroy: destroy
+			generate: generate,
+			makeFixedSize: makeFixedSize
 		};
 	
 	})(window, jQuery, d3, topojson, moment);

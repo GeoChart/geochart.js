@@ -1015,6 +1015,18 @@ function adaptZoomButtonDisableColor(scale) {
 	}
 }
 
+function generate(configuration) {
+	/* jshint validthis:true */
+	initialize.init(configuration);
+	return getApi();
+}
+
+function getApi() {
+	return {
+		destroy: destroy
+	};
+}
+
 function destroy() {
 	$(topElement).empty().removeAttr('class').removeAttr('style');
 }
