@@ -168,8 +168,8 @@ module.exports = function(grunt) {
 			htmlExample: {
 				expand: true,
 				flatten: true,
-				src: 'src/example/index.html',
-				dest: 'dist/'
+				src: 'src/example/*',
+				dest: 'dist/example/'
 			}
 		},
 

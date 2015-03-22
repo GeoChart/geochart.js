@@ -5,8 +5,8 @@
 	<title>geochart.js</title>
 	<meta name="description" content="geochart-js">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="lib/jquery.jscrollpane.css">
-	<link rel="stylesheet" href="geochart.css">
+	<link rel="stylesheet" href="../lib/jquery.jscrollpane.css">
+	<link rel="stylesheet" href="../geochart.css">
 
 	<style type="text/css">
 		body {
@@ -28,16 +28,16 @@
 	<div id="geochart-map"></div>
 
 	<!-- dependencies -->
-	<script src="lib/jquery.min.js"></script>
-	<script src="lib/jquery.loadTemplate-1.4.5.min.js"></script>
-	<script src="lib/jquery.mousewheel.js"></script>
-	<script src="lib/jquery.jscrollpane.min.js"></script>
-	<script src="lib/d3.min.js"></script>
-	<script src="lib/topojson.js"></script>
-	<script src="lib/moment.min.js"></script>
+	<script src="../lib/jquery.min.js"></script>
+	<script src="../lib/jquery.loadTemplate-1.4.5.min.js"></script>
+	<script src="../lib/jquery.mousewheel.js"></script>
+	<script src="../lib/jquery.jscrollpane.min.js"></script>
+	<script src="../lib/d3.min.js"></script>
+	<script src="../lib/topojson.js"></script>
+	<script src="../lib/moment.min.js"></script>
 
 	<!-- geochart.js -->
-	<script src="geochart.js"></script>
+	<script src="../geochart.js"></script>
 
 	<!-- initialization -->
 	<script type="text/javascript">
@@ -46,8 +46,8 @@
 
 			test = geochart.init({
 				bindTo: "#geochart-map",
-				map: "./geochart-world.json",
-				data: "./geochart-example-data.json",
+				map: "../geochart-world.json",
+				data: "data.json",
 				format: {
 					date: 'DD.MM.YYYY'
 				},

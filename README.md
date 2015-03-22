@@ -3,6 +3,8 @@
 > A geo location based visualization chart application based on D3.js, TopoJSON and jQuery. It provides a simple interface for visualizing a dataset on a chloropleth world map.
 
 ## Getting Started
+You can find an example of the geochart library on this link: [geochart.js](http://rawgit.com/ssc-hrep3/geochart.js/master/dist/example/index.html). This example is deposited in the `dist/example/` folder.
+
 At the moment, it is not possible to check out this project as a bower project. Feel free to copy the files in the dist folder to your project and include it manually. The `geochart.js` library has some dependencies. It is necessary to include these dependencies before the `geochart.js` library. Take a look at the `bower.json` file to find out which libraries are necessary.
 
 ## Options
