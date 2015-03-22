@@ -2,13 +2,23 @@
 
 > A geo location based visualization chart application based on D3.js, TopoJSON and jQuery. It provides a simple interface for visualizing a dataset on a chloropleth world map.
 
-## Getting Started
+## Example
 You can find an example of the geochart library on this link: [geochart.js](http://rawgit.com/ssc-hrep3/geochart.js/master/dist/example/index.html). This example is deposited in the [`dist/example/`](https://github.com/ssc-hrep3/geochart.js/tree/master/dist/example) folder.
 
-At the moment, it is not possible to check out this project as a bower project. Feel free to copy the files in the dist folder to your project and include it manually. The `geochart.js` library has some dependencies. It is necessary to include these dependencies before the `geochart.js` library. Take a look at the `bower.json` file to find out which libraries are necessary.
+## Getting Started
+At the moment, this library is under development. It is not recommanded to use it productively at this early stage of development. In future, it will be possible to check out this project as a bower project.
+
+### Dependencies
+Geochart.js has dependencies to the following libraries. Every library needs to be included into your project.
+* [d3](http://d3js.org/) *(bower: d3)*
+* [TopoJSON](https://github.com/mbostock/topojson) *(bower: topojson)*
+* [moment](http://momentjs.com/) *(bower: moment)*
+* [jQuery](https://jquery.com/) *(bower: jquery)*
+* [jQuery loadTemplate](http://codepb.github.io/jquery-template/) *(bower: jquery-load-template)*
+* [jQuery jScrollPane](http://jscrollpane.kelvinluck.com/) *(bower: jScrollPane)*
 
 ## Options
-geochart.js expects a configuration object as an initial input. In the following section the mandatory and optional options are described in detail.
+It is expected to initialize the library with a configuration object. In the following section the mandatory and optional options are described in detail.
 
 ### options.bindTo
 * Type: `String`
