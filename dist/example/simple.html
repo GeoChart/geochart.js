@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>geochart.js - Simple Example</title>
+	<meta name="description" content="geochart-js">
+	<meta name="viewport" content="width=device-width">
+	<link rel="stylesheet" href="../lib/jquery.jscrollpane.css">
+	<link rel="stylesheet" href="../geochart.css">
+
+	<style type="text/css">
+		body {
+			background: white;
+			padding: 0;
+			margin: 0;
+		}
+		h1 {
+			font-size: 45px;
+			margin: 0 0 40px 0;
+			padding: 25px 0 25px 0;
+			text-align: center;
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			font-weight: 100;
+			color: #333;
+			background: #eee;
+			border-bottom: 1px solid #ccc;
+		}
+		h1 a,
+		h1 a:active,
+		h1 a:visited {
+			color: #333;
+		}
+		#geochart-map {
+			width: 60%;
+			margin: 0 auto;
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<!-- header -->
+	<h1>Simple Example of <a href="http://www.github.com/ssc-hrep3/geochart.js">Geochart.js</a></h1>
+
+	<!-- geochart-element -->
+	<div id="geochart-map"></div>
+
+	<!-- dependencies -->
+	<script src="../lib/jquery.min.js"></script>
+	<script src="../lib/jquery.loadTemplate-1.4.5.min.js"></script>
+	<script src="../lib/jquery.mousewheel.js"></script>
+	<script src="../lib/jquery.jscrollpane.min.js"></script>
+	<script src="../lib/d3.min.js"></script>
+	<script src="../lib/topojson.js"></script>
+	<script src="../lib/moment.min.js"></script>
+
+	<!-- geochart.js -->
+	<script src="../geochart.js"></script>
+
+	<!-- initialization -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			geochart.generate({
+				"bindTo": "#geochart-map",
+				"map": "../geochart-world.json",
+				"data": "data.json",
+				"format": {
+					"date": "DD.MM.YYYY"
+				},
+				"style": {
+					"seaColor": "#B8D5EA",
+					"countryColorRangeStart": "rgb(182,218,195)",
+					"countryColorRangeEnd": "rgb(7,84,37)",
+					"countryColorNoData": "#efefef",
+					"countryStrokeColor": "#CCC",
+					"countryStrokeWidthMin": "0.07",
+					"countryStrokeWidthMax": "0.3",
+					"selectedCountryColor": "#FFE700",
+					"selectedCountryStrokeColor": "#000000"
+				},
+				"label": {
+					"mapListTitle": "Data Distribution",
+					"configurationDataType": "DATA TYPE",
+					"configurationColorFunction": "COLOR FUNCTION",
+					"colorFunction": {
+						"log": "Logarithmic",
+						"linear": "Linear",
+						"quadratic": "Quadratic",
+						"sqrt": "Square Root",
+						"cubicroot": "Cubic Root"
+					}
+				},
+				"properties": {
+					"mapName": "geochart-world-map",
+					"zoomRange": [1, 9],
+					"fullscreen": true,
+					"noControls": {
+						"inGeneral": false,
+						"inSmallMap": true,
+						"smallMapThreshold": 600
+					}
+				}
+			});
+		});
+
+	</script>
+
+</body>
+</html>

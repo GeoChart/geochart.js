@@ -3,7 +3,9 @@
 > A geo location based visualization chart application based on D3.js, TopoJSON and jQuery. It provides a simple interface for visualizing a dataset on a chloropleth world map.
 
 ## Example
-You can find an example of the geochart library on this link: [geochart.js](http://rawgit.com/ssc-hrep3/geochart.js/master/dist/example/index.html). This example is deposited in the [`dist/example/`](https://github.com/ssc-hrep3/geochart.js/tree/master/dist/example) folder.
+There exist two examples of the geochart library. The simple one is a good start if you want to copy some code to easily initialize the map. With the configurable one you can play with the parameters and test out, if this library is useful for you. The source of these examples is stored in the [`dist/example/`](https://github.com/ssc-hrep3/geochart.js/tree/master/dist/example) folder.
+* [Simple geochart.js example](http://rawgit.com/ssc-hrep3/geochart.js/master/dist/example/simple.html)
+* [Configurable geochart.js example](http://rawgit.com/ssc-hrep3/geochart.js/master/dist/example/configurable.html)
 
 ## Getting Started
 At the moment, this library is under development. It is not recommanded to use it productively at this early stage of development. In future, it will be possible to check out this project as a bower project.
@@ -232,6 +234,11 @@ Hides all controls of the map, similar to the previous option. The main differen
 * Default value: `600`
 
 Defines the threshold in pixel from where below the map is classified as a small map and therefore the map controls are hidden. This option is only reasonable if `inSmallMap` is set to `true`.
+
+## API
+You can access the api by saving the return value of the initial `generate()` function. At the moment, two API options are available:
+* `destroy()`: destroys the map and leaves an empty element (to element, which it was bound to) behind.
+* `setConfig(Object configuration)`: allows a reinitialization of the map with a new configuration object.
 
 ## Map Generation (TopoJSON)
 The default map of this framework is a cultural, medium scale world map from [naturalearthdata.com](http://www.naturalearthdata.com). It has been converted from the shape data with the [TopoJSON command-line tool](https://github.com/mbostock/topojson/wiki/Command-Line-Reference). One single property remained in the data: the [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of a country. This is needed for matching the map data with the to be presented data.

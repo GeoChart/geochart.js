@@ -26,6 +26,7 @@
     top: 37.5%;
     left: 0; }
   .gc-map-wrapper .gc-icon.gc-icon-menu:before, .gc-map-wrapper .gc-icon.gc-icon-menu:after, .gc-map-wrapper .gc-icon.gc-icon-menu .gc-inner {
+    display: block;
     position: absolute;
     background-color: #bbb;
     border-radius: 0.1em;

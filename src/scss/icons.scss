@@ -49,6 +49,7 @@
 			&:before,
 			&:after,
 			.gc-inner {
+				display: block;
 				position: absolute;
 				background-color: $color;
 				border-radius: 0.1em;

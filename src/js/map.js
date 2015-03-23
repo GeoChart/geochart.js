@@ -1021,9 +1021,15 @@ function generate(configuration) {
 	return getApi();
 }
 
+function setConfig(configuration) {
+	destroy();
+	initialize.init(configuration);
+}
+
 function getApi() {
 	return {
-		destroy: destroy
+		destroy: destroy,
+		setConfig: setConfig
 	};
 }
 
