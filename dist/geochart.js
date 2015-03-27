@@ -324,7 +324,6 @@
 			(function setupSlideMenuList() {
 				adaptColorParameters();
 				fillMapList();
-				addScrollingToList();
 			})();
 	
 			(function tabSwitchingBehavior() {
@@ -737,6 +736,7 @@
 		var $mapList = $container.find(".gc-slide-menu .gc-list table tbody");
 		$mapList.empty();
 		$mapList.loadTemplate($("#gc-slide-menu-table-template"), mapList);
+		addScrollingToList();
 	}
 	
 	function addMapListTabs() {
@@ -1045,7 +1045,6 @@
 			$(this).fadeOut();
 			$container.find(".gc-fullscreen-open").fadeIn();
 			timedRedraw();
-			addScrollingToList();
 		}
 	}
 	
