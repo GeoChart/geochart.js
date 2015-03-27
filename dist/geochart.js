@@ -786,8 +786,7 @@
 		.transition(150)
 		.style("fill", addBackgroundColor)
 		.style("cursor", setPointerCursor)
-		.style("stroke", addStrokeColor)
-		.on("click", clickHandler);
+		.style("stroke", addStrokeColor);
 	
 		moveNoDataPathStrokesToTheBackground();
 	}
