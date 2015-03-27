@@ -64,6 +64,13 @@ An array of data types in which the values are grouped. Each data type holds a s
 
 The key of the initially selected data type. If not specified, the first data type from the array of data types is taken.
 
+#### options.data.maxTypeLabelLength
+* Type: `Boolean`
+* Mandatory: :negative_squared_cross_mark:
+* Default value: `20`
+
+Shortens the type label length to a maximum of - by default - 20 characters. It adds `...` at the end of the shortened label. A value of `0` disables this functionality.
+
 #### options.data.countries
 * Type: `Object`
 * Mandatory: :ballot_box_with_check:

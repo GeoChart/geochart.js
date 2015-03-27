@@ -21,9 +21,10 @@
 				"label": "Test Type 2"
 			}, {
 				"type": "TEST_TYPE_3",
-				"label": "Test Type 3"
+				"label": "Test Type 3 kajnsf nk2lrn klwnflksan flk3n"
 			}
 		],
+		"maxTypeLabelLength": 20,
 		"selectedType": "TEST_TYPE_1",
 		"notLocatable": {
 			"label": "Not Locatable",

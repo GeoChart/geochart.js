@@ -181,7 +181,9 @@ var initialize = (function() {
 		}
 		topo = topojson.feature(mapData, mapData.objects[properties.mapName]);
 
+		setInitialTypeLabelLength();
 		removeEmptyTypes();
+		shortenTypeNames();
 		setSelectedTypeToFirstIfNotInitiallySet();
 		setAnEmptyValuesObjectForEveryCountryWithoutValuesObject();
 		convertValuesToFloat();
@@ -327,6 +329,20 @@ function convertValuesToFloat() {
 			if(data.notLocatable.values.hasOwnProperty(valueType)) {
 				data.notLocatable.values[valueType] = parseFloat(data.notLocatable.values[valueType]);
 			}
+		}
+	}
+}
+
+function setInitialTypeLabelLength() {
+	if(!isset(data.maxTypeLabelLength)) {
+		data.maxTypeLabelLength = 20;
+	}
+}
+
+function shortenTypeNames() {
+	for(var i=0; i<data.types.length; i++) {
+		if(data.types[i].label.length > data.maxTypeLabelLength && data.maxTypeLabelLength !== 0) {
+			data.types[i].label = data.types[i].label.substr(0, data.maxTypeLabelLength) + '...';
 		}
 	}
 }
