@@ -217,6 +217,7 @@ var initialize = (function() {
 		addClickListenerToFullScreenButtons();
 		addClickListenerToListButtons();
 		addClickListenerToSettingsButton();
+		addClickListenerToCrossButtonToHideSingleCountryInfo();
 		addChangeListenerToFunctionSelect();
 		addChangeListenerToDataTypeSelectBox();
 	}
@@ -747,6 +748,9 @@ function clickHandler(datum) {
 		addAndShowSingleCountryInfo(datum);
 		selectCountryOnMapList(datum);
 	}
+	else if(hasCountryDataForSelectedType(datum) && isAlreadySelected) {
+		hideSingleCountryInfo();
+	}
 }
 
 function addAndShowSingleCountryInfo(datum) {
@@ -761,7 +765,23 @@ function addAndShowSingleCountryInfo(datum) {
 	};
 
 	$container.find('.gc-single-country-info').fadeIn();
-	$container.find('.gc-single-country-info').loadTemplate($("#gc-single-country-info-template"), singleInformation);
+	$container.find('.gc-single-country-info .gc-wrapper').loadTemplate($("#gc-single-country-info-template"), singleInformation);
+}
+
+function addClickListenerToCrossButtonToHideSingleCountryInfo() {
+	$container.find('.gc-single-country-info > .gc-close').click(hideSingleCountryInfo);
+}
+
+function hideSingleCountryInfo() {
+	$container.find('.gc-single-country-info').fadeOut('fast');
+
+	var $selectedRowInMapList = $container.find('.gc-slide-menu .gc-list').find('.' + classes.selectedCountryInMapList);
+	$selectedRowInMapList.removeClass(classes.selectedCountryInMapList);
+
+	var prevColor = $selectedRowInMapList.find('.gc-ranking').data('prev-color');
+	$selectedRowInMapList.find('.gc-ranking').css('backgroundColor', prevColor);
+
+	group.selectAll("path").transition().style("fill", addBackgroundColor).style("stroke", addStrokeColor);
 }
 
 function getUnitOfCurrentDataType() {
@@ -784,6 +804,7 @@ function getLabelByType(type) {
 
 function selectCountryOnMapList(datum) {
 	var $list = $container.find('.gc-slide-menu .gc-list');
+
 	var $row = $list.find('table tbody tr');
 	$row.removeClass(classes.selectedCountryInMapList);
 
@@ -793,7 +814,10 @@ function selectCountryOnMapList(datum) {
 		$row.each(function() {
 			if($(this).data("country-code") === countryCode) {
 				$(this).addClass(classes.selectedCountryInMapList);
-				$(this).find('.gc-ranking').css('backgroundColor', style.selectedCountryColor);
+				$(this).find('.gc-ranking').each(function() {
+					$(this).data('prev-color', $(this).css('backgroundColor'));
+					$(this).css('backgroundColor', style.selectedCountryColor);
+				});
 			}
 		});
 	}
