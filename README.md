@@ -8,7 +8,7 @@ There exist two examples of the geochart library. The simple one is a good start
 * [Configurable geochart.js example](http://rawgit.com/ssc-hrep3/geochart.js/master/dist/example/configurable.html)
 
 ## Getting Started
-At the moment, this library is under development. It is not recommanded to use it productively at this early stage of development. In future, it will be possible to check out this project as a bower project.
+Download the following three files to get started: `geochart-world.json`, `geochart.min.css` and `geochart.min.js` from the folder `/dist`. These three files are required. You also need to include the dependencies, which are listed in the section Dependencies.
 
 ### Dependencies
 Geochart.js has dependencies to the following libraries. Every library needs to be included into your project.
