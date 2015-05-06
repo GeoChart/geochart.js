@@ -3,9 +3,9 @@
 > A geo location based visualization chart application based on D3.js, TopoJSON and jQuery. It provides a simple interface for visualizing a dataset on a chloropleth world map.
 
 ## Example
-There exist two examples of the geochart library. The simple one is a good start if you want to copy some code to easily initialize the map. With the configurable one you can play with the parameters and test out, if this library is useful for you. The source of these examples is stored in the [`dist/example/`](https://github.com/ssc-hrep3/geochart.js/tree/master/dist/example) folder.
-* [Simple geochart.js example](http://rawgit.com/ssc-hrep3/geochart.js/master/dist/example/simple.html)
-* [Configurable geochart.js example](http://rawgit.com/ssc-hrep3/geochart.js/master/dist/example/configurable.html)
+There exist two examples of the geochart library. The simple one is a good start if you want to copy some code to easily initialize the map. With the configurable one you can play with the parameters and test out, if this library is useful for you. The source of these examples is stored in the [`dist/example/`](https://github.com/GeoChart/geochart.js/tree/master/dist/example) folder.
+* [Simple geochart.js example](http://rawgit.com/GeoChart/geochart.js/master/dist/example/simple.html)
+* [Configurable geochart.js example](http://rawgit.com/GeoChart/geochart.js/master/dist/example/configurable.html)
 
 ## Getting Started
 Download the following three files to get started: `geochart-world.json`, `geochart.min.css` and `geochart.min.js` from the folder `/dist`. These three files are required. You also need to include the dependencies, which are listed in the section Dependencies.
